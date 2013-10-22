@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: oa-core
+Implementation-Version: 1.0.8-SNAPSHOT
+Implementation-Vendor-Id: com.lxs.oa
+Build-Jdk: 1.7.0_21
+Built-By: Administrator
+Created-By: Maven Integration for Eclipse
+Specification-Title: oa-core
+Specification-Version: 1.0.8-SNAPSHOT
+

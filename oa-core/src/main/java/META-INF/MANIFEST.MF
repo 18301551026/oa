@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: oa-core
+Implementation-Vendor-Id: com.lxs.oa
+Built-By: Administrator
+Build-Jdk: 1.7.0_13
+Specification-Title: oa-core
+Created-By: Apache Maven 3.0.4
+Archiver-Version: Plexus Archiver
+

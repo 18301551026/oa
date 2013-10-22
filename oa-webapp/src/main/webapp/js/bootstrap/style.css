@@ -1,0 +1,7 @@
+body {
+  position: relative; /* For scrollyspy */
+  padding-top: 60px; /* Account for fixed navbar */
+}
+.navbar {
+	border-bottom: 1px solid black;	
+}

@@ -1,0 +1,53 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../main/config/ehcache.xsd" name="tc"
+         updateCheck="false">
+
+    <defaultCache
+            maxElementsInMemory="1000"
+            eternal="false"
+	        timeToLiveSeconds="7200"
+	        timeToIdleSeconds="3600"            
+            overflowToDisk="true">
+    </defaultCache>
+    <cache name="com.lxs.security.domain.Resource"
+        maxElementsInMemory="1000"
+        eternal="false"
+        timeToLiveSeconds="7200"
+        timeToIdleSeconds="3600"
+        overflowToDisk="true" />
+        
+    <cache name="com.lxs.security.domain.Resource.roles"
+        maxElementsInMemory="1000"
+        eternal="false"
+        timeToLiveSeconds="7200"
+        timeToIdleSeconds="3600"
+        overflowToDisk="true" />  
+        
+    <cache name="com.lxs.security.domain.User"
+        maxElementsInMemory="1000"
+        eternal="false"
+        timeToLiveSeconds="7200"
+        timeToIdleSeconds="3600"
+        overflowToDisk="true" />
+        
+    <cache name="com.lxs.security.domain.User.roles"
+        maxElementsInMemory="1000"
+        eternal="false"
+        timeToLiveSeconds="7200"
+        timeToIdleSeconds="3600"
+        overflowToDisk="true" /> 
+        
+    <cache name="com.lxs.security.domain.Menu"
+        maxElementsInMemory="1000"
+        eternal="false"
+        timeToLiveSeconds="7200"
+        timeToIdleSeconds="3600"
+        overflowToDisk="true" />
+        
+    <cache name="com.lxs.security.domain.Menu.children"
+        maxElementsInMemory="1000"
+        eternal="false"
+        timeToLiveSeconds="7200"
+        timeToIdleSeconds="3600"
+        overflowToDisk="true" />                    
+            
+</ehcache>
