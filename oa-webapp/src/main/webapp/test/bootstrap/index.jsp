@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 	<%@ include file="/common/global.jsp"%>
@@ -16,7 +15,20 @@
 			$.post('${ctx}/security/menu!findMenuByUser.action', function(data){
 				var nodes = eval(data);
 				$.fn.zTree.init($("#treeMenu"), setting, nodes);
-			});		
+			});	
+			
+			$("#showOrHideSide").click(function() {
+				$("#sidebar").toggleClass("hide");
+				$("#showOrHideSide").toggleClass("hideSidebar");
+				$("#showOrHideSide").toggleClass("showSidebar");
+				$("#showOrHideSide span").toggleClass("glyphicon-chevron-left");
+				$("#showOrHideSide span").toggleClass("glyphicon-chevron-right");
+				if ($("#sidebar").hasClass("hide")) {
+					$("#maincontainer").css("width", "100%");
+				} else {
+					$("#maincontainer").css("width", "80%");
+				}
+			})
 			
 		});
 	</script>    
@@ -66,12 +78,16 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
-		<ul id="treeMenu" class="ztree" ></ul>
-    </div>
-    <div role="main" class="col-md-10">
-    	<iframe id="mainFrame" name="mainFrame" scrolling="no" frameborder="0" width="100%" height="100%" ></iframe>
-    </div>
+    <div class="sidebar" id="sidebar">
+			<ul id="treeMenu" class="ztree"></ul>
+		</div>
+		<a href="javascript:void(0)" id="showOrHideSide" class="hideSidebar"><span
+			class="glyphicon glyphicon-chevron-left"></span></a>
+		<div id="maincontainer">
+			<iframe id="mainFrame" name="mainFrame" scrolling="true"
+				frameborder="0" width="100%" height="100%"
+				style="margin: 0px; padding: 0px;"></iframe>
+		</div>
   </div>    
 </div>
 
