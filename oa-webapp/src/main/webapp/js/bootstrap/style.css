@@ -118,12 +118,7 @@ body {
 }
 
 
-.ztree {
-	padding: 0px;
-	text-align: center;
-	border: 1px solid #CCCCCC;
-	font-stretch: expanded;
-}
+
 
 .ztree li a {
 	background-color: rgba(0, 0, 0, 0);
@@ -181,4 +176,9 @@ body {
 	border-radius: 4px 4px 4px 4px;
 }
 
-
+.ztree {
+	padding: 0px;
+	text-align: center;
+	border: 1px solid #CCCCCC;
+	font-stretch: expanded;
+}

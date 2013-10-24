@@ -94,7 +94,7 @@
 <c:set var="begin" value="${1 > pageNo-5 ? 1 : pageNo-5 }"></c:set>
 <c:set var="end" value="${pageNo + 5 < pageCount ? pageNo + 5 : pageCount}"></c:set>
 
-<div class="pagination pagination-centered">
+<div class="pagination pull-right">
 	<ul>
 		<li class="disabled"><a>共<span id="rowCount">${page.rowCount}</span>行<span id="pageCount">${pageCount }</span>页</a></li>
 		<li id="first"><a href="javascript:void(0)">首页</a></li>
@@ -113,7 +113,7 @@
 
 		<li id="next"><a href="javascript:void(0)">下一页</a></li>
         <li id="last"><a href="javascript:void(0)">末页</a></li>
-        <li><a>
+        <li><a style="padding-bottom: 5px;">
         	<s:select 
 		    list="#{10:'10行', 20:'20行', 30:'30行', 40: '40行', 50: '50行' }"
 			id="setPageSize" name="pageSize" cssStyle="width:80px; margin:0px;">

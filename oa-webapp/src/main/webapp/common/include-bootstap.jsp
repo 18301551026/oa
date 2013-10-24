@@ -2,8 +2,6 @@
 <!-- Bootstrap -->
 <link href="${ctx }/js/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
-<!-- oa -->
-<link href="${ctx }/js/bootstrap/style.css" rel="stylesheet">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
