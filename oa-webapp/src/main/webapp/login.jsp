@@ -1,58 +1,49 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" class="login_page">
 <head>
-
-  <%@ include file="/common/global.jsp"%>
-  <title>OA会员登陆</title>
-  <%@ include file="/common/meta.jsp" %>
-  
-  <link rel="stylesheet" href="css/login_lan_css.css" type="text/css"></link>
-  <script type="text/javascript">
-  	function doSubmit() {
-  		document.forms[0].submit();
-  	}
-  </script>
+<%@ include file="/common/global.jsp"%>
+<title>登陆</title>
+<%@ include file="/common/meta.jsp"%>
+<script type="text/javascript"
+	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-bootstap.jsp"%>
+<%@ include file="/common/include-jquery-validation.jsp"%>
+<%@ include file="/common/include-styles.jsp"%>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	// binds form submission and fields to the validation engine
+	jQuery("#login_form").validationEngine();
+});
+</script>
 </head>
+<body>
+	<div class="login_box">
+		<form action="${ctx}/security/user!login.action" method="post" id="login_form" >
+			<div class="top_b">用户登陆</div>
+			<div class="cnt_b">
 
-<body >
-<form name="loginForm" id="loginForm" method="post" action="${ctx}/security/user!login.action">
-<div id="wrap">
-	<div class="top">
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-user"></i></span> <input type="text"
+						id="username" name="userName" placeholder="请输入用户名"
+						class="form-control validate[required]" />
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-lock"></i></span> <input type="password"
+						id="password" name="password" placeholder="请输入用户密码"
+						class="form-control validate[required]" />
+				</div>
 
+				<!-- <div class="formRow clearfix">
+					<label class="checkbox"><input type="checkbox" />记住密码</label>
+				</div> -->
+			</div>
+			<div class="btm_b clearfix">
+				<button class="btn btn-default pull-right" type="submit">登陆</button>
 
-		<div class="logo">
-				<img src="images/logo_bj_03.png" width="336" height="57" />
-		</div>
+			</div>
+		</form>
 	</div>
-	<div class="propaganda_xian"></div>
-	<div class="content">
-		<div class="link_right"><a><span class="!bold_zi">设为首页</span></a> | <a>加入收藏</a> | <a href="#">使用帮助</a> | <a href="JavaScript:aboutE();">关于e管理</a></div>
-		<div class="table_nr">
-			<input type="hidden" name="remember_me" value="on" />
-			<table cellpadding="0" cellspacing="0" border="0" width="100%">
-				<tr>
-					<td width="30%" align="right">用户名 ：</td>
-					<td align="left"><input type="text" name="userName" class="input"/></td>
-				</tr>
-				<tr>
-					<td width="40%" align="right">密 码 ：</td>
-					<td align="left"><input type="password" name="password" class="input"/></td>
-				</tr>
-				<tr>
-					<td>&nbsp;</td>
-					<td align="left" style="padding-top: 5px;">
-						<input type="submit" value="登陆">					
-					</td>
-				</tr>
-
-			</table>
-		</div>
-	</div>
-
-	<div class="bottom">
-		<div class="bottom_zi">系统要求：IE6.0以上&nbsp;&nbsp;分辨率：建议在1024*768或以上分辨率使用│服务热线:<br />客服QQ：&nbsp;&nbsp;&nbsp;&nbsp;│Copyright (C) </div>
-	</div>
-</div>
-</form>
 </body>
 </html>
