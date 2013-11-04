@@ -24,19 +24,6 @@
 			$.fn.zTree.init($("#treeMenu"), setting, nodes);
 		});
 
-		$("#showOrHideSide").click(function() {
-			$("#sidebar").toggleClass("hide");
-			$("#showOrHideSide").toggleClass("hideSidebar");
-			$("#showOrHideSide").toggleClass("showSidebar");
-			$("#showOrHideSide span").toggleClass("glyphicon-chevron-left");
-			$("#showOrHideSide span").toggleClass("glyphicon-chevron-right");
-			if ($("#sidebar").hasClass("hide")) {
-				$("#maincontainer").css("width", "100%");
-			} else {
-				$("#maincontainer").css("width", "80%");
-			}
-		})
-
 	});
 	function zTreeOnClick(event, treeId, treeNode) {
 		var treeObj = $.fn.zTree.getZTreeObj(treeId);
