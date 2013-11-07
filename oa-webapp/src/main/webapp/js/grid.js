@@ -14,14 +14,7 @@ $(function() {
 	$('#queryButton').click(function() {
 				$("#queryForm").submit();
 			});
-	$("#checkAllCheckBox").click(function() {
-				alert("成功");
-				if ($("#checkAllCheckBox").attr("checked")) {
-					$(":checkbox[name='ids']").attr("checked", true);
-				} else {
-					$(":checkbox[name='ids']").attr("checked", false);
-				}
-			});
+	
 	$("#startButton").click(function() {
 				$('#deleteForm').attr('action', $(this).attr("actionUrl"));
 				$('#deleteForm').submit();

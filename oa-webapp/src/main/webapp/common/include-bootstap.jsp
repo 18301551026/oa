@@ -9,4 +9,4 @@
 	<script src="${ctx}/js/bootstrap/js/html5shiv.js"></script>
 	<script src="${ctx}/js/bootstrap/js/respond.min.js"></script>
 <![endif]-->
-<script src="${ctx}/js/bootstrap/js/bootstrap.min.js"></script>
+<%-- <script src="${ctx}/js/bootstrap/js/bootstrap.min.js"></script> --%>

@@ -1,16 +1,11 @@
 body {
 	position: relative; /* For scrollyspy */
-	padding-top: 54px; /* Account for fixed navbar */
+	padding-top: 0px; /* Account for fixed navbar */
 	font-size: 12px;
 }
-.table-bordered {
-    border: 1px solid #DDDDDD;
-    border-radius: 4px 4px 4px 4px;
+.table_checkbox {
+	width: 13px;
 }
-.table-bordered th,.table-bordered td {
-	border: 1px solid gray !important;
-}
-
 .panel-default {
 	margin-top: 10px;
 }
@@ -18,7 +13,12 @@ body {
 .panel-heading {
 	padding-bottom: 20px;
 }
-
+.panel-body {
+    border: 0px;
+    padding-left: 0px;
+    margin: 0px;
+    
+}
 .pagination {
 	border-radius: 4px 4px 4px 4px;
 	display: inline-block;
@@ -94,7 +94,7 @@ body {
 	text-align: center;
 }
 
-/*导航菜单*/
+/*导航菜单
 .sidebar {
 	width: 20%;
 	float: left;
@@ -103,17 +103,17 @@ body {
 	height: 100%;
 	border: 1px solid #CCCCCC;
 	background-color: #CCCCCC;
-}
+}*/
 
-/*主*/
+/*主
 #maincontainer {
 	width: 80%;
 	float: left;
 	margin: 0px;
 	padding: 0px;
 }
-
-/*显示和隐藏导航菜单*/
+*/
+/*显示和隐藏导航菜单
 .hideSidebar {
 	position: absolute;
 	left: 17%;
@@ -191,8 +191,8 @@ body {
 	border: 1px solid #CCCCCC;
 	font-stretch: expanded;
 }
-
-/*头部导航*/
+*/
+/*头部导航
 .navbar .nav li.dropdown .dropdown-toggle .caret,.navbar .nav li.dropdown.open .caret,.navbar .nav li.dropdown.open>.dropdown-toggle .caret,.navbar .nav li.dropdown.active>.dropdown-toggle .caret,.navbar .nav li.dropdown.open.active>.dropdown-toggle .caret
 	{
 	border-bottom-color: #FFFFFF !important;
@@ -236,7 +236,7 @@ body {
 .nav .open>a,.nav .open>a:hover,.nav .open>a:focus {
 	background-color: #3993ba;
 	border-color: #428BCA;
-}
+}*/
 /*登陆页面*/
  .login_page {
 	overflow: auto
@@ -299,4 +299,16 @@ body {
 
 .login_page .input-group{
 	margin: 10px;
+}
+.table thead > tr > th, .table tbody > tr > th, .table tfoot > tr > th, .table thead > tr > td, .table tbody > tr > td, .table tfoot > tr > td {
+    border-top: 1px solid #DDDDDD;
+    line-height: 1.42857;
+    padding: 4px;
+    vertical-align: top;
+}
+.table thead > tr > th{
+	 border-top: 1px solid #DDDDDD;
+    line-height: 1.42857;
+    padding: 8px;
+    vertical-align: top;
 }
