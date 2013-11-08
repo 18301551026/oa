@@ -40,7 +40,8 @@ $(function() {
 				editor2.html("");
 			}
 
-			$("#editForm").reset();
+			/* $("#editForm").reset(); */
+			$("#editForm :input").val('');
 		}
 	});
 

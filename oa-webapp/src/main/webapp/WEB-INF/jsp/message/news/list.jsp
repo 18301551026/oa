@@ -51,7 +51,7 @@
 		</div>
 	</div>
 	<form method="post" action="${ctx}/message/news!delete.action" id="deleteForm">
-		<table class="table table-bordered table-striped">
+		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
 					<th class="table_checkbox"><input type="checkbox"

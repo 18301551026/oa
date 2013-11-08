@@ -1,153 +1,147 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<%@ include file="/common/global.jsp"%>
-	<title>修改用户</title>
-	<%@ include file="/common/meta.jsp" %>
-    <%@ include file="/common/include-styles.jsp" %>
-	<script type="text/javascript" src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
-    <script type="text/javascript" src="${ctx }/js/edit.js"></script>
+<%@ include file="/common/global.jsp"%>
+<title>修改用户</title>
+<%@ include file="/common/meta.jsp"%>
+<script type="text/javascript"
+	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/edit.js"></script>
+<%@ include file="/common/include-bootstap.jsp"%>
+<%@ include file="/common/include-jquery-validation.jsp"%>
+<%@ include file="/common/include-styles.jsp"%>
 </head>
 
 <body>
 
-	<div id="navigatorDiv">
-	  	<button type="button" id="saveButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/filesave.png" alt=""/> 保存
-  	  	</button>
-	  	<button type="button" id="resetButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/reload.png" alt=""/> 重置
-  	  	</button>
-	  	<button type="button" id="backButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/undo.png" alt=""/> 返回
-  	  	</button>
+	<button class="btn btn-default btn-sm pull-left" id="backButton">
+		<span class="glyphicon glyphicon-backward"></span> 返回列表
+	</button>
+	<div class="btn-group pull-right btn-group-sm">
+		<button type="button" class="btn btn-default" id="saveButton">
+			<span class="glyphicon glyphicon-ok"></span> 保存
+		</button>
+		<button type="button" class="btn btn-default" id="resetButton"
+			actionUrl="${ctx}/security/user!toUpdate.action?id=${id}">
+			<span class="glyphicon glyphicon-repeat"></span> 重置
+		</button>
 	</div>
-	
-	<div id="editDiv">
-	<form id="editForm" class="form-horizontal" action="${ctx}/security/user!save.action" method="post">
+	<div class="clearfix" style="margin-bottom: 20px;"></div>
+	<form action="${ctx}/security/user!save.action" method="post"
+		id="editForm">
+		<!-- 隐藏域 -->
 		<s:hidden name="id"></s:hidden>
-		<fieldset>
-		<legend><small>用户修改</small></legend>
-		<table >
-			<tr>				
-				<td width="20%"><label>用户名称：</label></td>
-				<td>
-					<s:textfield name="userName"></s:textfield>
-				</td>
+		<table class="formTable table">
+			<tr>
+				<Td class="control-label"><label for="userName">登录名：</label></Td>
+				<Td class="query_input"><s:textfield name="userName"
+						placeholder="请输入登陆名" cssClass="form-control validate[required]"
+						id="userName"></s:textfield></Td>
+				<Td class="control-label"><label for="pwd">密码：</label></Td>
+				<Td class="query_input"><s:textfield name="password"
+						placeholder="请输入密码" cssClass="form-control validate[required]"
+						id="pwd"></s:textfield></Td>
 			</tr>
-			<tr>				
-				<td width="20%"><label>密码：</label></td>
-				<td>
-					<s:textfield name="password"></s:textfield>
-				</td>
-			</tr>
-			<tr>				
-				<td width="20%"><label>真实姓名：</label></td>
-				<td>
-					<s:textfield name="realName"></s:textfield>
-				</td>
+			<tr>
+				<Td class="control-label"><label for="realName">真实姓名：</label></Td>
+				<Td class="query_input"><s:textfield name="realName"
+						placeholder="请输入真实姓名" cssClass="form-control validate[required]"
+						id="realName"></s:textfield></Td>
 			</tr>
 		</table>
-		</fieldset>
 	</form>
-	</div>
-
-
-  <div id="dataDiv">    
-	<table style="width: 33%; margin-left:1px; float: left;">
-	  <thead>
-		  <tr>
-			<th>角色名称</th>
-			<th width="1%">操作</th>
-		  </tr>
-	  </thead>
-	  <tbody>
-		  <c:forEach items="${roles}" var="o">
+	<table style="width: 33%; margin-left: 1px; float: left;"
+		class="table table-bordered table-striped table-hover">
+		<thead>
 			<tr>
-			  <td>${o.roleName }</td>
-			  <td>
-			  	<input type="button" class="button positive" value="删除" onclick="location.href='${ctx }/security/user!deleteRole.action?id=${id }&roleId=${o.id }'">
-			  </td>
+				<th>角色名称</th>
+				<th width="1%">操作</th>
 			</tr>
-		  </c:forEach>
-		  <form action="${ctx }/security/user!addRole.action" method="post">
-			<s:hidden name="id"></s:hidden>
-			<tr>
-			  <td>
-				<s:select name="roleId" list="#roleList" listKey="id" listValue="roleName"></s:select>
-			  </td>
-			  <td>
-			  	<input type="submit" class="button positive" value="保存">
-			  </td>
-			</tr>
-		  </form>
-  	  </tbody>
-	 </table>
-
-	  <table style="width: 33%;margin-left:1px; float: left">
-	    <thead>
-		  <tr>
-			<th>部门名称</th>
-			<th width="1%">操作</th>
-		  </tr>
-	    </thead>
+		</thead>
 		<tbody>
-		  <c:forEach items="${depts}" var="o">
-			<tr>
-			  <td>${o.deptName }</td>
-			  <td>
-			  	<input type="button" class="button positive" value="删除" onclick="location.href='${ctx }/security/user!deleteDept.action?id=${id }&deptId=${o.id }'">
-			  </td>
-			</tr>
-		  </c:forEach>
-		  <form action="${ctx }/security/user!addDept.action" method="post">
-			<s:hidden name="id"></s:hidden>
-			<tr>
-			  <td>
-				<s:select name="deptId" list="#deptList" listKey="id" listValue="deptName"></s:select>
-			  </td>
-			  <td>
-			  	<input type="submit" class="button positive" value="保存">
-			  </td>
-			</tr>
-		  </form>
+			<c:forEach items="${roles}" var="o">
+				<tr>
+					<td>${o.roleName }</td>
+					<td><input type="button" class="btn btn-default" value="删除"
+						onclick="location.href='${ctx }/security/user!deleteRole.action?id=${id }&roleId=${o.id }'">
+					</td>
+				</tr>
+			</c:forEach>
+			<s:if test="#roleList.size>0">
+				<form action="${ctx }/security/user!addRole.action" method="post">
+					<s:hidden name="id"></s:hidden>
+					<tr>
+						<td><s:select name="roleId" list="#roleList" listKey="id"
+								listValue="roleName" cssClass="form-control"></s:select></td>
+						<td><input type="submit" class="btn btn-default" value="保存">
+						</td>
+					</tr>
+				</form>
+			</s:if>
 		</tbody>
-	  </table>
-	  
-	  <table style="width: 33%;margin-left:1px; float: left">
-		  <thead>
-			  <tr>
+	</table>
+
+	<table style="width: 33%; margin-left: 1px; float: left"
+		class="table table-bordered table-striped table-hover">
+		<thead>
+			<tr>
+				<th>部门名称</th>
+				<th width="1%">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach items="${depts}" var="o">
+				<tr>
+					<td>${o.deptName }</td>
+					<td><input type="button" class="btn btn-default" value="删除"
+						onclick="location.href='${ctx }/security/user!deleteDept.action?id=${id }&deptId=${o.id }'">
+					</td>
+				</tr>
+			</c:forEach>
+			<s:if test="#deptList.size>0">
+				<form action="${ctx }/security/user!addDept.action" method="post">
+					<s:hidden name="id"></s:hidden>
+					<tr>
+						<td><s:select name="deptId" list="#deptList" listKey="id"
+								listValue="deptName" cssClass="form-control"></s:select></td>
+						<td><input type="submit" class="btn btn-default" value="保存">
+						</td>
+					</tr>
+				</form>
+			</s:if>
+		</tbody>
+	</table>
+
+	<table style="width: 33%; margin-left: 1px; float: left"
+		class="table table-bordered table-striped table-hover">
+		<thead>
+			<tr>
 				<th>职位名称</th>
 				<th width="1%">操作</th>
-			  </tr>
-		  </thead>
-        <tbody>
-		  <c:forEach items="${jobs}" var="o">
-			<tr>
-			  <td>${o.jobName }</td>
-			  <td>
-			  	<input type="button" class="button positive" value="删除" onclick="location.href='${ctx }/security/user!deleteJob.action?id=${id }&jobId=${o.id }'">
-			  </td>
 			</tr>
-		  </c:forEach>
-		  <form action="${ctx }/security/user!addJob.action" method="post">
-			<s:hidden name="id"></s:hidden>
-			<tr>
-			  <td>
-				<s:select name="jobId" list="#jobList" listKey="id" listValue="jobName"></s:select>
-			  </td>
-			  <td>
-			  	<input type="submit" class="button positive" value="保存">
-			  </td>
-			</tr>
-		  </form>
-        </tbody>
-	  </table>	  
-	</div>          
-
-
-
+		</thead>
+		<tbody>
+			<c:forEach items="${jobs}" var="o">
+				<tr>
+					<td>${o.jobName }</td>
+					<td><input type="button" class="btn btn-default" value="删除"
+						onclick="location.href='${ctx }/security/user!deleteJob.action?id=${id }&jobId=${o.id }'">
+					</td>
+				</tr>
+			</c:forEach>
+			<s:if test="#jobList.size>0">
+				<form action="${ctx }/security/user!addJob.action" method="post">
+					<s:hidden name="id"></s:hidden>
+					<tr>
+						<td><s:select name="jobId" cssClass="form-control"
+								list="#jobList" listKey="id" listValue="jobName"></s:select></td>
+						<td><input type="submit" class="btn btn-default" value="保存">
+						</td>
+					</tr>
+				</form>
+			</s:if>
+		</tbody>
+	</table>
 </body>
 </html>

@@ -1,46 +1,42 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<%@ include file="/common/global.jsp"%>
-	<title>修改资源</title>
-	<%@ include file="/common/meta.jsp" %>
-    <%@ include file="/common/include-styles.jsp" %>
-	<script type="text/javascript" src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
-    <script type="text/javascript" src="${ctx }/js/edit.js"></script>
+<%@ include file="/common/global.jsp"%>
+<title>资源添加</title>
+<%@ include file="/common/meta.jsp"%>
+<script type="text/javascript"
+	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<script type="text/javascript" src="${ctx }/js/edit.js"></script>
+<%@ include file="/common/include-bootstap.jsp"%>
+<%@ include file="/common/include-jquery-validation.jsp"%>
+<%@ include file="/common/include-styles.jsp"%>
 </head>
 
 <body>
-
-	<div id="navigatorDiv">
-	  	<button type="button" id="saveButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/filesave.png" alt=""/> 保存
-  	  	</button>
-	  	<button type="button" id="resetButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/reload.png" alt=""/> 重置
-  	  	</button>
-	  	<button type="button" id="backButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/undo.png" alt=""/> 返回
-  	  	</button>
+	<button class="btn btn-default btn-sm pull-left" id="backButton">
+		<span class="glyphicon glyphicon-backward"></span> 返回列表
+	</button>
+	<div class="btn-group pull-right btn-group-sm">
+		<button type="button" class="btn btn-default" id="saveButton">
+			<span class="glyphicon glyphicon-ok"></span> 保存
+		</button>
+		<button type="button" class="btn btn-default" id="resetButton">
+			<span class="glyphicon glyphicon-repeat"></span> 重置
+		</button>
 	</div>
-	
-	<div id="editDiv">
-	<form id="editForm" class="form-horizontal" action="${ctx}/security/resource!save.action" method="post">
-		<s:hidden name="id"></s:hidden>
-		<fieldset>
-		<legend><small>资源修改</small></legend>
-		<table >
-			<tr>				
-				<td width="20%"><label>访问地址：</label></td>
-				<td>
-					<s:textfield name="url"></s:textfield>
-				</td>
+	<div class="clearfix" style="margin-bottom: 20px;"></div>
+	<form action="${ctx}/security/resource!save.action" method="post"
+		id="editForm">
+		<table class="formTable table">
+			<tr>
+				<Td class="control-label"><label for="url">访问地址：</label></Td>
+				<Td class="query_input" colspan="3"><s:textfield name="url"
+						placeholder="请输入访问地址" cssClass="form-control validate[required]"
+						id="url"></s:textfield></Td>
 			</tr>
-		</table>
-		</fieldset>
-	</form>
-	</div>
 
+		</table>
+	</form>
 </body>
 </html>

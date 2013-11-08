@@ -225,6 +225,7 @@ label {
 	width: 7%;
 	line-height: 34px;
 	height: 34px;
+	text-align: right;
 }
 
 .formTable .query_input {
