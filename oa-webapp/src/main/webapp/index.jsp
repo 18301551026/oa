@@ -108,7 +108,7 @@
 		}
 	}
 </script>
-<body class="easyui-layout">
+<body class="easyui-layout" >
 	<div data-options="region:'west',title:'菜单管理',split:true"
 		style="width: 150px; overflow: hidden;">
 		<ul id="treeMenu" class="ztree"></ul>

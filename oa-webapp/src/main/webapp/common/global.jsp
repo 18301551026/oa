@@ -7,7 +7,7 @@
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!-- jquery版本 -->
-<c:set var="jqueryVersion" value="1.10.2"/>
+<c:set var="jqueryVersion" value="1.8.0"/>
 
 <script type="text/javascript">
 	var ctx = '<%=request.getContextPath() %>';

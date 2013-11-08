@@ -57,7 +57,7 @@
 		$('#next').bind('click', function() {
 			if ($(this).attr("class") !== "disabled") {
 				$('#start').val(start + pageSize);
-				$('#queryForm').submit();
+				queryForm.submit();
 			}
 		});
 		$('#prev').bind('click', function() {
@@ -98,8 +98,8 @@
 <c:set var="end"
 	value="${pageNo + 5 < pageCount ? pageNo + 5 : pageCount}"></c:set>
 
-<div class="pagination pull-right" >
-	<ul>
+<div class="pagination pull-right">
+	<ul class="pagination-sm">
 		<li class="disabled"><a>共<span id="rowCount">${page.rowCount}</span>行<span
 				id="pageCount">${pageCount }</span>页
 		</a></li>
