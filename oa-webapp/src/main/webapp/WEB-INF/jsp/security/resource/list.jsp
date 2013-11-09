@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading" >
 			<div class="btn-group btn-group-sm">
 				<button id="addButton"
 					actionUrl="${ctx }/security/resource!toAdd.action"

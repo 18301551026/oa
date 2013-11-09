@@ -1,8 +1,7 @@
 body {
 	position: relative; /* For scrollyspy */
-	padding-top: 5px; /* Account for fixed navbar */
+	/*padding-top: 5px;  Account for fixed navbar */
 	font-size: 12px;
-	
 }
 
 label {
@@ -15,10 +14,13 @@ label {
 
 .panel-default {
 	margin-top: 5px;
+	border-color: #e0edff;
 }
 
 .panel-heading {
 	padding: 3px;
+	background-color: #e0edff;
+	border-color: #95B8E7;
 }
 
 .panel-body {
@@ -109,7 +111,7 @@ label {
 
 .login_page body {
 	height: 100%;
-	padding-top:10%;
+	padding-top: 10%;
 	max-width: inherit;
 	margin: 0 auto;
 }
@@ -172,6 +174,10 @@ label {
 .table {
 	margin-bottom: 10px;
 	width: 100%;
+}
+
+.table thead {
+	background-color: #e0edff
 }
 
 .table thead>tr>th,.table tbody>tr>th,.table tfoot>tr>th,.table thead>tr>td,.table tbody>tr>td,.table tfoot>tr>td

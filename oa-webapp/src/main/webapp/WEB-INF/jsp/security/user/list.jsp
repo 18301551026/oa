@@ -11,14 +11,12 @@
 <script src="${ctx }/js/grid.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
 </head>
-
 <body>
-	<div class="panel panel-default">
+	<div class="panel panel-info">
 		<div class="panel-heading">
 			<div class="btn-group btn-group-sm">
 				<button id="addButton"
-					actionUrl="${ctx }/security/user!toAdd.action"
-					class="btn btn-default ">
+					actionUrl="${ctx }/security/user!toAdd.action" class="btn btn-default">
 					<span class="glyphicon glyphicon-plus"></span> 新建
 				</button>
 				<button id="deleteButton" class="btn btn-default">

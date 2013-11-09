@@ -14,7 +14,7 @@
 
 <body>
 	<div class="panel panel-default">
-		<div class="panel-heading">
+		<div class="panel-heading" style="background-color: #e0edff;">
 			<div class="btn-group btn-group-sm">
 				<button id="addButton" actionUrl="${ctx }/security/job!toAdd.action"
 					class="btn btn-default ">
