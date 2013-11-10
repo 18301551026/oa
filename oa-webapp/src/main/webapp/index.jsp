@@ -108,14 +108,17 @@
 		}
 	}
 </script>
-<body class="easyui-layout" >
+<body class="easyui-layout">
 	<div data-options="region:'west',title:'菜单管理',split:true"
 		style="width: 150px; overflow: hidden;">
 		<ul id="treeMenu" class="ztree"></ul>
 	</div>
 	<div data-options="region:'center'">
 		<div id="index_tabs">
-			<div title="首页" data-options="border:false">这是首页</div>
+			<div title="首页" data-options="border:false" cache="false">
+				<iframe src="${ctx}/protal.jsp" frameborder="0"
+					style="border: 0; width: 100%; height: 98%;"></iframe>
+			</div>
 		</div>
 	</div>
 </body>

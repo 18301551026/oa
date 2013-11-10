@@ -12,18 +12,18 @@
 <%@ include file="/common/include-styles.jsp"%>
 </head>
 <body>
-	<div class="panel panel-default">
+	<div class="panel panel-info">
 		<div class="panel-heading" >
 			<div class="btn-group btn-group-sm">
 				<button id="addButton"
 					actionUrl="${ctx }/security/resource!toAdd.action"
-					class="btn btn-default ">
+					class="btn btn-info">
 					<span class="glyphicon glyphicon-plus"></span> 新建
 				</button>
-				<button id="deleteButton" class="btn btn-default">
+				<button id="deleteButton" class="btn btn-info">
 					<span class="glyphicon glyphicon-minus"></span> 删除
 				</button>
-				<button id="queryButton" class="btn btn-default">
+				<button id="queryButton" class="btn btn-info">
 					<span class="glyphicon glyphicon-search"></span> 查询
 				</button>
 			</div>

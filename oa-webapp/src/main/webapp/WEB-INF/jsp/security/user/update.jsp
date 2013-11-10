@@ -13,16 +13,16 @@
 <%@ include file="/common/include-styles.jsp"%>
 </head>
 
-<body>
+<body class="editBody">
 
-	<button class="btn btn-default btn-sm pull-left" id="backButton">
+	<button class="btn btn-info btn-sm pull-left" id="backButton">
 		<span class="glyphicon glyphicon-backward"></span> 返回列表
 	</button>
 	<div class="btn-group pull-right btn-group-sm">
-		<button type="button" class="btn btn-default" id="saveButton">
+		<button type="button" class="btn btn-info" id="saveButton">
 			<span class="glyphicon glyphicon-ok"></span> 保存
 		</button>
-		<button type="button" class="btn btn-default" id="resetButton"
+		<button type="button" class="btn btn-info" id="resetButton"
 			actionUrl="${ctx}/security/user!toUpdate.action?id=${id}">
 			<span class="glyphicon glyphicon-repeat"></span> 重置
 		</button>
@@ -63,7 +63,8 @@
 			<c:forEach items="${roles}" var="o">
 				<tr>
 					<td>${o.roleName }</td>
-					<td><input type="button" class="btn btn-default" value="删除"
+					<td><input type="button" class="btn btn-info btn-xs"
+						value="删除"
 						onclick="location.href='${ctx }/security/user!deleteRole.action?id=${id }&roleId=${o.id }'">
 					</td>
 				</tr>
@@ -73,9 +74,9 @@
 					<s:hidden name="id"></s:hidden>
 					<tr>
 						<td><s:select name="roleId" list="#roleList" listKey="id"
-								listValue="roleName" cssClass="form-control"></s:select></td>
-						<td><input type="submit" class="btn btn-default" value="保存">
-						</td>
+								listValue="roleName" cssClass="form-control-mini"></s:select></td>
+						<td><input type="submit" class="btn btn-info btn-xs"
+							value="保存"></td>
 					</tr>
 				</form>
 			</s:if>
@@ -94,7 +95,8 @@
 			<c:forEach items="${depts}" var="o">
 				<tr>
 					<td>${o.deptName }</td>
-					<td><input type="button" class="btn btn-default" value="删除"
+					<td><input type="button" class="btn btn-info btn-xs"
+						value="删除"
 						onclick="location.href='${ctx }/security/user!deleteDept.action?id=${id }&deptId=${o.id }'">
 					</td>
 				</tr>
@@ -104,9 +106,9 @@
 					<s:hidden name="id"></s:hidden>
 					<tr>
 						<td><s:select name="deptId" list="#deptList" listKey="id"
-								listValue="deptName" cssClass="form-control"></s:select></td>
-						<td><input type="submit" class="btn btn-default" value="保存">
-						</td>
+								listValue="deptName" cssClass="form-control-mini"></s:select></td>
+						<td><input type="submit" class="btn btn-info btn-xs"
+							value="保存"></td>
 					</tr>
 				</form>
 			</s:if>
@@ -125,7 +127,8 @@
 			<c:forEach items="${jobs}" var="o">
 				<tr>
 					<td>${o.jobName }</td>
-					<td><input type="button" class="btn btn-default" value="删除"
+					<td><input type="button" class="btn btn-info btn-xs"
+						value="删除"
 						onclick="location.href='${ctx }/security/user!deleteJob.action?id=${id }&jobId=${o.id }'">
 					</td>
 				</tr>
@@ -134,10 +137,10 @@
 				<form action="${ctx }/security/user!addJob.action" method="post">
 					<s:hidden name="id"></s:hidden>
 					<tr>
-						<td><s:select name="jobId" cssClass="form-control"
+						<td><s:select name="jobId" cssClass="form-control-mini"
 								list="#jobList" listKey="id" listValue="jobName"></s:select></td>
-						<td><input type="submit" class="btn btn-default" value="保存">
-						</td>
+						<td><input type="submit" class="btn btn-info btn-xs"
+							value="保存"></td>
 					</tr>
 				</form>
 			</s:if>

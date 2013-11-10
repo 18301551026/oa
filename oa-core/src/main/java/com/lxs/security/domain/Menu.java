@@ -156,5 +156,33 @@ public class Menu implements Serializable {
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
+	
+	private String text;//显示名称
+	private Long pid;//父节点Id
+	private String state;//状态：此节点是否打开
+	@Transient
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+	@Transient
+	public Long getPid() {
+		return pid;
+	}
+
+	public void setPid(Long pid) {
+		this.pid = pid;
+	}
+	@Transient
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 
 }

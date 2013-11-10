@@ -13,15 +13,15 @@
 <%@ include file="/common/include-styles.jsp"%>
 </head>
 
-<body>
-	<button class="btn btn-default btn-sm pull-left" id="backButton">
+<body class="editBody">
+	<button class="btn btn-info btn-sm pull-left" id="backButton">
 		<span class="glyphicon glyphicon-backward"></span> 返回列表
 	</button>
 	<div class="btn-group pull-right btn-group-sm">
-		<button type="button" class="btn btn-default" id="saveButton">
+		<button type="button" class="btn btn-info" id="saveButton">
 			<span class="glyphicon glyphicon-ok"></span> 保存
 		</button>
-		<button type="button" class="btn btn-default" id="resetButton">
+		<button type="button" class="btn btn-info" id="resetButton">
 			<span class="glyphicon glyphicon-repeat"></span> 重置
 		</button>
 	</div>
@@ -31,16 +31,19 @@
 		<table class="formTable table">
 			<tr>
 				<Td class="control-label"><label for="userName">登录名：</label></Td>
-				<Td class="query_input"><s:textfield name="userName"  placeholder="请输入登陆名"
-						cssClass="form-control validate[required]" id="userName"></s:textfield></Td>
+				<Td class="query_input"><s:textfield name="userName"
+						placeholder="请输入登陆名" cssClass="form-control validate[required]"
+						id="userName"></s:textfield></Td>
 				<Td class="control-label"><label for="pwd">密码：</label></Td>
-				<Td class="query_input"><s:textfield name="password" placeholder="请输入密码"
-						cssClass="form-control validate[required]" id="pwd"></s:textfield></Td>
+				<Td class="query_input"><s:textfield name="password"
+						placeholder="请输入密码" cssClass="form-control validate[required]"
+						id="pwd"></s:textfield></Td>
 			</tr>
 			<tr>
 				<Td class="control-label"><label for="realName">真实姓名：</label></Td>
-				<Td class="query_input"><s:textfield name="realName"  placeholder="请输入真实姓名"
-						cssClass="form-control validate[required]" id="realName"></s:textfield></Td>
+				<Td class="query_input"><s:textfield name="realName"
+						placeholder="请输入真实姓名" cssClass="form-control validate[required]"
+						id="realName"></s:textfield></Td>
 			</tr>
 		</table>
 	</form>

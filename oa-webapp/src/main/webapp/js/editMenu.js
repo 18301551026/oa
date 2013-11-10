@@ -1,22 +1,8 @@
-var setting = {
-	view : {
-		selectedMulti : false
-	},
-	edit : {
-		enable : true,
-		showRemoveBtn : false,
-		showRenameBtn : false
-	}
-};
+
 
 $(function() {
 
-	// 初始化菜单
-	$.post(ctx + '/security/menu!findMenu.action', function(data) {
-		var nodes = eval(data);
-		var zTree = $.fn.zTree.init($("#menuUpdateTree"), setting, nodes);
-		// zTree.expandAll(true);
-	});
+	
 
 	// 初始化修改菜单的表单
 	$('#editForm').form({

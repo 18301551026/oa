@@ -13,15 +13,15 @@
 <%@ include file="/common/include-styles.jsp"%>
 </head>
 
-<body>
-	<button class="btn btn-default btn-sm pull-left" id="backButton">
+<body class="editBody">
+	<button class="btn btn-info btn-sm pull-left" id="backButton">
 		<span class="glyphicon glyphicon-backward"></span> 返回列表
 	</button>
 	<div class="btn-group pull-right btn-group-sm">
-		<button type="button" class="btn btn-default" id="saveButton">
+		<button type="button" class="btn btn-info" id="saveButton">
 			<span class="glyphicon glyphicon-ok"></span> 保存
 		</button>
-		<button type="button" class="btn btn-default" id="resetButton"
+		<button type="button" class="btn btn-info" id="resetButton"
 		actionUrl="${ctx}/security/job!toUpdate.action?id=${id}">
 			<span class="glyphicon glyphicon-repeat"></span> 重置
 		</button>

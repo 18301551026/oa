@@ -12,15 +12,15 @@
 <%@ include file="/common/include-jquery-validation.jsp"%>
 <%@ include file="/common/include-styles.jsp"%>
 </head>
-<body>
-	<button class="btn btn-default btn-sm pull-left" id="backButton">
+<body class="editBody">
+	<button class="btn btn-info btn-sm pull-left" id="backButton">
 		<span class="glyphicon glyphicon-backward"></span> 返回列表
 	</button>
 	<div class="btn-group pull-right btn-group-sm">
-		<button type="button" class="btn btn-default" id="saveButton">
+		<button type="button" class="btn btn-info" id="saveButton">
 			<span class="glyphicon glyphicon-ok"></span> 保存
 		</button>
-		<button type="button" class="btn btn-default" id="resetButton"
+		<button type="button" class="btn btn-info" id="resetButton"
 			actionUrl="${ctx}/security/role!toUpdate.action?id=${id}">
 			<span class="glyphicon glyphicon-repeat"></span> 重置
 		</button>
@@ -53,7 +53,7 @@
 					<tr>
 						<td>${o.id}</td>
 						<td>${o.url }</td>
-						<td><input type="button" class="btn btn-default disable"
+						<td><input type="button" class="btn btn-info btn-xs"
 							value="删除"
 							onclick="location.href='${ctx }/security/role!deleteResource.action?id=${id }&resourceId=${o.id }'">
 						</td>
@@ -67,7 +67,7 @@
 							<td colspan="2"><s:select name="resourceId"
 									cssClass="form-control" list="#resourceList" listKey="id"
 									listValue="url"></s:select></td>
-							<td><input type="submit" class="btn btn-default" value="保存">
+							<td><input type="submit" class="btn btn-info btn-xs" value="保存">
 							</td>
 						</tr>
 					</form>
@@ -95,7 +95,7 @@
 						<td>${o.id}</td>
 						<td>${o.userName }</td>
 						<td>${o.realName }</td>
-						<td><input type="button" class="btn btn-default" value="删除"
+						<td><input type="button" class="btn btn-info btn-xs" value="删除"
 							onclick="location.href='${ctx }/security/role!deleteUser.action?id=${id }&userId=${o.id }'">
 						</td>
 					</tr>
@@ -106,7 +106,7 @@
 						<tr>
 							<td colspan="3"><s:select name="userId" list="#userList"
 									cssClass="form-control" listKey="id" listValue="realName"></s:select></td>
-							<td><input type="submit" class="btn-default" value="保存">
+							<td><input type="submit" class="btn btn-info btn-xs" value="保存">
 							</td>
 						</tr>
 					</form>
