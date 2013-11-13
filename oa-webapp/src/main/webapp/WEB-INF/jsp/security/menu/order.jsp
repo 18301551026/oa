@@ -41,9 +41,10 @@
 				$.post(ctx + '/security/menu!saveMenuOrder.action', {
 					'json2Order' : jsonTree
 				}, function(data) {
+					/* parent.$.messager.alert('排序', '菜单排序成功'); */
 					parent.$.modalDialog.openner_treeGrid.treegrid('reload')
 					parent.$.modalDialog.handler.dialog('close');
-					alert(data);
+
 				});
 			})
 			$("#cancelMenuOrder").click(function() {
@@ -70,9 +71,9 @@
 		}
 	</script>
 	<ul id="menuUpdateTree" class="ztree"></ul>
-	<a id="cancelMenuOrder" href="javascript:void(0)" style="float: right;"
+	<!-- <a id="cancelMenuOrder" href="javascript:void(0)" style="float: right;"
 		class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>
 	<a id="saveMenuOrder" href="javascript:void(0)" style="float: right;"
-		class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a>
+		class="easyui-linkbutton" data-options="iconCls:'icon-save'">保存</a> -->
 </body>
 </html>

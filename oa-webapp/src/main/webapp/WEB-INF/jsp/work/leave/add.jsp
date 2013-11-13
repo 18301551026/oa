@@ -1,64 +1,61 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<%@ include file="/common/global.jsp"%>
-	<title>修改请假单</title>
-	<%@ include file="/common/meta.jsp" %>
-    <%@ include file="/common/include-styles.jsp" %>
-	<script type="text/javascript" src="${ctx }/js/jquery-${jqueryVersion}.min.js"></script>
-    <script type="text/javascript" src="${ctx }/js/My97DatePicker/WdatePicker.js"></script>
-	<%@ include file="/common/include-jquery-kindeditor.jsp" %>
-    <script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
+<%@ include file="/common/global.jsp"%>
+<title>请假单添加</title>
+<%@ include file="/common/meta.jsp"%>
+<script type="text/javascript"
+	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-bootstap.jsp"%>
+<%@ include file="/common/include-jquery-validation.jsp"%>
+<%@ include file="/common/include-jquery-kindeditor.jsp"%>
+<script type="text/javascript"
+	src="${ctx }/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
+<%@ include file="/common/include-styles.jsp"%>
 </head>
 
-<body>
+<body class="editBody">
 
-	<div id="navigatorDiv">
-	  	<button type="button" id="saveButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/filesave.png" alt=""/> 保存
-  	  	</button>
-	  	<button type="button" id="resetButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/reload.png" alt=""/> 重置
-  	  	</button>
-	  	<button type="button" id="backButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/undo.png" alt=""/> 返回
-  	  	</button>
+	<button class="btn btn-info btn-sm pull-left" id="backButton">
+		<span class="glyphicon glyphicon-backward"></span> 返回列表
+	</button>
+	<div class="btn-group pull-right btn-group-sm">
+		<button type="button" class="btn btn-info" id="saveButton">
+			<span class="glyphicon glyphicon-ok"></span> 保存
+		</button>
+		<button type="button" class="btn btn-info" id="resetButton">
+			<span class="glyphicon glyphicon-repeat"></span> 重置
+		</button>
 	</div>
-	
-	<div id="editDiv">
-	<form id="editForm" class="form-horizontal" action="${ctx}/work/leave!save.action" method="post">
-		<fieldset>
-		<legend><small>请假单修改</small></legend>
-		<table >
-			<tr>				
-				<td width="20%"><label>请假天数：</label></td>
-				<td>
-					<s:textfield name="days"></s:textfield>
-				</td>
+	<div class="clearfix" style="margin-bottom: 20px;"></div>
+	<form action="${ctx}/work/leave!save.action" method="post"
+		id="editForm">
+		<table class="formTable table">
+			<tr>
+				<Td class="control-label"><label for="days">请假天数：</label></Td>
+				<Td class="query_input"><s:textfield name="days"
+						placeholder="请输入请假天数" cssClass="form-control validate[required]"
+						id="days"></s:textfield></Td>
+				<Td class="control-label"><label for="startDate">开始时间：</label></Td>
+				<Td class="query_input"><s:textfield name="startDate"
+						placeholder="请选择开始时间" onclick="WdatePicker()" readonly="true"
+						cssClass="form-control validate[required]" id="startDate"></s:textfield></Td>
 			</tr>
-			<tr>				
-				<td width="20%"><label>开始时间：</label></td>
-				<td>
-					<s:textfield name="startDate"  onclick="WdatePicker()"></s:textfield>
-				</td>
+			<tr>
+				<Td class="control-label"><label for="title">标题：</label></Td>
+				<Td class="query_input" colspan="3"><s:textfield name="title"
+						placeholder="请输入标题" cssClass="form-control" id="title"></s:textfield></Td>
 			</tr>
-			<tr>				
-				<td width="20%"><label>标题：</label></td>
-				<td>
-					<s:textfield name="title"></s:textfield>
-				</td>
+			<tr>
+				<Td class="control-label"><label for="money">请假原因：</label></Td>
+				<Td class="query_input" colspan="3"><s:textarea name="reason"></s:textarea>
+				</Td>
+
 			</tr>
-			<tr>				
-				<td width="20%"><label>报销原因：</label></td>
-				<td>
-					 <s:textarea name="reason" ></s:textarea>
-				</td>
-			</tr>
+
 		</table>
-		</fieldset>
 	</form>
-	</div>
 </body>
 </html>

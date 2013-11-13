@@ -11,6 +11,7 @@ $(function() {
 		resizeType : 1,
 		allowPreviewEmoticons : false,
 		allowImageUpload : false,
+		width : '100%',
 		items : [ 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor',
 				'bold', 'italic', 'underline', 'removeformat', '|',
 				'justifyleft', 'justifycenter', 'justifyright',
@@ -27,7 +28,9 @@ $(function() {
 		}
 		$("#editForm").submit();
 	});
-
+	$("#backButton").click(function() {
+		history.go(-1);
+	});
 	$("#resetButton").click(function() {
 		var url = $(this).attr("actionUrl");
 		if (url) {

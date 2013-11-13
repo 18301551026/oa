@@ -143,3 +143,33 @@ $.extend($.fn.validatebox.defaults.rules, {
 		message : '必须为非负整数'
 	}
 });
+/**
+ * 
+ * 
+ * @requires jQuery,EasyUI
+ * 
+ * 扩展validatebox，添加验证两次密码功能
+ */
+$.extend($.fn.validatebox.defaults.rules, {
+	eqPwd : {
+		validator : function(value, param) {
+			return value == $(param[0]).val();
+		},
+		message : '两次输入的密码不一致！'
+	}
+});
+/**
+ * 扩展validatebox，修改密码是输入原始密码判断
+ */
+$.extend($.fn.validatebox.defaults.rules, {
+	validateOldPwd : {
+		validator : function(value, param) {
+			if (value != $(param[0]).val()) {
+				return false;
+			} else {
+				return true;
+			}
+		},
+		message : '原始密码输入错误'
+	}
+});

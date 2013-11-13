@@ -1,61 +1,61 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<%@ include file="/common/global.jsp"%>
-	<title>查看请假单</title>
-	<%@ include file="/common/meta.jsp" %>
-    <%@ include file="/common/include-styles.jsp" %>
-	<script type="text/javascript" src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
-	<%@ include file="/common/include-jquery-kindeditor.jsp" %>
-    <script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
+<%@ include file="/common/global.jsp"%>
+<title>查看请假表单</title>
+<%@ include file="/common/meta.jsp"%>
+<script type="text/javascript"
+	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-bootstap.jsp"%>
+<%@ include file="/common/include-jquery-validation.jsp"%>
+<%@ include file="/common/include-jquery-kindeditor.jsp"%>
+<script type="text/javascript"
+	src="${ctx }/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
+<%@ include file="/common/include-styles.jsp"%>
+%>
+<script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
 </head>
 
-<body>
-
-	<div id="navigatorDiv">
-	  	<button type="button" id="backButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/undo.png" alt=""/> 返回
-  	  	</button>
-	</div>
-	
-	<div id="editDiv">
-		<fieldset>
-		<legend><small>请假单查看</small></legend>
-		<table >
-		  <tbody>
-			<tr>				
-				<td width="20%"><label>请假天数：</label></td>
-				<td>
-					<s:textfield name="days" readonly="true"></s:textfield>
-				</td>
+<body class="editBody">
+	<button class="btn btn-info btn-sm pull-left" id="backButton">
+		<span class="glyphicon glyphicon-backward"></span> 返回列表
+	</button>
+	<form id="editForm" action="${ctx}/work/leave!performTask.action"
+		method="post">
+		<table class="formTable table">
+			<tr>
+				<Td class="control-label"><label for="days">请假天数：</label></Td>
+				<Td class="query_input"><s:textfield name="days"
+						readonly="true" cssClass="form-control" id="days"></s:textfield></Td>
+				<Td class="control-label"><label for="startDate">开始时间：</label></Td>
+				<Td class="query_input"><s:textfield name="startDate"
+						id="startDate" cssClass="form-control" readonly="true"></s:textfield>
+				</Td>
 			</tr>
-			<tr>				
-				<td width="20%"><label>开始时间：</label></td>
-				<td>
-					 <s:textfield name="startDate" readonly="true"></s:textfield>
-				</td>
+
+			<tr>
+				<Td class="control-label"><label for="title">标题：</label></Td>
+				<Td class="query_input" colspan="3"><s:textfield name="title"
+						readonly="true" cssClass="form-control"></s:textfield></Td>
 			</tr>
 			<tr>
-				<td width="20%"><label>请假原因：</label></td>
-				<td>
-					<div class="show-html">${reason }</div>
-				</td>
-			</tr>
-			  <!-- 审批意见 -->
-			  <c:forEach items="${commentList}" var="c">
-			  <tr>
-				<td>${c.taskName }</td>
-				<td style="color: blue;">
-					${c.comment }
-				</td>
-			  </tr>	  
-			  </c:forEach>
-		  </tbody>
-		</table>
-		</fieldset>
-	</div>
+				<Td class="control-label"><label for="money">原因：</label></Td>
+				<Td class="query_input" colspan="3">
+					<div class="readyonlyTextarea">${reason }</div>
+				</Td>
 
+			</tr>
+			<c:forEach items="${commentList}" var="c">
+				<tr>
+					<Td class="control-label"><label>${c.taskName }：</label></Td>
+					<Td class="query_input" colspan="3">
+						<div class="readyonlyTextarea">${c.comment }</div>
+					</Td>
+				</tr>
+			</c:forEach>
+		</table>
+	</form>
 </body>
 </html>

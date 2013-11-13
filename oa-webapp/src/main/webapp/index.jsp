@@ -11,6 +11,7 @@
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 </head>
 <script type="text/javascript">
+	var modifyPasswordDialog;
 	var main_layout;
 	var index_tabs;
 	var index_tabsMenu;
@@ -81,6 +82,55 @@
 						}
 					}
 				});
+		modifyPasswordDialog = $("#modifyPasswordDialog")
+				.dialog(
+						{
+							title : '修改密码',
+							width : 370,
+							height : 240,
+							closed : false,
+							cache : false,
+							modal : true,
+							closed : true,
+							buttons : [
+									{
+										text : '修改',
+										iconCls : 'icon-save',
+										handler : function() {
+											if ($("#modifyPasswordForm").form(
+													"validate")) {
+												$
+														.ajax({
+															type : "POST",
+															url : ctx
+																	+ "/security/user!modifiedPassword.action",
+															data : $(
+																	"#modifyPasswordForm")
+																	.serialize(),
+															success : function(
+																	data) {
+																modifyPasswordDialog
+																		.dialog("close");
+																$.messager
+																		.alert(
+																				'成功',
+																				'修改成功');
+															}
+
+														});
+											}
+										}
+									},
+									{
+										text : '取消',
+										iconCls : 'icon-cancel',
+										handler : function() {
+											modifyPasswordDialog
+													.dialog("close");
+										}
+									} ]
+
+						});
 	});
 	function zTreeOnClick(event, treeId, treeNode) {
 		if (treeNode.url != "" && treeNode.url.length != 0) {
@@ -107,8 +157,59 @@
 
 		}
 	}
+	function logout() {
+		location.href = ctx + "/security/user!logout.action";
+	}
+	function modifiedPasswordfn() {
+		$
+				.ajax({
+					type : "GET",
+					url : ctx
+							+ "/security/user!getCurrentUserToModifyPassword.action",
+					dataType : "json",
+					success : function(data) {
+						data = eval(data);
+						$("#userId").val(data.id);
+						//$("#oldPwd").val(data.userPwd);
+						$("#pwd").val(data.userPwd);
+						$('#modifyPasswordDialog input[name=oldPwd]')
+								.validatebox(
+										{
+											required : true,
+											title : "请输入您的原始密码",
+											validType : 'validateOldPwd[\'#modifyPasswordForm input[id=pwd]\']'
+										});
+						$('#modifyPasswordDialog input[name=userPwd]')
+								.validatebox({
+									required : true,
+									title : "请输入您的密码"
+								});
+
+						$('#modifyPasswordDialog input[name=rePwd]')
+								.validatebox(
+										{
+											required : true,
+											title : "请输入确认密码",
+											validType : 'eqPwd[\'#modifyPasswordDialog input[name=password]\']'
+										});
+
+						$("#modifyPasswordDialog").dialog("open");
+					}
+
+				});
+	}
 </script>
 <body class="easyui-layout">
+	<div data-options="region:'north',split:true" style="height: 50px;">
+		<div style="position: absolute; right: 10px; bottom: 2px;">
+			<a href="javascript:void(0)" id="mb" class="easyui-menubutton"
+				data-options="menu:'#mm'">${currentUser.realName }</a>
+			<div id="mm" style="width: 150px;">
+				<div onclick="modifiedPasswordfn()">修改密码</div>
+				<div onclick="logout()">注销</div>
+			</div>
+		</div>
+	</div>
 	<div data-options="region:'west',title:'菜单管理',split:true"
 		style="width: 150px; overflow: hidden;">
 		<ul id="treeMenu" class="ztree"></ul>
@@ -126,5 +227,33 @@
 	<div id="closeCurrent" title="close" data-options="iconCls:'delete'">关闭</div>
 	<div id="closeOther" title="closeOther" data-options="iconCls:'delete'">关闭其他</div>
 	<div id="closeAll" title="closeAll" data-options="iconCls:'delete'">关闭所有</div>
+</div>
+<div id="modifyPasswordDialog">
+	<form id="modifyPasswordForm"
+		action="${ctx }/security/user!modifiedPassword.action" method="post"
+		style="margin: 10px; font-size: 14px;">
+		<table>
+			<tr>
+				<TD>原始密码： <input type="hidden" name="id" id="userId"><input
+					type="hidden" id="pwd" name="pwd">
+				</TD>
+				<Td><input type="password" placeholder="请输入原始密码" id="oldPwd"
+					name="oldPwd" /></Td>
+			</tr>
+			<tr>
+				<TD>新密码：</TD>
+				<Td><input type="password" name="password"
+					class="field easyui-validatebox" data-options="required:true"
+					placeholder="请输入您的新密码" /></Td>
+			</tr>
+			<tr>
+				<TD>确认新密码：</TD>
+				<Td><input type="password" name="rePwd"
+					class="field easyui-validatebox"
+					data-options="required:true,validType:'eqPwd[\'#modifyPasswordForm input[name=password]\']'"
+					placeholder="请输入确认密码" /></Td>
+			</tr>
+		</table>
+	</form>
 </div>
 </html>

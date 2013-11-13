@@ -1,55 +1,49 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-	<%@ include file="/common/global.jsp"%>
-	<title>上传业务表单</title>
-	<%@ include file="/common/meta.jsp" %>
-    <%@ include file="/common/include-styles.jsp" %>
-	<script type="text/javascript" src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
-    <script type="text/javascript" src="${ctx }/js/edit.js"></script>
+<%@ include file="/common/global.jsp"%>
+<title>上传业务表单</title>
+<%@ include file="/common/meta.jsp"%>
+<script type="text/javascript"
+	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-bootstap.jsp"%>
+<%@ include file="/common/include-jquery-validation.jsp"%>
+<%@ include file="/common/include-jquery-kindeditor.jsp"%>
+<script type="text/javascript"
+	src="${ctx }/js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
+<%@ include file="/common/include-styles.jsp"%>
 </head>
-
-<body>
-
-	<div id="navigatorDiv">
-	  	<button type="button" id="saveButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/filesave.png" alt=""/> 保存
-  	  	</button>
-	  	<button type="button" id="resetButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/reload.png" alt=""/> 重置
-  	  	</button>
-	  	<button type="button" id="backButton" class="button positive">
-    		<img src="${ctx}/js/easyui/themes/icons/undo.png" alt=""/> 返回
-  	  	</button>
+<body class="editBody">
+	<button class="btn btn-info btn-sm pull-left" id="backButton">
+		<span class="glyphicon glyphicon-backward"></span> 返回列表
+	</button>
+	<div class="btn-group pull-right btn-group-sm">
+		<button type="button" class="btn btn-info" id="saveButton">
+			<span class="glyphicon glyphicon-ok"></span> 保存
+		</button>
+		<button type="button" class="btn btn-info" id="resetButton">
+			<span class="glyphicon glyphicon-repeat"></span> 重置
+		</button>
 	</div>
-	
-	<div id="editDiv">
-	<form id="editForm" class="form-horizontal" action="${ctx}/process/definition!upload.action" method="post"  enctype="multipart/form-data">
-		<fieldset>
-		<legend><small>业务表单上传</small></legend>
-		<table >
-
-			  <c:forEach items="${fileList }" var="f">
-			  <tr>
-				<td class="td_02" colspan="4" >
-					${f }
-				</td>
-			  </tr>	  
-			  </c:forEach>
-
+	<div class="clearfix" style="margin-bottom: 20px;"></div>
+	<form action="${ctx}/process/definition!upload.action" method="post"
+		enctype="multipart/form-data" id="editForm">
+		<table class="formTable table">
+			<c:forEach items="${fileList }" var="f">
+				<tr>
+					<Td></Td>
+					<td colspan="3">${f }</td>
+				</tr>
+			</c:forEach>
 			<tr>
-				<td width="20%"><label>业务表单文件：</label></td>
-				<td >
-					<input type="file" name="process" class="input">
-				</td>
+				<Td class="control-label"><label for="title">业务表单文件：</label></Td>
+				<Td class="query_input" colspan="3"><input type="file"
+					name="process" placeholder="请选择业务表单文件" /></Td>
 			</tr>
 
 		</table>
-		</fieldset>
 	</form>
-	</div>
-
 </body>
 </html>

@@ -332,3 +332,18 @@ label {
 		rgba(0, 0, 0, 0.05);
 	outline: 0 none;
 }
+
+.readyonlyTextarea {
+	width: 100%;
+	background-color: #EEEEEE;
+	cursor: not-allowed;
+	height: 50px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+	transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+	border-radius: 4px 4px 4px 4px;
+	border: 1px solid #CCCCCC;
+	color: #555555;
+	font-size: 14px;
+	line-height: 20px;
+	padding: 4px 6px;
+}

@@ -9,12 +9,13 @@
 	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 <script type="text/javascript">
+	var jsonTree = "["
 	$(function() {
 		treeGrid = $('#treeGrid').treegrid({
 			url : ctx + '/security/menu!findMenu.action',
 			idField : 'id',
 			treeField : 'name',
-			parentField : 'pid',
+			/* parentField : 'pid', */
 			rownumbers : true,
 			fit : true,
 			animate : true,
@@ -81,6 +82,7 @@
 						buttons : [
 								{
 									text : '编辑',
+									iconCls : "icon-edit",
 									handler : function() {
 										parent.$.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
 										var f = parent.$.modalDialog.handler
@@ -90,6 +92,7 @@
 								},
 								{
 									text : '取消',
+									iconCls : "icon-cancel",
 									handler : function() {
 										parent.$.modalDialog.handler
 												.dialog('close');
@@ -114,6 +117,7 @@
 			href : url,
 			buttons : [ {
 				text : '添加',
+				iconCls : "icon-add",
 				handler : function() {
 					parent.$.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
 					var f = parent.$.modalDialog.handler.find('#addMenuForm');
@@ -121,6 +125,7 @@
 				}
 			}, {
 				text : '取消',
+				iconCls : "icon-cancel",
 				handler : function() {
 					parent.$.modalDialog.handler.dialog('close');
 				}
@@ -133,13 +138,52 @@
 					title : '节点排序',
 					width : 300,
 					height : 580,
+					/* href : ctx + '/security/menu!toOrderMenu.action',*/
 					content : '<iframe src='
 							+ ctx
 							+ "/security/menu!toOrderMenu.action"
-							+ ' width="100%" height="99%" id="orderMenuIframe" scrolling="yes"  frameborder="0" style="border: 0px;width: 100%; height:99%;"></iframe>',
+							+ ' width="100%" height="99%" id="orderMenuIframe" name="orderMenuIframe" scrolling="yes"  frameborder="0" style="border: 0px;width: 100%; height:99%;"></iframe>',
 					onOpen : function() {
-						parent.$.modalDialog.openner_treeGrid = treeGrid;//因为添加成功之后，需要刷新这个treeGrid，所以先预定义好
-					}
+						parent.$.modalDialog.openner_treeGrid = treeGrid;//因为排序成功之后，需要刷新这个treeGrid，所以先预定义好
+					},
+					buttons : [
+							{
+								text : '保存',
+								iconCls : "icon-save",
+								handler : function() {
+									var zTree = parent.orderMenuIframe.$.fn.zTree
+											.getZTreeObj("menuUpdateTree");
+									var nodes = zTree.getNodes();
+									recursiveTree2Order(nodes);
+									jsonTree = jsonTree.substring(0,
+											jsonTree.length - 1)
+											+ "]";
+
+									$
+											.post(
+													ctx
+															+ '/security/menu!saveMenuOrder.action',
+													{
+														'json2Order' : jsonTree
+													},
+													function(data) {
+														/* parent.$.messager.alert('排序', '菜单排序成功'); */
+														parent.$.modalDialog.openner_treeGrid
+																.treegrid('reload')
+														parent.$.modalDialog.handler
+																.dialog('close');
+
+													});
+								}
+							},
+							{
+								text : '取消',
+								iconCls:"icon-cancel",
+								handler : function() {
+									parent.$.modalDialog.handler
+											.dialog('close');
+								}
+							} ]
 				});
 	}
 	function redo() {
@@ -157,6 +201,25 @@
 			treeGrid.treegrid('collapseAll', node.id);
 		} else {
 			treeGrid.treegrid('collapseAll');
+		}
+	}
+
+	function recursiveTree2Order(nodes) {
+		var zTree = parent.orderMenuIframe.$.fn.zTree
+				.getZTreeObj("menuUpdateTree");
+		for (var i = 0; i < nodes.length; i++) {
+			var n = nodes[i];
+			var pn = n.getParentNode();
+			var pid = null;
+			if (pn) {
+				pid = pn.id
+			}
+			jsonTree = jsonTree + "{\"id\": " + n.id + ", \"parent\":{\"id\": "
+					+ pid + "}, \"order\": " + zTree.getNodeIndex(n) + "},"
+
+			if (n.children && n.children.length > 0) {
+				recursiveTree2Order(n.children);
+			}
 		}
 	}
 </script>
@@ -193,6 +256,13 @@
 </body>
 <script type="text/javascript">
 	function onContextMenu(e, row) {
+		/* if (row.children.length != 0) {
+			var item = $('#mm').menu('findItem', '删除');
+			$('#mm').menu('disableItem', item.target);
+		} else {
+			var item = $('#mm').menu('findItem', '删除');
+			$('#mm').menu('enableItem', item.target);
+		} */
 		e.preventDefault();
 		$(this).treegrid('select', row.id);
 		$('#mm').menu('show', {

@@ -2,15 +2,18 @@ $(function() {
 	$("#addButton").click(function() {
 		window.location.href = $(this).attr("actionUrl");
 	});
-	$("#deleteButton").click(function() {
-		if ($("input[name='ids']:checked") && $("input[name='ids']:checked").length > 0) {
-			if (window.confirm('确认删除')) {
-				$("#deleteForm").submit();
-			}
-		} else {
-			alert('请选择删除的记录');
-		}
-	});
+	$("#deleteButton").click(
+			function() {
+				if ($("input[name='ids']:checked")
+						&& $("input[name='ids']:checked").length > 0) {
+					if (window.confirm('确认删除')) {
+						$("#deleteForm").submit();
+					}
+				} else {
+					alert('请选择删除的记录');
+				}
+			});
+
 	$("#checkAllCheckBox").click(function() {
 		if ($(this).attr("checked")) {
 			$(":checkbox[name='ids']").attr("checked", true);
@@ -23,19 +26,30 @@ $(function() {
 		$("#queryForm").submit();
 	});
 
-	$("#startButton").click(function() {
-		$('#deleteForm').attr('action', $(this).attr("actionUrl"));
-		$('#deleteForm').submit();
-	});
+	$("#startButton").click(
+			function() {
+				if ($("input[name='ids']:checked")
+						&& $("input[name='ids']:checked").length > 0) {
+					$('#deleteForm').attr('action', $(this).attr("actionUrl"));
+					$('#deleteForm').submit();
+				} else {
+					alert('请选择要启动的记录');
+				}
+
+			});
 
 	$("#showOrHideQueryPanelBtn")
 			.click(
 					function() {
 						$("#queryPanel").toggleClass("hide");
 						if ($("#queryPanel").hasClass("hide")) {
-							$(this).html('<span class="glyphicon glyphicon-chevron-down pull-right"></span> 查询条件');
+							$(this)
+									.html(
+											'<span class="glyphicon glyphicon-chevron-down pull-right"></span> 查询条件');
 						} else {
-							$(this).html('<span class="glyphicon glyphicon-chevron-up pull-right"></span> 查询条件');
+							$(this)
+									.html(
+											'<span class="glyphicon glyphicon-chevron-up pull-right"></span> 查询条件');
 						}
 					});
 });
