@@ -136,6 +136,7 @@
 		if (treeNode.url != "" && treeNode.url.length != 0) {
 			addTab({
 				cache : false,
+				id : treeNode.id,
 				title : treeNode.name,
 				selected : true,
 				closable : true,
@@ -150,13 +151,18 @@
 		event.preventDefault();
 	};
 	function addTab(ops) {
-		if (index_tabs.tabs("exists", ops.title)) {
-			index_tabs.tabs("select", ops.title);
+		index_tabs.tabs("goTab", {
+			"tabs" : index_tabs,
+			"ops" : ops
+		});
+		/* if (index_tabs.tabs("exists", ops.title2)) {
+			index_tabs.tabs("select", ops.title2);
 		} else {
 			index_tabs.tabs("add", ops);
 
-		}
+		} */
 	}
+
 	function logout() {
 		location.href = ctx + "/security/user!logout.action";
 	}
@@ -200,13 +206,17 @@
 	}
 </script>
 <body class="easyui-layout">
-	<div data-options="region:'north',split:true" style="height: 50px;">
-		<div style="position: absolute; right: 10px; bottom: 2px;">
-			<a href="javascript:void(0)" id="mb" class="easyui-menubutton"
-				data-options="menu:'#mm'">${currentUser.realName }</a>
-			<div id="mm" style="width: 150px;">
-				<div onclick="modifiedPasswordfn()">修改密码</div>
-				<div onclick="logout()">注销</div>
+	<div data-options="region:'north',split:true" style="height:70px;">
+		<div class="panel-header panel-title"
+			data-option="border:false,fit:true" style="height:63px;border: 0px;padding: 0px;">
+			<img alt="logo" src="${ctx }/images/logo.gif" style="margin: 0px;">
+			<div style="position: absolute; right: 10px; bottom: 2px;">
+				<a href="javascript:void(0)" id="mb" class="easyui-menubutton"
+					data-options="menu:'#mm'">${currentUser.realName }</a>
+				<div id="mm" style="width: 150px;">
+					<div onclick="modifiedPasswordfn()">修改密码</div>
+					<div onclick="logout()">注销</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -216,7 +226,7 @@
 	</div>
 	<div data-options="region:'center'">
 		<div id="index_tabs">
-			<div title="首页" data-options="border:false" cache="false">
+			<div title="首页" data-options="id:-1,border:false" cache="false">
 				<iframe src="${ctx}/protal.jsp" frameborder="0"
 					style="border: 0; width: 100%; height: 98%;"></iframe>
 			</div>

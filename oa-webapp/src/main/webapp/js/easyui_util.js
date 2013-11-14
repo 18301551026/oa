@@ -131,6 +131,39 @@ $.fn.treegrid.defaults.loadFilter = function(data, parentId) {
 	}
 	return data;
 };
+
+$.extend($.fn.tabs.methods, {
+	goTab : function() {
+		var ops = arguments[1].ops;
+		var id = ops.id;
+		var tabs = arguments[1].tabs.tabs("tabs");
+		var flag = true;
+		for (i = 0; i < tabs.length; i++) {
+			var tabId = tabs[i].panel('options').id;
+			if (tabId == id) {
+				/* arguments[1].tabs.tabs(""); */
+				flag = false;
+				// index_tabs.tabs("selectTabById", id);
+
+			}
+		}
+		if (flag) {
+			index_tabs.tabs("add", ops);
+		} else {
+		}
+	}
+})
+
+$.extend($.fn.tabs.methods, {
+	selectTabById : function(container, which) {
+		
+	}
+})
+$.extend($.fn.tabs.methods, {
+	getTabById : function(container, which) {
+		
+	}
+})
 /**
  * 扩展validatebox，添加数字验证功能
  */

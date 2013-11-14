@@ -158,20 +158,15 @@
 									jsonTree = jsonTree.substring(0,
 											jsonTree.length - 1)
 											+ "]";
-
-									$
-											.post(
-													ctx
-															+ '/security/menu!saveMenuOrder.action',
+									$.post(ctx + '/security/menu!saveMenuOrder.action',
 													{
 														'json2Order' : jsonTree
 													},
 													function(data) {
-														/* parent.$.messager.alert('排序', '菜单排序成功'); */
-														parent.$.modalDialog.openner_treeGrid
-																.treegrid('reload')
-														parent.$.modalDialog.handler
-																.dialog('close');
+														//zTree必须重新加载，否则第二次无法改变顺序
+														location.reload();
+														//treeGrid.treegrid('reload');
+														parent.$.modalDialog.handler.dialog('close');
 
 													});
 								}

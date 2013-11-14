@@ -74,9 +74,9 @@ public class MenuAction extends BaseAction<Menu> {
 	public void findMenu() throws Exception {
 		List<Menu> list = menuService.findRootMenu();
 		for (Menu menu : list) {
-			if (null != menu.getParent()) {
-				menu.setPid(menu.getParent().getId());
-			}
+//			if (null != menu.getParent()) {
+//				menu.setPid(menu.getParent().getId());
+//			}
 			List<Menu> childMenus = menu.getChildren();
 			if (childMenus != null && childMenus.size() != 0) {
 				menu.setState("closed");// 节点以文件夹的形式体现
