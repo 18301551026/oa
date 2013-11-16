@@ -41,9 +41,9 @@
 			</tr>
 			<tr>
 				<Td class="control-label"><label for="realName">真实姓名：</label></Td>
-				<Td class="query_input"><s:textfield name="realName"
-						placeholder="请输入真实姓名" cssClass="form-control validate[required]"
-						id="realName"></s:textfield></Td>
+				<Td class="query_input" colspan="3"><s:textfield
+						name="realName" placeholder="请输入真实姓名"
+						cssClass="form-control validate[required]" id="realName"></s:textfield></Td>
 			</tr>
 		</table>
 	</form>

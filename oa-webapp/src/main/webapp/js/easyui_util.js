@@ -36,6 +36,34 @@ var easyuiPanelOnMove = function(left, top) {
 $.fn.dialog.defaults.onMove = easyuiPanelOnMove;
 $.fn.window.defaults.onMove = easyuiPanelOnMove;
 $.fn.panel.defaults.onMove = easyuiPanelOnMove;
+
+/**
+ * 
+ * @requires jQuery,EasyUI
+ * 
+ * panel关闭时回收内存，主要用于layout使用iframe嵌入网页时的内存泄漏问题
+ */
+$.fn.panel.defaults.onBeforeDestroy = function() {
+	var frame = $('iframe', this);
+	try {
+		if (frame.length > 0) {
+			for (var i = 0; i < frame.length; i++) {
+				frame[i].src = '';
+				frame[i].contentWindow.document.write('');
+				frame[i].contentWindow.close();
+			}
+			frame.remove();
+			if (navigator.userAgent.indexOf("MSIE") > 0) {// IE特有回收内存方法
+				try {
+					CollectGarbage();
+				} catch (e) {
+				}
+			}
+		}
+	} catch (e) {
+	}
+};
+
 /**
  * 
  * 
@@ -156,12 +184,12 @@ $.extend($.fn.tabs.methods, {
 
 $.extend($.fn.tabs.methods, {
 	selectTabById : function(container, which) {
-		
+
 	}
 })
 $.extend($.fn.tabs.methods, {
 	getTabById : function(container, which) {
-		
+
 	}
 })
 /**
@@ -206,3 +234,108 @@ $.extend($.fn.validatebox.defaults.rules, {
 		message : '原始密码输入错误'
 	}
 });
+
+(function($) {
+	function getTabById(container, which, removeit) {
+		var tabs = $.data(container, 'tabs').tabs;
+		if (typeof which == 'number') {
+			for (var i = 0; i < tabs.length; i++) {
+				var tab = tabs[i];
+				if (tab.panel('options').id == which) {
+					if (removeit) {
+						tabs.splice(i, 1);
+					}
+					return tab;
+				}
+			}
+
+		}
+		return null;
+	}
+
+	function selectTab(container, which) {
+		var opts = $.data(container, 'tabs').options;
+		var tabs = $.data(container, 'tabs').tabs;
+		var selectHis = $.data(container, 'tabs').selectHis;
+
+		if (tabs.length == 0)
+			return;
+
+		var panel = getTabById(container, which); // get the panel to be
+													// activated
+		if (!panel)
+			return;
+
+		var selected = getSelectedTab(container);
+		if (selected) {
+			selected.panel('close');
+			selected.panel('options').tab.removeClass('tabs-selected');
+		}
+
+		panel.panel('open');
+		var title = panel.panel('options').title; // the panel title
+		selectHis.push(title); // push select history
+
+		var tab = panel.panel('options').tab; // get the tab object
+		tab.addClass('tabs-selected');
+
+		// scroll the tab to center position if required.
+		var wrap = $(container).find('>div.tabs-header>div.tabs-wrap');
+		var left = tab.position().left;
+		var right = left + tab.outerWidth();
+		if (left < 0 || right > wrap.width()) {
+			var deltaX = left - (wrap.width() - tab.width()) / 2;
+			$(container).tabs('scrollBy', deltaX);
+		} else {
+			$(container).tabs('scrollBy', 0);
+		}
+
+		setSelectedSize(container);
+
+		opts.onSelect.call(container, title, getTabIndex(container, panel));
+	}
+
+	function setSelectedSize(container) {
+		var opts = $.data(container, 'tabs').options;
+		var tab = getSelectedTab(container);
+		if (tab) {
+			var panels = $(container).children('div.tabs-panels');
+			var width = opts.width == 'auto' ? 'auto' : panels.width();
+			var height = opts.height == 'auto' ? 'auto' : panels.height();
+			tab.panel('resize', {
+				width : width,
+				height : height
+			});
+		}
+	}
+	function getSelectedTab(container) {
+		var tabs = $.data(container, 'tabs').tabs;
+		for (var i = 0; i < tabs.length; i++) {
+			var tab = tabs[i];
+			if (tab.panel('options').closed == false) {
+				return tab;
+			}
+		}
+		return null;
+	}
+	function getTabIndex(container, tab) {
+		var tabs = $.data(container, 'tabs').tabs;
+		for (var i = 0; i < tabs.length; i++) {
+			if (tabs[i][0] == $(tab)[0]) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	$.extend($.fn.tabs.methods, {
+		existsById : function(jq, which) {
+			return getTabById(jq[0], which) != null;
+		},
+		selectById : function(jq, which) {
+			return jq.each(function() {
+				selectTab(this, which);
+			});
+		}
+	});
+})(jQuery);

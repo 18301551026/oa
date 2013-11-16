@@ -42,7 +42,6 @@ $(function() {
 			if (editor2) {
 				editor2.html("");
 			}
-
 			/* $("#editForm").reset(); */
 			$("#editForm :input").val('');
 		}

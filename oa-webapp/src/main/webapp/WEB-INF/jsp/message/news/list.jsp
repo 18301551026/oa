@@ -12,7 +12,6 @@
 <%@ include file="/common/include-styles.jsp"%>
 </head>
 <body>
-
 	<div class="panel panel-info">
 		<div class="panel-heading">
 			<div class="btn-group btn-group-sm">
@@ -50,7 +49,8 @@
 			</form>
 		</div>
 	</div>
-	<form method="post" action="${ctx}/message/news!delete.action" id="deleteForm">
+	<form method="post" action="${ctx}/message/news!delete.action"
+		id="deleteForm">
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>

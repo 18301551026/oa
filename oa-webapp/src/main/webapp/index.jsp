@@ -151,16 +151,13 @@
 		event.preventDefault();
 	};
 	function addTab(ops) {
-		index_tabs.tabs("goTab", {
-			"tabs" : index_tabs,
-			"ops" : ops
-		});
-		/* if (index_tabs.tabs("exists", ops.title2)) {
-			index_tabs.tabs("select", ops.title2);
+		
+		if (index_tabs.tabs("existsById", ops.id)) {
+			index_tabs.tabs("selectById", ops.id);
 		} else {
 			index_tabs.tabs("add", ops);
 
-		} */
+		} 
 	}
 
 	function logout() {
