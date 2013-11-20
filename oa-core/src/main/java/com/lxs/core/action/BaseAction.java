@@ -128,7 +128,12 @@ public abstract class BaseAction<T> extends PageAction implements ModelDriven<T>
 		BeanUtil.copy(model, entity);
 		
 		baseService.save(entity);
+		afterSave(entity);
 		return LIST_ACTION; 
+	}
+	
+	public void afterSave(T model){
+		
 	}
 	
 	/**

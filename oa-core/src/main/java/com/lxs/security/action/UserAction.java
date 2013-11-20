@@ -68,7 +68,8 @@ public class UserAction extends BaseAction<User> {
 		}
 	}
 
-	public void getCurrentUserToModifyPassword() throws JsonGenerationException, JsonMappingException, IOException {
+	public void getCurrentUserToModifyPassword()
+			throws JsonGenerationException, JsonMappingException, IOException {
 		User u = (User) ServletActionContext.getContext().getSession()
 				.get(SystemConstant.CURRENT_USER);
 		u = baseService.get(User.class, u.getId());
@@ -76,12 +77,12 @@ public class UserAction extends BaseAction<User> {
 		map.put("success", true);
 		map.put("id", u.getId());
 		map.put("userPwd", u.getPassword());
-		ObjectMapper objectMapper=new ObjectMapper();
+		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.writeValue(getOut(), map);
 	}
 
 	public void modifiedPassword() {
-		User oldUser = baseService.get( modelClass,model.getId());
+		User oldUser = baseService.get(modelClass, model.getId());
 		BeanUtil.copy(model, oldUser);
 		baseService.update(oldUser);
 		getOut().print("{'success': true}");
@@ -117,6 +118,25 @@ public class UserAction extends BaseAction<User> {
 		userService.addRole(roleId, model.getId());
 
 		return UPDATE_ACTION;
+	}
+
+	public void findUserByName() {
+		User currentUser = (User) ActionContext.getContext().getSession()
+				.get(SystemConstant.CURRENT_USER);
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(User.class);
+		detachedCriteria.add(Restrictions.like("realName", model.getRealName(),
+				MatchMode.ANYWHERE));
+		List<User> users = baseService.find(detachedCriteria);
+		StringBuffer script = new StringBuffer();
+		for (User user : users) {
+			if (user.getId() == currentUser.getId()) {
+				continue;
+			}
+			script.append("<option value=" + user.getId() + ">"
+					+ user.getRealName() + "</option>");
+		}
+		getOut().print(script);
 	}
 
 	@ClearCache

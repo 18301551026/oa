@@ -52,4 +52,16 @@ $(function() {
 											'<span class="glyphicon glyphicon-chevron-up pull-right"></span> 查询条件');
 						}
 					});
+	$("#sendButton").click(
+			function() {
+				if ($("input[name='ids']:checked")
+						&& $("input[name='ids']:checked").length > 0) {
+					var url = $(this).attr("actionUrl");
+					$("#deleteForm").attr("action", url);
+					$("#deleteForm").submit();
+				} else {
+					alert('请选择发送的邮件');
+				}
+
+			})
 });
