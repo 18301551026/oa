@@ -50,7 +50,21 @@ $(function() {
 	$("#backButton").click(function() {
 		history.go(-1);
 	});
-
+	$("#otherButton").click(function() {
+		if (editor1) {
+			editor1.sync();
+		}
+		if (editor2) {
+			editor2.sync();
+		}
+		var url = $(this).attr("actionUrl");
+		$("#editForm").attr("action", url);
+		$("#editForm").submit();
+	})
+	$("#turnToOther").click(function() {
+		var url = $(this).attr("actionUrl");
+		location.href=url;
+	})
 	jQuery("#editForm").validationEngine();
 
 });

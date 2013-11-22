@@ -1,9 +1,6 @@
 package com.lxs.security.action;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -11,19 +8,20 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.lxs.core.action.BaseAction;
 import com.lxs.core.cache.ClearCache;
-import com.lxs.core.common.BeanUtil;
 import com.lxs.security.common.SecurityHolder;
 import com.lxs.security.domain.Menu;
 import com.lxs.security.service.IMenuService;
 import com.opensymphony.xwork2.ActionContext;
+
 
 @Controller
 @Scope("prototype")
@@ -42,35 +40,8 @@ public class MenuAction extends BaseAction<Menu> {
 	private String json2Order;
 
 	/**
-	 * 忽略Menu的parent属性
-	 */
-	private static abstract class IgnoreParentMixIn {
-		@JsonIgnore
-		public abstract Menu getParent();
-	}
-
-	/**
-	 * 忽略Menu的children属性
-	 */
-	private static abstract class IgnoreChildrenMixIn {
-		@JsonIgnore
-		public abstract List<Menu> getChildren();
-	}
-
-	public void setJson2Order(String json2Order) {
-		this.json2Order = json2Order;
-	}
-
-	/**
 	 * 查询所有菜单
 	 */
-	// public void findMenu() throws Exception {
-	// List<Menu> list = menuService.findRootMenu();
-	//
-	// ObjectMapper objectMapper = new ObjectMapper();
-	// objectMapper.addMixInAnnotations(Menu.class, IgnoreParentMixIn.class);
-	// objectMapper.writeValue(getOut(), list);
-	// }
 	public void findMenu() throws Exception {
 		List<Menu> list = menuService.findRootMenu();
 		for (Menu menu : list) {
@@ -84,9 +55,9 @@ public class MenuAction extends BaseAction<Menu> {
 				menu.setState("open");// 节点以文件的形式体现
 			}
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(Menu.class, IgnoreParentMixIn.class);
-		objectMapper.writeValue(getOut(), list);
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(Menu.class);
+		filter.getExcludes().add("parent");
+		getOut().print(JSON.toJSONString(list, filter));
 	}
 
 	/**
@@ -95,9 +66,9 @@ public class MenuAction extends BaseAction<Menu> {
 	public void findCheckedMenuByRole() throws Exception {
 		List<Menu> list = menuService.findCheckedMenuByRole(roleId);
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(Menu.class, IgnoreParentMixIn.class);
-		objectMapper.writeValue(getOut(), list);
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(Menu.class);
+		filter.getExcludes().add("parent");
+		getOut().print(JSON.toJSONString(list, filter));
 	}
 
 	/**
@@ -107,9 +78,9 @@ public class MenuAction extends BaseAction<Menu> {
 		List<Menu> list = menuService.findRootMenuByUser(SecurityHolder
 				.getCurrentUser().getId());
 
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(Menu.class, IgnoreParentMixIn.class);
-		objectMapper.writeValue(getOut(), list);
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(Menu.class);
+		filter.getExcludes().add("parent");
+		getOut().print(JSON.toJSONString(list, filter));
 	}
 
 	/**
@@ -144,9 +115,10 @@ public class MenuAction extends BaseAction<Menu> {
 		// entity.setParent(parent);
 		// }
 		// result.put("node", entity);
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(Menu.class, IgnoreChildrenMixIn.class);
-		objectMapper.writeValue(getOut(), model);
+		
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(Menu.class);
+		filter.getExcludes().add("children");
+		getOut().print(JSON.toJSONString(model, filter));
 	}
 
 	public String toOrderMenu() {
@@ -160,10 +132,9 @@ public class MenuAction extends BaseAction<Menu> {
 	 */
 	public void deleteMenu() throws Exception {
 		baseService.delete(model);
-
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(Menu.class, IgnoreParentMixIn.class);
-		objectMapper.writeValue(getOut(), model);
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(Menu.class);
+		filter.getExcludes().add("parent");
+		getOut().print(JSON.toJSONString(model, filter));
 	}
 
 	public String toUpdate() {
@@ -174,10 +145,8 @@ public class MenuAction extends BaseAction<Menu> {
 	 * 保存菜单排序，和菜单关系
 	 */
 	public void saveMenuOrder() throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper();
-		List<Menu> list = objectMapper.readValue(json2Order,
-				new TypeReference<List<Menu>>() {
-				});
+		List<Menu> list = JSON.parseObject(json2Order, new TypeReference<List<Menu>>() {});
+		
 		menuService.saveMenuOrder(list);
 		getOut().print("{'success': true}");
 	}
@@ -190,5 +159,9 @@ public class MenuAction extends BaseAction<Menu> {
 		ActionContext.getContext().getValueStack()
 				.push(baseService.get(modelClass, model.getId()));
 		return UPDATE;
+	}
+
+	public void setJson2Order(String json2Order) {
+		this.json2Order = json2Order;
 	}
 }
