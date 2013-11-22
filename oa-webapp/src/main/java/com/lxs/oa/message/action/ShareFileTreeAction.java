@@ -1,6 +1,5 @@
 package com.lxs.oa.message.action;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -10,15 +9,11 @@ import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
-import org.hibernate.criterion.DetachedCriteria;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.lxs.core.action.BaseAction;
 import com.lxs.oa.message.dao.IShareFileTreeDao;
 import com.lxs.oa.message.domain.ShareFile;
@@ -36,21 +31,21 @@ public class ShareFileTreeAction extends BaseAction<ShareFileTree> {
 	@Resource
 	private IShareFileTreeDao treeDao;
 
-	/**
+/*	*//**
 	 * 忽略tree的parent属性
-	 */
+	 *//*
 	private static abstract class IgnoreParentMixIn {
 		@JsonIgnore
 		public abstract ShareFileTree getParent();
 	}
 
-	/**
+	*//**
 	 * 忽略tree的children属性
-	 */
+	 *//*
 	private static abstract class IgnoreChildrenMixIn {
 		@JsonIgnore
 		public abstract List<ShareFileTree> getChildren();
-	}
+	}*/
 
 	/**
 	 * 查询所有菜单
@@ -65,24 +60,22 @@ public class ShareFileTreeAction extends BaseAction<ShareFileTree> {
 				t.setState("open");// 节点以文件的形式体现
 			}
 		}
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(ShareFileTree.class,
-				IgnoreParentMixIn.class);
-		objectMapper.writeValue(getOut(), list);
+		
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(ShareFileTree.class);
+		filter.getExcludes().add("parent");
+		getOut().print(JSON.toJSONString(list, filter));
 	}
 
-	public void addNode() throws JsonGenerationException, JsonMappingException,
-			IOException {
+	public void addNode() {
 		model.setParent(baseService.get(ShareFileTree.class, pid));
 		baseService.add(model);
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(ShareFileTree.class,
-				IgnoreChildrenMixIn.class);
-		objectMapper.writeValue(getOut(), model);
+		
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(ShareFileTree.class);
+		filter.getExcludes().add("children");
+		getOut().print(JSON.toJSONString(model, filter));
 	}
 
-	public void deleteNode() throws JsonGenerationException,
-			JsonMappingException, IOException {
+	public void deleteNode() {
 		ShareFileTree t = baseService.get(ShareFileTree.class, model.getId());
 		Set<ShareFile> f = t.getFiles();
 		if (null != f && f.size() != 0) {
@@ -91,20 +84,18 @@ public class ShareFileTreeAction extends BaseAction<ShareFileTree> {
 			}
 		}
 		baseService.delete(t);
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(ShareFileTree.class,
-				IgnoreChildrenMixIn.class);
-		objectMapper.writeValue(getOut(), t);
 		
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(ShareFileTree.class);
+		filter.getExcludes().add("children");
+		getOut().print(JSON.toJSONString(model, filter));		
 	}
 
-	public void updateNode() throws JsonGenerationException,
-			JsonMappingException, IOException {
+	public void updateNode() {
 		baseService.save(model);
-		ObjectMapper objectMapper = new ObjectMapper();
-		objectMapper.addMixInAnnotations(ShareFileTree.class,
-				IgnoreChildrenMixIn.class);
-		objectMapper.writeValue(getOut(), model);
+		
+		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(ShareFileTree.class);
+		filter.getExcludes().add("children");
+		getOut().print(JSON.toJSONString(model, filter));			
 	}
 
 	public Long getPid() {

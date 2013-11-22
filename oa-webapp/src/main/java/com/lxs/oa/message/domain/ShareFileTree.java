@@ -17,20 +17,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.annotation.JSONType;
 
 @Entity
 @Table(name = "share_file_tree_")
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer" })
+@JSONType(ignores = "hibernateLazyInitializer")
 public class ShareFileTree implements Serializable {
 	private Long id;
 	private String text;
 	private String url;
 	private ShareFileTree parent;
 	private List<ShareFileTree> children = new ArrayList<ShareFileTree>();
-	@JsonIgnore
 	private Set<ShareFile> files = new HashSet<ShareFile>();
 
 	@Id
@@ -82,10 +80,12 @@ public class ShareFileTree implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "fileTree")
+	@JSONField(serialize = false)
 	public Set<ShareFile> getFiles() {
 		return files;
 	}
 
+	@JSONField(deserialize = false)
 	public void setFiles(Set<ShareFile> files) {
 		this.files = files;
 	}

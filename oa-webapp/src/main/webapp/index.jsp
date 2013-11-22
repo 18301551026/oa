@@ -21,7 +21,7 @@
 		}
 	};
 	$(function() {
-		$.post('${ctx}/security/menu!findMenu.action', function(data) {
+		$.post('${ctx}/security/menu!findMenuByUser.action', function(data) {
 			var nodes = eval(data);
 			$.fn.zTree.init($("#treeMenu"), setting, nodes);
 		});

@@ -22,14 +22,14 @@ import javax.persistence.Transient;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.alibaba.fastjson.annotation.JSONType;
 
 @Entity
 @Table(name = "menu_")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 
-@JsonIgnoreProperties(value={"hibernateLazyInitializer"})
+@JSONType(ignores = "hibernateLazyInitializer")
 public class Menu implements Serializable {
 	
 	private Long id;
@@ -44,7 +44,7 @@ public class Menu implements Serializable {
 	
 	private Menu parent;
 	private List<Menu> children = new ArrayList<Menu>();
-	@JsonIgnore
+	
 	private Set<Role> roles = new HashSet<Role>();
 	
 	@Id
@@ -89,7 +89,6 @@ public class Menu implements Serializable {
 	/**
 	 * OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
 	 * 
-	 * TODO 这里映射OneToManey，无法使用缓存,关联查询影响效率
 	 * @return
 	 */
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
@@ -104,10 +103,12 @@ public class Menu implements Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "menus")
+	@JSONField(serialize = false)
 	public Set<Role> getRoles() {
 		return roles;
 	}
 
+	@JSONField(deserialize = false)
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
