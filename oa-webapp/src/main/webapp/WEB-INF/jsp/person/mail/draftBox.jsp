@@ -15,11 +15,11 @@
 	<div class="panel panel-info">
 		<div class="panel-heading">
 			<div class="btn-group btn-group-sm">
-				<%-- <button id="sendButton"
-					actionUrl="${ctx }/person/draftBox!draftBoxToSend.action"
+				<button id="sendButton"
+					actionUrl="${ctx }/person/draftBox!draftBoxMailsToSend.action"
 					class="btn btn-info">
 					<span class="glyphicon glyphicon-plus"></span> 发送
-				</button> --%>
+				</button>
 				<button id="deleteButton" class="btn btn-info">
 					<span class="glyphicon glyphicon-minus"></span> 删除
 				</button>

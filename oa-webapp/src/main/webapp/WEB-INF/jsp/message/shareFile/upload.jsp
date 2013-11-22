@@ -40,7 +40,7 @@
 		id="uploadShareFileForm" enctype="multipart/form-data"
 		cssStyle="margin:15px">
 		<s:file name="fileContent" cssClass="easyui-validatebox"
-			data-options="required:true" label="请选择相片"></s:file>
+			data-options="required:true" ></s:file>
 		<s:hidden name="fileTree.id"></s:hidden>
 	</s:form>
 </body>

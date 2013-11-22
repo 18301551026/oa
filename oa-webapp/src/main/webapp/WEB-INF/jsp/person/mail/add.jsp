@@ -56,7 +56,13 @@
 												} ]
 									});
 						})
-
+		$("#addAttach")
+				.click(
+						function() {
+							var temp = $(this)
+									.before(
+											'<s:file name="attach" cssClass="pull-left"></s:file><input class="btn btn-info btn-xs pull-left deleteAttach" value="删除" type="button" />');
+						})
 	})
 </script>
 
@@ -78,15 +84,9 @@
 	</div>
 	<div class="clearfix" style="margin-bottom: 20px;"></div>
 	<form action="${ctx}/person/sendBox!save.action" method="post"
-		id="editForm">
+		id="editForm" enctype="multipart/form-data">
 		<s:hidden name="receiveUserIds" id="ids"></s:hidden>
 		<table class="formTable table">
-			<tr>
-				<Td class="control-label" style="width: 3%"><label for="title">标题：</label></Td>
-				<Td class="query_input" colspan="3"><s:textfield name="title"
-						placeholder="请输入标题" cssClass="form-control validate[required]"
-						id="title"></s:textfield></Td>
-			</tr>
 			<tr>
 				<Td class="control-label" style="width: 3%"><label
 					for="receiveUsersName">接收人：</label></Td>
@@ -96,6 +96,18 @@
 					style="width: 95%;" id="receiveUsersName" />
 					<button class="btn btn-info btn-xs pull-right"
 						id="selectReceiveUsersButton" style="margin-top: 2px;">选择</button></Td>
+			</tr>
+			<tr>
+				<Td class="control-label" style="width: 3%"><label for="title">标题：</label></Td>
+				<Td class="query_input" colspan="3"><s:textfield name="title"
+						placeholder="请输入标题" cssClass="form-control validate[required]"
+						id="title"></s:textfield></Td>
+			</tr>
+			<tr>
+				<Td class="control-label" style="width: 3%"><label>附件：</label></Td>
+				<Td class="query_input" colspan="3"><input
+					class="btn btn-info btn-xs pull-right" id="addAttach" value="添加"
+					type="button" /></Td>
 			</tr>
 			<tr>
 				<Td class="control-label" style="width: 3%"><label

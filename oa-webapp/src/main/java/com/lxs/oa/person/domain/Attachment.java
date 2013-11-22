@@ -13,42 +13,50 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="attachment_")
+@Table(name = "attachment_")
 public class Attachment implements Serializable {
 	private Long id;
 	private Mail mail;
-	private String attachmentName;
-	private String content;
+	private String attName;
+	private byte[] content;
+
 	@Id
-	@Column(name="id_")
+	@Column(name = "id_")
 	@GeneratedValue
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="mail_id_")
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "mail_id_")
 	public Mail getMail() {
 		return mail;
 	}
+
 	public void setMail(Mail mail) {
 		this.mail = mail;
 	}
-	@Column(name="attachment_name_")
-	public String getAttachmentName() {
-		return attachmentName;
-	}
-	public void setAttachmentName(String attachmentName) {
-		this.attachmentName = attachmentName;
-	}
+
 	@Lob
-	@Column(name="content_")
-	public String getContent() {
+	@Column(name = "content_")
+	public byte[] getContent() {
 		return content;
 	}
-	public void setContent(String content) {
+
+	public void setContent(byte[] content) {
 		this.content = content;
+	}
+
+	@Column(name = "att_name_")
+	public String getAttName() {
+		return attName;
+	}
+
+	public void setAttName(String attName) {
+		this.attName = attName;
 	}
 }

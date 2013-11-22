@@ -56,7 +56,28 @@
 												} ]
 									});
 						})
+		$("#addAttach")
+				.click(
+						function() {
+							var temp = $(this)
+									.before(
+											'<s:file name="attach" cssClass="pull-left"></s:file><input class="btn btn-info btn-xs pull-left deleteAttach" value="删除" type="button" />');
+						})
+		$(".deleteAttachFromDb").click(function() {
+			var pre = $(this).prev();
+			pre.remove();
+			$(this).remove();
+			var id = $(this).attr("deleteId");
+			$.ajax({
+				type : "POST",
+				url : ctx + "/person/draftBox!deleteAtt.action",
+				data : "attId=" + id,
+				success : function(msg) {
+					
+				}
+			});
 
+		})
 	})
 </script>
 
@@ -65,11 +86,12 @@
 		<span class="glyphicon glyphicon-backward"></span> 返回列表
 	</button>
 	<div class="btn-group pull-right btn-group-sm">
-		<button type="button" class="btn btn-info" id="saveButton">
+		<button type="button" class="btn btn-info" id="sendButton"
+			actionUrl="${ctx }/person/draftBox!draftBoxToSend.action">
 			<span class="glyphicon glyphicon-ok"></span> 发送
 		</button>
 		<button type="button" class="btn btn-info" id="otherButton"
-			actionUrl="${ctx }/person/sendBox!saveToDraft.action">
+			actionUrl="${ctx }/person/draftBox!updateToDraft.action">
 			<span class="glyphicon glyphicon-ok"></span> 保存
 		</button>
 		<button type="button" class="btn btn-info" id="resetButton">
@@ -77,11 +99,22 @@
 		</button>
 	</div>
 	<div class="clearfix" style="margin-bottom: 20px;"></div>
-	<form action="${ctx}/person/sendBox!save.action" method="post"
-		id="editForm">
+	<form action="ssddd" method="post" id="editForm">
 		<s:hidden name="id"></s:hidden>
 		<s:hidden name="receiveUserIds" id="ids"></s:hidden>
 		<table class="formTable table">
+			<tr>
+				<Td class="control-label" style="width: 3%"><label
+					for="receiveUsersName">接收人：</label></Td>
+				<Td class="query_input" colspan="3"><s:textfield
+						name="receiveUsersName" placeholder="请选择接收人" readonly="true"
+						cssClass="form-control pull-left validate[required]"
+						cssStyle="width: 95%;" id="receiveUsersName"></s:textfield> <input
+					type="button" class="btn btn-info btn-xs pull-right"
+					actionId="${id }" id="selectReceiveUsersButton"
+					style="margin-top: 2px;" value="选择"> <%-- <button class="btn btn-info btn-xs pull-right" actionId="${id }"
+						id="selectReceiveUsersButton" style="margin-top: 2px;">选择</button> --%></Td>
+			</tr>
 			<tr>
 				<Td class="control-label" style="width: 3%"><label for="title">标题：</label></Td>
 				<Td class="query_input" colspan="3"><s:textfield name="title"
@@ -89,14 +122,14 @@
 						id="title"></s:textfield></Td>
 			</tr>
 			<tr>
-				<Td class="control-label" style="width: 3%"><label
-					for="receiveUsersName">接收人：</label></Td>
-				<Td class="query_input" colspan="3"><s:textfield
-						name="receiveUsersName" placeholder="请选择接收人" readonly="true"
-						cssClass="form-control pull-left validate[required]"
-						cssStyle="width: 95%;" id="receiveUsersName"></s:textfield>
-					<button class="btn btn-info btn-xs pull-right" actionId="${id }"
-						id="selectReceiveUsersButton" style="margin-top: 2px;">选择</button></Td>
+				<Td class="control-label" style="width: 3%"><label>附件：</label></Td>
+				<Td class="query_input" colspan="3"><c:forEach
+						items="${attachments }" var="a">
+						<a href="" class="pull-left">${a.attName }&nbsp;</a>
+						<input class="btn btn-info btn-xs pull-left deleteAttachFromDb"
+							value="删除" type="button" deleteId="${a.id }" />
+					</c:forEach> <input class="btn btn-info btn-xs pull-right" id="addAttach"
+					value="添加" type="button" /></Td>
 			</tr>
 			<tr>
 				<Td class="control-label" style="width: 3%"><label

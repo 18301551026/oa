@@ -1,5 +1,7 @@
 package com.lxs.oa.person.action;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,10 +16,13 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 
 import com.lxs.core.action.BaseAction;
+import com.lxs.core.common.BeanUtil;
 import com.lxs.core.common.SystemConstant;
 import com.lxs.oa.person.common.MailStatusEnum;
+import com.lxs.oa.person.domain.Attachment;
 import com.lxs.oa.person.domain.Mail;
 import com.lxs.oa.person.domain.Mail_user_;
 import com.lxs.security.domain.Dept;
@@ -46,6 +51,9 @@ import com.opensymphony.xwork2.ActionContext;
 public class MailAction extends BaseAction<Mail> {
 	private Long deptId;
 	private String receiveUserIds;
+	private File attach[];
+	private String attachFileName[];
+	private Long attId;
 
 	@Override
 	public void beforFind(DetachedCriteria criteria) {
@@ -80,30 +88,27 @@ public class MailAction extends BaseAction<Mail> {
 	}
 
 	public String toSelectReceiveUsers() {
-		User currentUser = (User) ActionContext.getContext().getSession()
-				.get(SystemConstant.CURRENT_USER);
 		List<User> users = baseService.find(DetachedCriteria
 				.forClass(User.class));
-		users.remove(currentUser);// 所有人列表
 		ActionContext.getContext().put("users", users);
 		List<Dept> depts = baseService.find(DetachedCriteria
 				.forClass(Dept.class));
 		ActionContext.getContext().put("depts", depts);
 
-		if (null != model && model.getId() != null) {
-			DetachedCriteria detachedCriteria = DetachedCriteria
-					.forClass(Mail_user_.class);
-			detachedCriteria.createAlias("mail", "m");
-			detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
-			List<Mail_user_> list = baseService.find(detachedCriteria);
-			ActionContext.getContext().put("selectedMailUsers", list);
-			receiveUserIds = "";
-			for (Mail_user_ mail_user_ : list) {
-				receiveUserIds += mail_user_.getUser().getId() + ",";
-			}
-			receiveUserIds = receiveUserIds.substring(0,
-					receiveUserIds.length() - 1);
-		}
+		// if (null != model && model.getId() != null) {
+		// DetachedCriteria detachedCriteria = DetachedCriteria
+		// .forClass(Mail_user_.class);
+		// detachedCriteria.createAlias("mail", "m");
+		// detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
+		// List<Mail_user_> list = baseService.find(detachedCriteria);
+		// ActionContext.getContext().put("selectedMailUsers", list);
+		// receiveUserIds = "";
+		// for (Mail_user_ mail_user_ : list) {
+		// receiveUserIds += mail_user_.getUser().getId() + ",";
+		// }
+		// receiveUserIds = receiveUserIds.substring(0,
+		// receiveUserIds.length() - 1);
+		// }
 		return "toSelectReceiveUsers";
 	}
 
@@ -144,6 +149,30 @@ public class MailAction extends BaseAction<Mail> {
 		return UPDATE;
 	}
 
+	public String draftBoxSave() {
+
+		return LIST_ACTION;
+	}
+
+	// 修改草稿箱中的邮件
+	public String updateToDraft() {
+		Mail temp = baseService.get(Mail.class, model.getId());
+		BeanUtil.copy(model, temp);
+		baseService.update(temp);
+		// 删除原来的收件人
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Mail_user_.class);
+		detachedCriteria.createAlias("mail", "m");
+		detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
+		List<Mail_user_> oldMus = baseService.find(detachedCriteria);
+		for (Mail_user_ mail_user_ : oldMus) {
+			baseService.delete(mail_user_);
+		}
+
+		addMailUser(temp);// 添加新的收件人
+		return LIST_ACTION;
+	}
+
 	/*
 	 * 将邮件添加到草稿箱
 	 */
@@ -155,8 +184,14 @@ public class MailAction extends BaseAction<Mail> {
 		model.setStatus(MailStatusEnum.draftBox.getValue());
 		baseService.add(model);
 
-		addMailUser(model);
+		// addMailUser(model);
+		afterSave(model);
 		return LIST_ACTION;
+	}
+
+	public void deleteAtt() {
+		baseService.delete(baseService.get(Attachment.class, attId));
+		getOut().print("成功");
 	}
 
 	@Override
@@ -215,9 +250,6 @@ public class MailAction extends BaseAction<Mail> {
 			}
 		}
 		for (User user : executeUsers) {
-			if (user.getId() == currentUser.getId()) {
-				continue;
-			}
 			Mail_user_ mu = new Mail_user_();
 			mu.setMail(m);
 			mu.setStatus(MailStatusEnum.noRead.getValue());
@@ -228,6 +260,21 @@ public class MailAction extends BaseAction<Mail> {
 
 	@Override
 	public void afterSave(Mail m) {
+		try {
+			if (null != attach && attach.length != 0) {
+				for (int i = 0; i < attach.length; i++) {
+					File f = attach[i];
+					Attachment att = new Attachment();
+					att.setMail(m);
+					att.setAttName(attachFileName[i]);
+					att.setContent(FileCopyUtils.copyToByteArray(f));
+					baseService.add(att);
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		addMailUser(m);
 	}
 
@@ -301,10 +348,8 @@ public class MailAction extends BaseAction<Mail> {
 		return LIST_ACTION;
 	}
 
-	/*
-	 * 将草稿箱中的邮件发送出去
-	 */
-	public String draftBoxToSend() {
+	public String draftBoxMailsToSend() {
+
 		for (int i = 0; i < ids.length; i++) {
 			Mail m = baseService.get(Mail.class, ids[i]);
 			m.setStatus(MailStatusEnum.sendBox.getValue());
@@ -312,6 +357,33 @@ public class MailAction extends BaseAction<Mail> {
 					.format(new Date()));
 			baseService.update(m);
 		}
+		return LIST_ACTION;
+	}
+
+	/*
+	 * 将草稿箱中的邮件发送出去
+	 */
+	public String draftBoxToSend() {
+
+		Mail temp = baseService.get(Mail.class, model.getId());
+		BeanUtil.copy(model, temp);
+		temp.setStatus(MailStatusEnum.sendBox.getValue());
+		temp.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+				.format(new Date()));
+		baseService.update(temp);
+		// 删除原来的收件人
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Mail_user_.class);
+		detachedCriteria.createAlias("mail", "m");
+		detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
+		List<Mail_user_> oldMus = baseService.find(detachedCriteria);
+		for (Mail_user_ mail_user_ : oldMus) {
+			baseService.delete(mail_user_);
+		}
+
+		// addMailUser(temp);添加新的收件人
+		afterSave(temp);
+
 		return LIST_ACTION;
 	}
 
@@ -344,6 +416,30 @@ public class MailAction extends BaseAction<Mail> {
 
 	public void setReceiveUserIds(String receiveUserIds) {
 		this.receiveUserIds = receiveUserIds;
+	}
+
+	public File[] getAttach() {
+		return attach;
+	}
+
+	public void setAttach(File[] attach) {
+		this.attach = attach;
+	}
+
+	public String[] getAttachFileName() {
+		return attachFileName;
+	}
+
+	public void setAttachFileName(String[] attachFileName) {
+		this.attachFileName = attachFileName;
+	}
+
+	public Long getAttId() {
+		return attId;
+	}
+
+	public void setAttId(Long attId) {
+		this.attId = attId;
 	}
 
 }

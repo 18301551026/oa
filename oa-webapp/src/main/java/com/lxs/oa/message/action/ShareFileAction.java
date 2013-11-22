@@ -81,13 +81,13 @@ public class ShareFileAction extends BaseAction<ShareFile> {
 		}
 		return fileSizeString;
 	}
-
+	//确定可以下载此资源的用户
+	public void confirmCanDownloadUsers(){
+		
+	}
 	public String toSelectCanDownloadUsers() {
-		User currentUser = (User) ActionContext.getContext().getSession()
-				.get(SystemConstant.CURRENT_USER);
 		List<User> users = baseService.find(DetachedCriteria
 				.forClass(User.class));
-		users.remove(currentUser);// 所有人列表
 		ActionContext.getContext().put("users", users);
 		List<Dept> depts = baseService.find(DetachedCriteria
 				.forClass(Dept.class));

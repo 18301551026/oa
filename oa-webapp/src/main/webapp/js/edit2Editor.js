@@ -63,7 +63,25 @@ $(function() {
 	})
 	$("#turnToOther").click(function() {
 		var url = $(this).attr("actionUrl");
-		location.href=url;
+		location.href = url;
+	})
+	$("#sendButton").click(function() {
+		if (editor1) {
+			editor1.sync();
+		}
+		if (editor2) {
+			editor2.sync();
+		}
+		var url = $(this).attr("actionUrl");
+		$("#editForm").attr("action", url);
+		$("#editForm").submit();
+	});
+
+	
+	$(".deleteAttach").live("click", function() {
+		var pre = $(this).prev();
+		pre.remove();
+		$(this).remove();
 	})
 	jQuery("#editForm").validationEngine();
 

@@ -58,7 +58,7 @@
 			})
 
 			$("#setCanDownloadUsersForm").form({
-				url : ctx + '/person/shareFileTree!addNode.action',
+				url : ctx + '/person/shareFile!confirmCanDownloadUsers.action',
 				success : function(r) {
 					if (!r) {
 						return;
