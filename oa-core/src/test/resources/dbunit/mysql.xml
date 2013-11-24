@@ -14,7 +14,7 @@
       <value>/oa/js/ztree/css/zTreeStyle/img/diy/7.png</value>
       <value>行政办公</value>
       <value>true</value>
-      <value>1</value>
+      <value>0</value>
       <value/>
       <value/>
       <null/>
@@ -24,7 +24,7 @@
       <value>/oa/js/ztree/css/zTreeStyle/img/diy/8.png</value>
       <value>工作流管理</value>
       <value>false</value>
-      <value>2</value>
+      <value>1</value>
       <value/>
       <value/>
       <null/>
@@ -34,7 +34,7 @@
       <value>/oa/js/ztree/css/zTreeStyle/img/diy/9.png</value>
       <value>系统管理</value>
       <value>false</value>
-      <value>3</value>
+      <value>2</value>
       <value/>
       <value/>
       <null/>
@@ -204,7 +204,7 @@
       <value/>
       <value>用户</value>
       <value>false</value>
-      <value>2</value>
+      <value>3</value>
       <value>mainFrame</value>
       <value>/oa/security/user!findPage.action</value>
       <value>3</value>
@@ -214,7 +214,7 @@
       <value/>
       <value>部门</value>
       <value>false</value>
-      <value>3</value>
+      <value>4</value>
       <value>mainFrame</value>
       <value>/oa/security/dept!findPage.action</value>
       <value>3</value>
@@ -224,7 +224,7 @@
       <value/>
       <value>职位</value>
       <value>false</value>
-      <value>4</value>
+      <value>2</value>
       <value>mainFrame</value>
       <value>/oa/security/job!findPage.action</value>
       <value>3</value>
@@ -244,7 +244,7 @@
       <value/>
       <value>个人办公</value>
       <value>false</value>
-      <value>4</value>
+      <value>3</value>
       <value/>
       <value/>
       <null/>
@@ -254,7 +254,7 @@
       <value/>
       <value>公共信息</value>
       <value>false</value>
-      <value>5</value>
+      <value>4</value>
       <value/>
       <value/>
       <null/>
@@ -348,6 +348,76 @@
       <value>mainFrame</value>
       <value>/oa/message/dictionary!findPage.action</value>
       <value>26</value>
+    </row>
+    <row>
+      <value>37</value>
+      <null/>
+      <value>内部邮件</value>
+      <null/>
+      <value>2</value>
+      <null/>
+      <value/>
+      <value>25</value>
+    </row>
+    <row>
+      <value>38</value>
+      <null/>
+      <value>发件箱</value>
+      <null/>
+      <value>0</value>
+      <null/>
+      <value>/oa/person/sendBox!findPage.action?mailStatus=1</value>
+      <value>37</value>
+    </row>
+    <row>
+      <value>40</value>
+      <null/>
+      <value>收件箱</value>
+      <null/>
+      <value>1</value>
+      <null/>
+      <value>/oa/person/receiveBox!findPage.action?mailStatus=2</value>
+      <value>37</value>
+    </row>
+    <row>
+      <value>41</value>
+      <null/>
+      <value>草稿箱</value>
+      <null/>
+      <value>2</value>
+      <null/>
+      <value>/oa/person/draftBox!findPage.action?mailStatus=3</value>
+      <value>37</value>
+    </row>
+    <row>
+      <value>42</value>
+      <null/>
+      <value>资料共享</value>
+      <null/>
+      <value>4</value>
+      <null/>
+      <value/>
+      <value>26</value>
+    </row>
+    <row>
+      <value>43</value>
+      <null/>
+      <value>上传</value>
+      <null/>
+      <null/>
+      <null/>
+      <value>/oa/person/upload!toIndex.action?status=1</value>
+      <value>42</value>
+    </row>
+    <row>
+      <value>44</value>
+      <null/>
+      <value>下载</value>
+      <null/>
+      <null/>
+      <null/>
+      <value>/oa/person/download!toIndex.action?status=2</value>
+      <value>42</value>
     </row>
   </table>
   <table name="user_">
@@ -478,658 +548,43 @@
     <column>dept_name_</column>
     <row>
       <value>1</value>
-      <null/>
+      <value>a</value>
       <value>软件部</value>
     </row>
     <row>
       <value>2</value>
-      <null/>
+      <value>a</value>
       <value>研发部</value>
     </row>
     <row>
       <value>3</value>
-      <null/>
+      <value>b</value>
       <value>财务部</value>
     </row>
     <row>
       <value>4</value>
-      <null/>
+      <value>b</value>
       <value>行政人事部</value>
     </row>
     <row>
       <value>5</value>
-      <null/>
-      <value>as</value>
+      <value>b</value>
+      <value>b1</value>
     </row>
     <row>
       <value>6</value>
-      <null/>
-      <value>f</value>
+      <value>a</value>
+      <value>a1</value>
     </row>
     <row>
       <value>7</value>
-      <null/>
-      <value>as</value>
+      <value>a</value>
+      <value>a2</value>
     </row>
     <row>
       <value>8</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>9</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>10</value>
-      <null/>
-      <value>fa</value>
-    </row>
-    <row>
-      <value>11</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>12</value>
-      <null/>
-      <value>a</value>
-    </row>
-    <row>
-      <value>13</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>14</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>15</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>16</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>17</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>18</value>
-      <null/>
-      <value>a</value>
-    </row>
-    <row>
-      <value>19</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>20</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>21</value>
-      <null/>
-      <value>d</value>
-    </row>
-    <row>
-      <value>22</value>
-      <null/>
-      <value>a</value>
-    </row>
-    <row>
-      <value>23</value>
-      <null/>
-      <value>asdf</value>
-    </row>
-    <row>
-      <value>24</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>25</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>26</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>27</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>28</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>29</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>30</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>31</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>32</value>
-      <null/>
-      <value>a</value>
-    </row>
-    <row>
-      <value>33</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>34</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>35</value>
-      <null/>
-      <value>w</value>
-    </row>
-    <row>
-      <value>36</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>37</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>38</value>
-      <null/>
-      <value>fa</value>
-    </row>
-    <row>
-      <value>39</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>40</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>41</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>42</value>
-      <null/>
-      <value>r</value>
-    </row>
-    <row>
-      <value>43</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>44</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>45</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>46</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>47</value>
-      <null/>
-      <value>a</value>
-    </row>
-    <row>
-      <value>48</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>49</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>50</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>51</value>
-      <null/>
-      <value>fas</value>
-    </row>
-    <row>
-      <value>52</value>
-      <null/>
-      <value>a</value>
-    </row>
-    <row>
-      <value>53</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>54</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>55</value>
-      <null/>
-      <value>asdf</value>
-    </row>
-    <row>
-      <value>56</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>57</value>
-      <null/>
-      <value>asdf</value>
-    </row>
-    <row>
-      <value>58</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>59</value>
-      <null/>
-      <value>asdf</value>
-    </row>
-    <row>
-      <value>60</value>
-      <null/>
-      <value>as</value>
-    </row>
-    <row>
-      <value>61</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>62</value>
-      <null/>
-      <value>er</value>
-    </row>
-    <row>
-      <value>63</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>64</value>
-      <null/>
-      <value>d</value>
-    </row>
-    <row>
-      <value>65</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>66</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>67</value>
-      <null/>
-      <value>d</value>
-    </row>
-    <row>
-      <value>68</value>
-      <null/>
-      <value>asdfg</value>
-    </row>
-    <row>
-      <value>69</value>
-      <null/>
-      <value>d</value>
-    </row>
-    <row>
-      <value>70</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>71</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>72</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>73</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>74</value>
-      <null/>
-      <value>asd</value>
-    </row>
-    <row>
-      <value>75</value>
-      <null/>
-      <value>ad</value>
-    </row>
-    <row>
-      <value>76</value>
-      <null/>
-      <value>fg</value>
-    </row>
-    <row>
-      <value>77</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>78</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>79</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>80</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>81</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>82</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>83</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>84</value>
-      <null/>
-      <value>dfg</value>
-    </row>
-    <row>
-      <value>85</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>86</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>87</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>88</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>89</value>
-      <null/>
-      <value>sdfg</value>
-    </row>
-    <row>
-      <value>90</value>
-      <null/>
-      <value>erg</value>
-    </row>
-    <row>
-      <value>91</value>
-      <null/>
-      <value>e</value>
-    </row>
-    <row>
-      <value>92</value>
-      <null/>
-      <value>dsf</value>
-    </row>
-    <row>
-      <value>93</value>
-      <null/>
-      <value>ds</value>
-    </row>
-    <row>
-      <value>94</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>95</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>96</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>97</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>98</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>99</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>100</value>
-      <null/>
-      <value>dfg</value>
-    </row>
-    <row>
-      <value>101</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>102</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>103</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>104</value>
-      <null/>
-      <value>sdfg</value>
-    </row>
-    <row>
-      <value>105</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>106</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>107</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>108</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>109</value>
-      <null/>
-      <value>sdfg</value>
-    </row>
-    <row>
-      <value>110</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>111</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>112</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>113</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>114</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>115</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>116</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>117</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>118</value>
-      <null/>
-      <value>f</value>
-    </row>
-    <row>
-      <value>119</value>
-      <null/>
-      <value>sd</value>
-    </row>
-    <row>
-      <value>120</value>
-      <null/>
-      <value>sdf</value>
-    </row>
-    <row>
-      <value>121</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>122</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>123</value>
-      <null/>
-      <value>fg</value>
-    </row>
-    <row>
-      <value>124</value>
-      <null/>
-      <value>fg</value>
-    </row>
-    <row>
-      <value>125</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>126</value>
-      <null/>
-      <value>s</value>
-    </row>
-    <row>
-      <value>127</value>
-      <null/>
-      <value>er</value>
-    </row>
-    <row>
-      <value>128</value>
-      <null/>
-      <value>df</value>
-    </row>
-    <row>
-      <value>129</value>
-      <null/>
-      <value>gs</value>
-    </row>
-    <row>
-      <value>130</value>
-      <null/>
-      <value>g</value>
-    </row>
-    <row>
-      <value>131</value>
-      <null/>
-      <value>g</value>
+      <value>b</value>
+      <value>b2</value>
     </row>
   </table>
   <table name="user_job_">
@@ -1587,6 +1042,74 @@
       <value>3</value>
       <value>36</value>
     </row>
+    <row>
+      <value>1</value>
+      <value>37</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>37</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>37</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>38</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>38</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>38</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>40</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>40</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>40</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>41</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>41</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>41</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>42</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>42</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>42</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>43</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>44</value>
+    </row>
   </table>
   <table name="ROLE_USER_">
     <column>role_id_</column>
@@ -1705,17 +1228,5 @@
     <column>name_</column>
     <column>type_</column>
     <column>value_</column>
-    <row>
-      <value>1</value>
-      <value>军事新闻</value>
-      <value>新闻类型</value>
-      <value>军事新闻</value>
-    </row>
-    <row>
-      <value>2</value>
-      <value>体育新闻</value>
-      <value>新闻类型</value>
-      <value>体育新闻</value>
-    </row>
   </table>
 </dataset>

@@ -13,7 +13,7 @@
 	<script type="text/javascript">
 		$(function() {
 			$("#uploadShareFileForm").form({
-				url : ctx + '/person/shareFile!upload.action',
+				url : ctx + '/person/upload!upload.action',
 				onSubmit : function() {
 					if ($("#uploadShareFileForm").form("validate")) {
 						return true;
@@ -36,7 +36,7 @@
 			});
 		})
 	</script>
-	<s:form action="/person/shareFile!upload.action" method="post"
+	<s:form action="/person/upload!upload.action" method="post"
 		id="uploadShareFileForm" enctype="multipart/form-data"
 		cssStyle="margin:15px">
 		<s:file name="fileContent" cssClass="easyui-validatebox"

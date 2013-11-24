@@ -57,20 +57,6 @@
 				});
 			})
 
-			$("#setCanDownloadUsersForm").form({
-				url : ctx + '/person/shareFile!confirmCanDownloadUsers.action',
-				success : function(r) {
-					if (!r) {
-						return;
-					}
-					$.messager.show({
-						msg : '设置成功',
-						title : '提示'
-					});
-					//	parent.$.modalDialog.openner_shareFileTree.tree('reload');
-					parent.parent.$.modalDialog.handler.dialog('close');
-				}
-			});
 		})
 		function moveOptions(e1, e2) {
 			for (var i = e1.options.length - 1; i >= 0; i--) {

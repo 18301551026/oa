@@ -12,10 +12,21 @@
 <%@ include file="/common/include-styles.jsp"%>
 </head>
 <script type="text/javascript">
+	function confirmCanDownloadUsersFn(fileId, canIds) {
+		$.ajax({
+			type : "POST",
+			url : ctx + "/person/upload!confirmCanDownloadUsers.action",
+			data : "id=" + fileId + "&canDownloadUserIds=" + canIds,
+			success : function(msg) {
+				parent.parent.$.modalDialog.handler.dialog('close');
+			}
+		});
+	}
 	$(function() {
 		$(".setCanDownloadButton")
 				.click(
 						function() {
+							var fileId = $(this).attr("fileId");
 							parent.parent.$
 									.modalDialog({
 										title : "设置可下载人员",
@@ -26,29 +37,21 @@
 												{
 													text : '全体人员',
 													handler : function() {
-														$("#ids").val(0);
-														$("#receiveUsersName")
-																.val("全体人员");
-														parent.$.modalDialog.handler
-																.dialog('close');
+														confirmCanDownloadUsersFn(
+																fileId, 0);
 													}
 												},
 												{
 													text : '确定',
 													iconCls : 'icon-save',
 													handler : function() {
-														var ids = parent.$.modalDialog.handler
-																.find('#ids');
-														var receivedUserNames = parent.$.modalDialog.handler
-																.find('#receiveUsersName');
-														$("#receiveUsersName")
-																.val(
-																		receivedUserNames
-																				.val());
-														$("#ids")
-																.val(ids.val());
-														parent.$.modalDialog.handler
-																.dialog('close');
+														var ids = parent.parent.$.modalDialog.handler
+																.find('#ids')
+																.val();
+														console.info(ids + "\t"
+																+ fileId);
+														confirmCanDownloadUsersFn(
+																fileId, ids);
 													}
 												} ]
 									});
@@ -56,20 +59,21 @@
 		$("#uploadFileButton")
 				.click(
 						function() {
+
 							parent.parent.$
 									.modalDialog({
 										title : "上传资源",
 										width : 340,
 										height : 140,
 										href : ctx
-												+ "/person/shareFile!toUpload.action?fileTree.id="
+												+ "/person/upload!toUpload.action?fileTree.id="
 												+ $("#fileTreeId").val(),
 										buttons : [
 												{
 													text : '上传',
 													iconCls : 'icon-save',
 													handler : function() {
-															parent.parent.$.modalDialog.openner_queryForm = $("#queryForm");
+														parent.parent.$.modalDialog.openner_queryForm = $("#queryForm");
 														var f = parent.parent.$.modalDialog.handler
 																.find('#uploadShareFileForm');
 														f.submit();
@@ -91,12 +95,15 @@
 	<div class="panel panel-info">
 		<div class="panel-heading">
 			<div class="btn-group btn-group-sm">
-				<button id="uploadFileButton" class="btn btn-info">
-					<span class="glyphicon glyphicon-plus"></span> 上传
-				</button>
-				<button id="deleteButton" class="btn btn-info">
-					<span class="glyphicon glyphicon-minus"></span> 删除
-				</button>
+				<s:if
+					test="status==@com.lxs.oa.message.common.FileStatusEnum@upload.value">
+					<button id="uploadFileButton" class="btn btn-info">
+						<span class="glyphicon glyphicon-plus"></span> 上传
+					</button>
+					<button id="deleteButton" class="btn btn-info">
+						<span class="glyphicon glyphicon-minus"></span> 删除
+					</button>
+				</s:if>
 				<button id="queryButton" class="btn btn-info">
 					<span class="glyphicon glyphicon-search"></span> 查询
 				</button>
@@ -109,8 +116,15 @@
 		</div>
 		<div class="panel-body hide" id="queryPanel">
 			<form role="form" id="queryForm" class="form-horizontal"
-				action="${ctx}/person/shareFile!findPage.action" method="post">
+				<s:if test="status==@com.lxs.oa.message.common.FileStatusEnum@upload.value">
+			action="${ctx}/person/upload!findPage.action" 
+			</s:if>
+				<s:if test="status==@com.lxs.oa.message.common.FileStatusEnum@download.value">
+			action="${ctx}/person/download!findPage.action"
+			</s:if>
+				method="post">
 				<s:hidden name="fileTree.id" id="fileTreeId"></s:hidden>
+				<s:hidden name="status"></s:hidden>
 				<table class="formTable">
 					<Tr>
 						<Td class="control-label"><label for="title">标题：</label></Td>
@@ -121,9 +135,10 @@
 			</form>
 		</div>
 	</div>
-	<form method="post" action="${ctx }/person/shareFile!delete.action"
+	<form method="post" action="${ctx }/person/upload!delete.action"
 		id="deleteForm">
 		<table class="table table-bordered table-striped table-hover">
+			<s:set name="tempStatus" value="status" scope="request"></s:set>
 			<thead>
 				<tr>
 					<th class="table_checkbox"><input type="checkbox"
@@ -136,6 +151,7 @@
 				</tr>
 			</thead>
 			<tbody>
+
 				<s:iterator value="#page.result">
 					<tr>
 						<td class="table_checkbox"><input type="checkbox" name="ids"
@@ -144,9 +160,11 @@
 						<td>${ownerUser.realName }</td>
 						<Td>${uploadDate }</Td>
 						<td>${size }</td>
-						<td><a href="javascript:void(0)"
-							actionUrl="${ctx}/person/shareFile!toSelectCanDownloadUsers.action?id=${id}"
-							class="setCanDownloadButton">设置权限</a></td>
+						<td><c:if test="${requestScope.tempStatus==1 }">
+								<a href="javascript:void(0)"
+									actionUrl="${ctx}/person/shareFile!toSelectCanDownloadUsers.action?id=${id}"
+									class="setCanDownloadButton" fileId=${id }>设置权限</a>&nbsp;
+						</c:if> <a href="">下载</td>
 					</tr>
 				</s:iterator>
 			</tbody>

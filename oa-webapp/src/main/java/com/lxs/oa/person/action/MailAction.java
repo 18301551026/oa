@@ -42,12 +42,12 @@ import com.opensymphony.xwork2.ActionContext;
 				@Result(name = "list", location = "/WEB-INF/jsp/person/mail/receiveBox.jsp"),
 				@Result(name = "turnToOther", location = "/WEB-INF/jsp/person/mail/add.jsp"),
 				@Result(name = "toShowDetail", location = "/WEB-INF/jsp/person/mail/mailDetail.jsp"),
-				@Result(name = "listAction", location = "/person/receiveBox!findPage.action?mailStatus=${@ com.lxs.oa.person.common.MailStatusEnum@receiveBox.value}", type = "redirect"), }),
+				@Result(name = "listAction", location = "/person/receiveBox!findPage.action?mailStatus=${@ com.lxs.oa.person.common.MailStatusEnum@receiveBox.value}", type = "redirect") }),
 		@Action(className = "mailAction", value = "draftBox", results = {
 				@Result(name = "list", location = "/WEB-INF/jsp/person/mail/draftBox.jsp"),
 				@Result(name = "update", location = "/WEB-INF/jsp/person/mail/edit.jsp"),
 				@Result(name = "toSelectReceiveUsers", location = "/WEB-INF/jsp/person/mail/selectReceiveUsers.jsp"),
-				@Result(name = "listAction", location = "/person/draftBox!findPage.action?mailStatus=${@ com.lxs.oa.person.common.MailStatusEnum@draftBox.value}", type = "redirect"), }) })
+				@Result(name = "listAction", location = "/person/draftBox!findPage.action?mailStatus=${@ com.lxs.oa.person.common.MailStatusEnum@draftBox.value}", type = "redirect") }) })
 public class MailAction extends BaseAction<Mail> {
 	private Long deptId;
 	private String receiveUserIds;

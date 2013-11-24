@@ -41,12 +41,18 @@
 										+ node.id + "&randomnum="
 										+ Math.floor(Math.random() * 1000000),
 										node.text); */
-								$("#shareFileListIframe")
-										.attr(
-												"src",
-												ctx
-														+ "/person/shareFile!findPage.action?fileTree.id="
-														+ node.id)
+								var status = $("#status").val();
+								var url;
+								if (status == 1) {
+									url = ctx
+											+ "/person/upload!findPage.action?fileTree.id="
+											+ node.id;
+								} else {
+									url = ctx
+											+ "/person/download!findPage.action?fileTree.id="
+											+ node.id;
+								}
+								$("#shareFileListIframe").attr("src", url)
 							},
 							onContextMenu : function(e, node) {
 								var parentTree = $("#shareMainTree").tree(
@@ -177,6 +183,7 @@
 	}
 </script>
 </head>
+<s:hidden name="status" id="status"></s:hidden>
 <div id="shareContextMenu" class="easyui-menu">
 	<div title="添加" data-options="iconCls:'icon-add'" id="addShareNode">添加节点</div>
 	<div title="删除" data-options="iconCls:'icon-remove'"
@@ -190,7 +197,13 @@
 		<ul id="shareMainTree" data-options="fit:true,border:false"></ul>
 	</div>
 	<div data-options="region:'center'">
-		<iframe src="${ctx }/person/shareFile!findPage.action"
+		<iframe
+			<s:if test="@com.lxs.oa.message.common.FileStatusEnum@upload.value==status">
+				src="${ctx }/person/upload!findPage.action?status=${status }"   
+			</s:if>
+			<s:if test="@com.lxs.oa.message.common.FileStatusEnum@download.value==status">
+				src="${ctx }/person/download!findPage.action?status=${status }"   
+			</s:if>
 			id="shareFileListIframe" frameborder="0"
 			style="border: 0; width: 100%; height: 98%;"></iframe>
 	</div>

@@ -105,9 +105,11 @@
 			</tr>
 			<tr>
 				<Td class="control-label" style="width: 3%"><label>附件：</label></Td>
-				<Td class="query_input" colspan="3"><input
-					class="btn btn-info btn-xs pull-right" id="addAttach" value="添加"
-					type="button" /></Td>
+				<Td class="query_input" colspan="3"><s:file name="attach"
+						cssClass="pull-left"></s:file><input
+					class="btn btn-info btn-xs pull-left deleteAttach" value="删除"
+					type="button" /> <input class="btn btn-info btn-xs pull-right"
+					id="addAttach" value="添加" type="button" /></Td>
 			</tr>
 			<tr>
 				<Td class="control-label" style="width: 3%"><label

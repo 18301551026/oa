@@ -3,13 +3,16 @@ package com.lxs.oa.message.action;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.struts2.convention.annotation.Action;
+import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.annotation.Scope;
@@ -18,6 +21,7 @@ import org.springframework.util.FileCopyUtils;
 
 import com.lxs.core.action.BaseAction;
 import com.lxs.core.common.SystemConstant;
+import com.lxs.oa.message.common.FileStatusEnum;
 import com.lxs.oa.message.domain.ShareFile;
 import com.lxs.security.domain.Dept;
 import com.lxs.security.domain.User;
@@ -26,13 +30,22 @@ import com.opensymphony.xwork2.ActionContext;
 @Controller
 @Scope("prototype")
 @Namespace("/person")
-@Action("shareFile")
-@Results({
-		@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
-		@Result(name = "toSelectCanDownloadUsers", location = "/WEB-INF/jsp/message/shareFile/selectCanDownloadUsers.jsp"),
-		@Result(name = "toUpload", location = "/WEB-INF/jsp/message/shareFile/upload.jsp"),
-		@Result(name = "listAction", location = "/person/shareFile!findPage.action?fileTree.id=${fileTree.id}", type = "redirect"),
-		@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp"), })
+@Actions({
+		@Action(className = "shareFileAction", value = "upload", results = {
+				@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
+				@Result(name = "toSelectCanDownloadUsers", location = "/WEB-INF/jsp/message/shareFile/selectCanDownloadUsers.jsp"),
+				@Result(name = "toUpload", location = "/WEB-INF/jsp/message/shareFile/upload.jsp"),
+				@Result(name = "listAction", location = "/person/shareFile!findPage.action?fileTree.id=${fileTree.id}", type = "redirect"),
+				@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") }),
+		@Action(className = "shareFileAction", value = "download", results = {
+				@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
+				@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") }) })
+//@Results({
+//		@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
+//		@Result(name = "toSelectCanDownloadUsers", location = "/WEB-INF/jsp/message/shareFile/selectCanDownloadUsers.jsp"),
+//		@Result(name = "toUpload", location = "/WEB-INF/jsp/message/shareFile/upload.jsp"),
+//		@Result(name = "listAction", location = "/person/shareFile!findPage.action?fileTree.id=${fileTree.id}", type = "redirect"),
+//		@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") })
 public class ShareFileAction extends BaseAction<ShareFile> {
 	private File fileContent;
 	private String fileContentFileName;
@@ -52,6 +65,20 @@ public class ShareFileAction extends BaseAction<ShareFile> {
 		if (null != model.getFileTree() && null != model.getFileTree().getId()) {
 			criteria.createAlias("fileTree", "t");
 			criteria.add(Restrictions.eq("t.id", model.getFileTree().getId()));
+		}
+		User u = (User) ActionContext.getContext().getSession()
+				.get(SystemConstant.CURRENT_USER);
+		// criteria.createAlias("users", "us",JoinType.LEFT_OUTER_JOIN);
+		// criteria.createAlias("ownerUser", "u",JoinType.LEFT_OUTER_JOIN);
+		// Criterion c1 = Restrictions.eq("us.id", u.getId());
+		// Criterion c2 = Restrictions.eq("u.id", u.getId());
+		// criteria.add(Restrictions.or(c1, c2));
+		if (model.getStatus() == FileStatusEnum.upload.getValue()) {
+			criteria.createAlias("ownerUser", "u");
+			criteria.add(Restrictions.eq("u.id", u.getId()));
+		} else {
+			criteria.createAlias("users", "us");
+			criteria.add(Restrictions.eq("us.id", u.getId()));
 		}
 	}
 
@@ -81,10 +108,59 @@ public class ShareFileAction extends BaseAction<ShareFile> {
 		}
 		return fileSizeString;
 	}
-	//确定可以下载此资源的用户
-	public void confirmCanDownloadUsers(){
-		
+
+	// 确定可以下载此资源的用户
+	public void confirmCanDownloadUsers() {
+		User currentUser = (User) ActionContext.getContext().getSession()
+				.get(SystemConstant.CURRENT_USER);
+		List<User> executeUsers = new ArrayList<User>();
+		String userIds[] = canDownloadUserIds.split(",");
+		if (null != userIds) {
+			for (String string : userIds) {
+				// 全体人员
+				if (string.trim().equals("0")) {
+					DetachedCriteria detachedCriteria = DetachedCriteria
+							.forClass(User.class);
+					executeUsers = baseService.find(detachedCriteria);
+					break;
+				}
+				// 部门人员
+				if (string.trim().indexOf("d") != -1) {
+					Long deptId = Long.parseLong(string.trim().substring(1));
+					DetachedCriteria detachedCriteria = DetachedCriteria
+							.forClass(User.class);
+					detachedCriteria.createAlias("depts", "d");
+					detachedCriteria.add(Restrictions.eq("d.id", deptId));
+					List<User> users = baseService.find(detachedCriteria);
+
+					for (User user : users) {
+						if (!executeUsers.contains(user)) {
+							executeUsers.add(user);
+						}
+					}
+					continue;
+				}
+				Long userId = Long.parseLong(string.trim());
+				DetachedCriteria detachedCriteria = DetachedCriteria
+						.forClass(User.class);
+				detachedCriteria.add(Restrictions.eq("id", userId));
+				List<User> users = baseService.find(detachedCriteria);
+				for (User user : users) {
+					if (!executeUsers.contains(user)) {
+						executeUsers.add(user);
+					}
+				}
+			}
+		}
+		Set<User> tempSet = new HashSet<User>();
+		for (User u : executeUsers) {
+			tempSet.add(u);
+		}
+		ShareFile f = baseService.get(ShareFile.class, model.getId());
+		f.setUsers(tempSet);
+		baseService.save(f);
 	}
+
 	public String toSelectCanDownloadUsers() {
 		List<User> users = baseService.find(DetachedCriteria
 				.forClass(User.class));

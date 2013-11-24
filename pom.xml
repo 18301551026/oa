@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.lxs.oa</groupId>
@@ -27,7 +28,7 @@
 		<developerConnection>scm:svn:https://dadi--20130610n/svn/project/oa-parent/trunk</developerConnection>
 		<url>https://dadi--20130610n/svn/project/oa-parent/trunk</url>
 	</scm>
-	
+
 	<repositories>
 		<repository>
 			<id>kafeitu</id>
@@ -82,9 +83,9 @@
 				<scope>runtime</scope>
 			</dependency>
 			<dependency>
-			  <groupId>com.oracle.driver</groupId>
-			  <artifactId>ojdbc</artifactId>
-			  <version>${oracle.version}</version>
+				<groupId>com.oracle.driver</groupId>
+				<artifactId>ojdbc</artifactId>
+				<version>${oracle.version}</version>
 			</dependency>
 
 			<!-- activiti -->
@@ -125,7 +126,7 @@
 				<artifactId>activiti-modeler</artifactId>
 				<version>${activiti.version}</version>
 			</dependency>
-			
+
 
 			<!-- spring -->
 			<dependency>
@@ -289,11 +290,11 @@
 
 			<!-- fastjson -->
 			<dependency>
-			    <groupId>com.alibaba</groupId>
-			    <artifactId>fastjson</artifactId>
-			    <version>${fastjson.version}</version>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${fastjson.version}</version>
 			</dependency>
-			
+
 
 			<!-- 用于kindeditor -->
 			<dependency>
@@ -378,7 +379,8 @@
 					<path>/oa</path>
 					<port>8888</port>
 					<systemProperties>
-						<JAVA_OPTS>-Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -server -XX:PermSize=128M -XX:MaxPermSize=512m</JAVA_OPTS>
+						<JAVA_OPTS>-Dsun.jnu.encoding=UTF-8 -Dfile.encoding=UTF-8 -server
+							-XX:PermSize=128M -XX:MaxPermSize=512m</JAVA_OPTS>
 					</systemProperties>
 				</configuration>
 			</plugin>
@@ -395,33 +397,28 @@
 						<version>${mysql.version}</version>
 					</dependency>
 					<dependency>
-		  				<groupId>com.oracle.driver</groupId>
-		  				<artifactId>ojdbc</artifactId>
-		  				<version>11g</version>
+						<groupId>com.oracle.driver</groupId>
+						<artifactId>ojdbc</artifactId>
+						<version>11g</version>
 					</dependency>
 				</dependencies>
-				
+
 				<configuration>
 					<driver>com.mysql.jdbc.Driver</driver>
 					<url>jdbc:mysql://localhost:3306/oa</url>
 					<username>root</username>
 					<password>root</password>
 					<dataTypeFactoryName>org.dbunit.ext.mysql.MySqlDataTypeFactory</dataTypeFactoryName>
-					<metadataHandlerName>org.dbunit.ext.mysql.MySqlMetadataHandler</metadataHandlerName>					
-					 
-					<!-- oracle 
-					<driver>oracle.jdbc.OracleDriver</driver>
-					<url>jdbc:oracle:thin:@127.0.0.1:1521:orcl</url>
-					<username>oa</username>
-					<password>1</password>
-				    <dataTypeFactoryName>org.dbunit.ext.oracle.Oracle10DataTypeFactory</dataTypeFactoryName>
-					<schema>oa</schema>
-					-->
-					
+					<metadataHandlerName>org.dbunit.ext.mysql.MySqlMetadataHandler</metadataHandlerName>
+
+					<!-- oracle <driver>oracle.jdbc.OracleDriver</driver> <url>jdbc:oracle:thin:@127.0.0.1:1521:orcl</url> 
+						<username>oa</username> <password>1</password> <dataTypeFactoryName>org.dbunit.ext.oracle.Oracle10DataTypeFactory</dataTypeFactoryName> 
+						<schema>oa</schema> -->
+
 					<encoding>utf-8</encoding>
 					<format>xml</format>
 					<type>CLEAN_INSERT</type>
-					<dest>${basedir}/src/test/resources/dbunit/mysql.xml</dest>					
+					<dest>${basedir}/src/test/resources/dbunit/mysql.xml</dest>
 					<src>${basedir}/src/test/resources/dbunit/mysql.xml</src>
 
 					<tables>
@@ -439,7 +436,7 @@
 						</table>
 						<table>
 							<name>DEPT_</name>
-						</table>	
+						</table>
 						<table>
 							<name>user_job_</name>
 						</table>
@@ -451,14 +448,14 @@
 						</table>
 						<table>
 							<name>USER_DEPT_</name>
-						</table>	
+						</table>
 						<table>
 							<name>dictionary_</name>
-						</table>											
+						</table>
 					</tables>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
@@ -475,7 +472,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 		</plugins>
 	</build>
 

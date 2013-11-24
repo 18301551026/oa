@@ -18,7 +18,7 @@ public class ShareFileTreeDaoImpl implements IShareFileTreeDao {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				ShareFileTree.class);
 		criteria.add(Restrictions.isNull("parent"));
-		criteria.setCacheable(true);
+		//criteria.setCacheable(true);
 		List<ShareFileTree> list = criteria.list();
 
 		return list;

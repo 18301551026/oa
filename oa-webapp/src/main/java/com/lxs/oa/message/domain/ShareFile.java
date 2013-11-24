@@ -16,6 +16,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.lxs.security.domain.User;
 
@@ -107,5 +108,15 @@ public class ShareFile implements Serializable {
 
 	public void setSize(String size) {
 		this.size = size;
+	}
+	
+	private Integer status;
+	@Transient
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 }
