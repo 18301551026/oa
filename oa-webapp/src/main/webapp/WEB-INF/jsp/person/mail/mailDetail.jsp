@@ -60,7 +60,8 @@
 			<Td class="control-label" style="width: 3%"><label>附件：</label></Td>
 			<Td class="query_input" colspan="3"><c:forEach
 					items="${attachments }" var="a">
-					<a href="" class="pull-left">${a.attName }&nbsp;</a>
+					<a href="${ctx }/person/receiveBox!download.action?attId=${a.id}"
+						class="pull-left">${a.attName }&nbsp;</a>
 				</c:forEach></Td>
 		</tr>
 		<tr>
@@ -70,7 +71,8 @@
 			</Td>
 		</tr>
 	</table>
-	<c:if test="${sendUser.id!=sessionScope.currentUser.id }">
+	<s:if
+		test="tempStatus==@com.lxs.oa.person.common.MailStatusEnum@receiveBox.value">
 		<form action="${ctx}/person/receiveBox!save.action" method="post"
 			id="editForm">
 			<input type="hidden" name="receiveUsersName" value="${sendUserName}" />
@@ -84,9 +86,11 @@
 				</tr>
 				<tr>
 					<Td class="control-label" style="width: 3%"><label>附件：</label></Td>
-					<Td class="query_input" colspan="3"><input
-						class="btn btn-info btn-xs pull-right" id="addAttach" value="添加"
-						type="button" /></Td>
+					<Td class="query_input" colspan="3"><s:file name="attach"
+							cssClass="pull-left"></s:file><input
+						class="btn btn-info btn-xs pull-left deleteAttach" value="删除"
+						type="button" /> <input class="btn btn-info btn-xs pull-right"
+						id="addAttach" value="添加" type="button" /></Td>
 				</tr>
 				<tr>
 					<Td class="control-label" style="width: 3%"><label
@@ -96,7 +100,6 @@
 				</tr>
 			</table>
 		</form>
-	</c:if>
-
+	</s:if>
 </body>
 </html>

@@ -1,12 +1,16 @@
 package com.lxs.oa.person.action;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -41,6 +45,9 @@ import com.opensymphony.xwork2.ActionContext;
 		@Action(className = "mailAction", value = "receiveBox", results = {
 				@Result(name = "list", location = "/WEB-INF/jsp/person/mail/receiveBox.jsp"),
 				@Result(name = "turnToOther", location = "/WEB-INF/jsp/person/mail/add.jsp"),
+				@Result(name = "download", type = "stream", params = {
+						"inputName", "file", "contentDisposition",
+						"attachment;filename=\"${attName}\"" }),
 				@Result(name = "toShowDetail", location = "/WEB-INF/jsp/person/mail/mailDetail.jsp"),
 				@Result(name = "listAction", location = "/person/receiveBox!findPage.action?mailStatus=${@ com.lxs.oa.person.common.MailStatusEnum@receiveBox.value}", type = "redirect") }),
 		@Action(className = "mailAction", value = "draftBox", results = {
@@ -54,6 +61,7 @@ public class MailAction extends BaseAction<Mail> {
 	private File attach[];
 	private String attachFileName[];
 	private Long attId;
+	private Long tempStatus;
 
 	@Override
 	public void beforFind(DetachedCriteria criteria) {
@@ -110,6 +118,20 @@ public class MailAction extends BaseAction<Mail> {
 		// receiveUserIds.length() - 1);
 		// }
 		return "toSelectReceiveUsers";
+	}
+
+	public InputStream getFile() throws Exception {
+		InputStream in = null;
+		Attachment att = baseService.get(Attachment.class, attId);
+		att.setAttName((new String(att.getAttName().getBytes("UTF-8"),
+				"ISO8859-1")));
+		ActionContext.getContext().getValueStack().push(att);
+		in = new ByteArrayInputStream(att.getContent());
+		return in;
+	}
+
+	public String download() {
+		return "download";
 	}
 
 	public void findUserByDept() {
@@ -440,6 +462,14 @@ public class MailAction extends BaseAction<Mail> {
 
 	public void setAttId(Long attId) {
 		this.attId = attId;
+	}
+
+	public Long getTempStatus() {
+		return tempStatus;
+	}
+
+	public void setTempStatus(Long tempStatus) {
+		this.tempStatus = tempStatus;
 	}
 
 }

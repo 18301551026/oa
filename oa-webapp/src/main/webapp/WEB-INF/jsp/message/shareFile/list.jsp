@@ -19,7 +19,7 @@
 			data : "id=" + fileId + "&canDownloadUserIds=" + canIds,
 			success : function(msg) {
 				parent.parent.$.modalDialog.handler.dialog('close');
-				parent.$.messager.alert('设置权限', '设置成功');
+				parent.parent.$.messager.alert('设置权限', '设置成功');
 			}
 		});
 	}
@@ -60,7 +60,10 @@
 		$("#uploadFileButton")
 				.click(
 						function() {
-
+							if (!$("#fileTreeId").val()) {
+								parent.parent.$.messager.alert('警告', '请选择资料分类');
+								return;
+							}
 							parent.parent.$
 									.modalDialog({
 										title : "上传资源",
@@ -165,7 +168,7 @@
 								<a href="javascript:void(0)"
 									actionUrl="${ctx}/person/upload!toSelectCanDownloadUsers.action?id=${id}"
 									class="setCanDownloadButton" fileId=${id }>设置权限</a>&nbsp;
-						</c:if> <a href="">下载</td>
+						</c:if> <a href="${ctx }/person/download!download.action?id=${id}">下载</td>
 					</tr>
 				</s:iterator>
 			</tbody>
