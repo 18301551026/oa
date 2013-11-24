@@ -1,5 +1,17 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
+  <table name="vote_type_">
+    <column>id_</column>
+    <column>type_name_</column>
+    <row>
+      <value>1</value>
+      <value>单选</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>多选</value>
+    </row>
+  </table>
   <table name="menu_">
     <column>id_</column>
     <column>icon_</column>
@@ -264,7 +276,7 @@
       <value/>
       <value>新闻</value>
       <value>false</value>
-      <value>0</value>
+      <value>1</value>
       <value>mainFrame</value>
       <value>/oa/message/news!findPage.action</value>
       <value>26</value>
@@ -274,7 +286,7 @@
       <value/>
       <value>通知公告</value>
       <value>false</value>
-      <value>1</value>
+      <value>2</value>
       <value>mainFrame</value>
       <value>/oa/message/notice!findPage.action</value>
       <value>26</value>
@@ -294,7 +306,7 @@
       <value/>
       <value>工作计划</value>
       <value>false</value>
-      <value>1</value>
+      <value>4</value>
       <value>mainFrame</value>
       <value>/oa/person/plan!findPage.action</value>
       <value>25</value>
@@ -334,7 +346,7 @@
       <value/>
       <value>规章制度</value>
       <value>false</value>
-      <value>2</value>
+      <value>3</value>
       <value>mainFrame</value>
       <value>/oa/message/rule!findPage.action</value>
       <value>26</value>
@@ -344,7 +356,7 @@
       <value/>
       <value>数据字典</value>
       <value>false</value>
-      <value>3</value>
+      <value>4</value>
       <value>mainFrame</value>
       <value>/oa/message/dictionary!findPage.action</value>
       <value>26</value>
@@ -354,7 +366,7 @@
       <null/>
       <value>内部邮件</value>
       <null/>
-      <value>2</value>
+      <value>1</value>
       <null/>
       <value/>
       <value>25</value>
@@ -394,7 +406,7 @@
       <null/>
       <value>资料共享</value>
       <null/>
-      <value>4</value>
+      <value>0</value>
       <null/>
       <value/>
       <value>26</value>
@@ -404,7 +416,7 @@
       <null/>
       <value>上传</value>
       <null/>
-      <null/>
+      <value>0</value>
       <null/>
       <value>/oa/person/upload!toIndex.action?status=1</value>
       <value>42</value>
@@ -414,10 +426,40 @@
       <null/>
       <value>下载</value>
       <null/>
-      <null/>
+      <value>1</value>
       <null/>
       <value>/oa/person/download!toIndex.action?status=2</value>
       <value>42</value>
+    </row>
+    <row>
+      <value>45</value>
+      <null/>
+      <value>我的日程</value>
+      <null/>
+      <value>3</value>
+      <null/>
+      <value>/oa/person/schedule!toIndex.action</value>
+      <value>25</value>
+    </row>
+    <row>
+      <value>46</value>
+      <null/>
+      <value>投票管理</value>
+      <null/>
+      <value>2</value>
+      <null/>
+      <value>/oa/person/voteSubject!findPage.action</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>47</value>
+      <null/>
+      <value>投票</value>
+      <null/>
+      <value>2</value>
+      <null/>
+      <null/>
+      <value>25</value>
     </row>
   </table>
   <table name="user_">
@@ -756,6 +798,10 @@
     </row>
     <row>
       <value>1</value>
+      <value>9</value>
+    </row>
+    <row>
+      <value>1</value>
       <value>10</value>
     </row>
     <row>
@@ -789,6 +835,10 @@
     <row>
       <value>3</value>
       <value>12</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>13</value>
     </row>
     <row>
       <value>1</value>
@@ -1107,8 +1157,56 @@
       <value>43</value>
     </row>
     <row>
+      <value>2</value>
+      <value>43</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>43</value>
+    </row>
+    <row>
       <value>1</value>
       <value>44</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>44</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>44</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>45</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>45</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>45</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>46</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>46</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>47</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>47</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>47</value>
     </row>
   </table>
   <table name="ROLE_USER_">

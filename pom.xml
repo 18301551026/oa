@@ -423,6 +423,9 @@
 
 					<tables>
 						<table>
+							<name>vote_type_</name>
+						</table>
+						<table>
 							<name>menu_</name>
 						</table>
 						<table>

@@ -1,7 +1,7 @@
 var editor2;
 $(function() {
 	var editor1 = KindEditor.create(
-			'textarea[name="content"],textarea[name="reason"]', {
+			'textarea[name="content"],textarea[name="desc"],textarea[name="reason"]', {
 				uploadJson : ctx + '/kindeditor/upload_json.jsp',
 				fileManagerJson : ctx + '/kindeditor/file_manager_json.jsp',
 				width : '100%',
@@ -79,6 +79,11 @@ $(function() {
 
 	
 	$(".deleteAttach").live("click", function() {
+		var pre = $(this).prev();
+		pre.remove();
+		$(this).remove();
+	})
+	$(".deleteOption").live("click", function() {
 		var pre = $(this).prev();
 		pre.remove();
 		$(this).remove();
