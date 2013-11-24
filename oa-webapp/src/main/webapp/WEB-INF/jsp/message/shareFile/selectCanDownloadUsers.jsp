@@ -140,7 +140,7 @@
 					style="width: 144px;"></input> <select multiple="multiple"
 					class="selectUser" id="allUsers"
 					style="width: 144px; height: 90%; border: none;">
-					<c:forEach items="${users }" var="u">
+					<c:forEach items="${requestScope.users }" var="u">
 						<option value="${u.id }">${u.realName }</option>
 					</c:forEach>
 				</select>

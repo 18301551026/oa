@@ -19,6 +19,7 @@
 			data : "id=" + fileId + "&canDownloadUserIds=" + canIds,
 			success : function(msg) {
 				parent.parent.$.modalDialog.handler.dialog('close');
+				parent.$.messager.alert('设置权限', '设置成功');
 			}
 		});
 	}
@@ -162,7 +163,7 @@
 						<td>${size }</td>
 						<td><c:if test="${requestScope.tempStatus==1 }">
 								<a href="javascript:void(0)"
-									actionUrl="${ctx}/person/shareFile!toSelectCanDownloadUsers.action?id=${id}"
+									actionUrl="${ctx}/person/upload!toSelectCanDownloadUsers.action?id=${id}"
 									class="setCanDownloadButton" fileId=${id }>设置权限</a>&nbsp;
 						</c:if> <a href="">下载</td>
 					</tr>

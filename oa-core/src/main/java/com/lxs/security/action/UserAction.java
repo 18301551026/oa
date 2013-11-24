@@ -130,9 +130,9 @@ public class UserAction extends BaseAction<User> {
 		List<User> users = baseService.find(detachedCriteria);
 		StringBuffer script = new StringBuffer();
 		for (User user : users) {
-			if (user.getId() == currentUser.getId()) {
-				continue;
-			}
+//			if (user.getId() == currentUser.getId()) {
+//				continue;
+//			}
 			script.append("<option value=" + user.getId() + ">"
 					+ user.getRealName() + "</option>");
 		}

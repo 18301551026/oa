@@ -40,12 +40,6 @@ import com.opensymphony.xwork2.ActionContext;
 		@Action(className = "shareFileAction", value = "download", results = {
 				@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
 				@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") }) })
-//@Results({
-//		@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
-//		@Result(name = "toSelectCanDownloadUsers", location = "/WEB-INF/jsp/message/shareFile/selectCanDownloadUsers.jsp"),
-//		@Result(name = "toUpload", location = "/WEB-INF/jsp/message/shareFile/upload.jsp"),
-//		@Result(name = "listAction", location = "/person/shareFile!findPage.action?fileTree.id=${fileTree.id}", type = "redirect"),
-//		@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") })
 public class ShareFileAction extends BaseAction<ShareFile> {
 	private File fileContent;
 	private String fileContentFileName;
@@ -156,7 +150,9 @@ public class ShareFileAction extends BaseAction<ShareFile> {
 		for (User u : executeUsers) {
 			tempSet.add(u);
 		}
+
 		ShareFile f = baseService.get(ShareFile.class, model.getId());
+		f.setUsers(null);
 		f.setUsers(tempSet);
 		baseService.save(f);
 	}

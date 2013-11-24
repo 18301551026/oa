@@ -46,11 +46,11 @@
 								if (status == 1) {
 									url = ctx
 											+ "/person/upload!findPage.action?fileTree.id="
-											+ node.id;
+											+ node.id+"&status="+status;
 								} else {
 									url = ctx
 											+ "/person/download!findPage.action?fileTree.id="
-											+ node.id;
+											+ node.id+"&status="+status;
 								}
 								$("#shareFileListIframe").attr("src", url)
 							},
