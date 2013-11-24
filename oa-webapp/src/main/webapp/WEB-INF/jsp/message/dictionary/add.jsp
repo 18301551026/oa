@@ -5,8 +5,7 @@
 <%@ include file="/common/global.jsp"%>
 <title>添加数据字典</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <%@ include file="/common/include-jquery-validation.jsp"%>
 <%@ include file="/common/include-jquery-kindeditor.jsp"%>

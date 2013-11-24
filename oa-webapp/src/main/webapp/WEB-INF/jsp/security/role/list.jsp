@@ -5,42 +5,16 @@
 <%@ include file="/common/global.jsp"%>
 <title>角色</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <%@ include file="/common/include-ztree.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 <%@ include file="/common/include-ztree.jsp"%>
 <script src="${ctx }/js/grid.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
-</head>
-<script type="text/javascript">
-	function assignMenu(id) {
-		parent.$.modalDialog({
-			title : "分配菜单",
-			width : 260,
-			height : 500,
-			href : ctx + '/security/role!toAssignMenu.action?id=' + id,
-			buttons : [
-					{
-						text : '保存',
-						iconCls : 'icon-save',
-						handler : function() {
-							var f = parent.$.modalDialog.handler
-									.find('#assignMenuForm');
-							f.submit();
 
-						}
-					}, {
-						text : '关闭',
-						iconCls : 'icon-cancel',
-						handler : function() {
-							parent.$.modalDialog.handler.dialog('close');
-						}
-					} ]
-		});
-	}
-</script>
+<script type="text/javascript" src="${ctx }/js/role-list.js"></script>
+</head>
 <body>
 	<div class="panel panel-info">
 		<div class="panel-heading">

@@ -5,25 +5,15 @@
 <%@ include file="/common/global.jsp"%>
 <title>邮件详情</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <%@ include file="/common/include-jquery-validation.jsp"%>
 <%@ include file="/common/include-jquery-kindeditor.jsp"%>
 <script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
+
+<script type="text/javascript" src="${ctx }/js/mail-detail.js"></script>
 </head>
-<script type="text/javascript">
-	$(function() {
-		$("#addAttach")
-				.click(
-						function() {
-							var temp = $(this)
-									.before(
-											'<s:file name="attach" cssClass="pull-left"></s:file><input class="btn btn-info btn-xs pull-left deleteAttach" value="删除" type="button" />');
-						})
-	})
-</script>
 <body class="editBody">
 	<button class="btn btn-info btn-sm pull-left" id="backButton">
 		<span class="glyphicon glyphicon-backward"></span> 返回列表

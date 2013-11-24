@@ -4,8 +4,7 @@
 <%@ include file="/common/global.jsp"%>
 <title>OA协同办公系统</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <%@ include file="/common/include-ztree.jsp"%>
 <%@ include file="/common/include-styles.jsp"%>

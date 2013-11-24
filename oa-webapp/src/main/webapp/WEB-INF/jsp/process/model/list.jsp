@@ -5,8 +5,7 @@
 <%@ include file="/common/global.jsp"%>
 <title>模型管理</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <script src="${ctx }/js/grid.js"></script>
 <%@ include file="/common/include-styles.jsp"%>

@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>oa-parent</artifactId>
 		<groupId>com.lxs.oa</groupId>
-		<version>1.0.8-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>oa-webapp</artifactId>

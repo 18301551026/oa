@@ -5,37 +5,13 @@
 <%@ include file="/common/global.jsp"%>
 <title>上传资源</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
+
+<script type="text/javascript" src="${ctx }/js/shareFile-update.js"></script>
 </head>
 <body>
-	<script type="text/javascript">
-		$(function() {
-			$("#uploadShareFileForm").form({
-				url : ctx + '/person/upload!upload.action',
-				onSubmit : function() {
-					if ($("#uploadShareFileForm").form("validate")) {
-						return true;
-					} else {
-						return false;
-					}
-				},
-				success : function(r) {
-					if (!r) {
-						return;
-					}
-					$.messager.show({
-						msg : '添加成功',
-						title : '提示'
-					});
-					parent.$.modalDialog.openner_queryForm.submit();
-					console.info();
-					parent.parent.$.modalDialog.handler.dialog('close');
-				}
-			});
-		})
-	</script>
+	
 	<s:form action="/person/upload!upload.action" method="post"
 		id="uploadShareFileForm" enctype="multipart/form-data"
 		cssStyle="margin:15px">

@@ -5,27 +5,12 @@
 	<parent>
 		<artifactId>oa-parent</artifactId>
 		<groupId>com.lxs.oa</groupId>
-		<version>1.0.8-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>oa-core</artifactId>
 	<name>oa-core</name>
     <packaging>jar</packaging>
-
-	<repositories>
-		<repository>
-			<id>henryyan-mavenrepo</id>
-			<url>https://raw.github.com/henryyan/mavenrepo/master/releases</url>
-		</repository>
-		<repository>
-			<id>Activiti</id>
-			<url>https://maven.alfresco.com/nexus/content/groups/public</url>
-		</repository>
-		<repository>
-			<id>Codehaus</id>
-			<url>http://repository.codehaus.org</url>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>

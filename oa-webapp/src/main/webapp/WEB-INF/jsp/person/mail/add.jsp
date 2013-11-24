@@ -5,66 +5,16 @@
 <%@ include file="/common/global.jsp"%>
 <title>新建邮件</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <%@ include file="/common/include-jquery-validation.jsp"%>
 <%@ include file="/common/include-jquery-kindeditor.jsp"%>
 <script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
+
+<script type="text/javascript" src="${ctx }/js/mail-add.js"></script>
 </head>
-<script type="text/javascript">
-	$(function() {
-		$("#selectReceiveUsersButton")
-				.click(
-						function() {
-							parent.$
-									.modalDialog({
-										title : "选择收件人",
-										width : 300,
-										height : 500,
-										href : ctx
-												+ "/person/sendBox!toSelectReceiveUsers.action",
-										buttons : [
-												{
-													text : '全体人员',
-													handler : function() {
-														$("#ids").val(0);
-														$("#receiveUsersName")
-																.val("全体人员");
-														parent.$.modalDialog.handler
-																.dialog('close');
-													}
-												},
-												{
-													text : '确定',
-													iconCls : 'icon-save',
-													handler : function() {
-														var ids = parent.$.modalDialog.handler
-																.find('#ids');
-														var receivedUserNames = parent.$.modalDialog.handler
-																.find('#receiveUsersName');
-														$("#receiveUsersName")
-																.val(
-																		receivedUserNames
-																				.val());
-														$("#ids")
-																.val(ids.val());
-														parent.$.modalDialog.handler
-																.dialog('close');
-													}
-												} ]
-									});
-						})
-		$("#addAttach")
-				.click(
-						function() {
-							var temp = $(this)
-									.before(
-											'<s:file name="attach" cssClass="pull-left"></s:file><input class="btn btn-info btn-xs pull-left deleteAttach" value="删除" type="button" />');
-						})
-	})
-</script>
+
 
 <body class="editBody">
 	<button class="btn btn-info btn-sm pull-left" id="backButton">

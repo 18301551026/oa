@@ -7,7 +7,7 @@
     <title>部门管理</title>
 	<%@ include file="/common/meta.jsp" %>
     <%@ include file="/common/include-styles.jsp" %>
-    <script type="text/javascript" src="${ctx }/js/jquery-${jqueryVersion}.min.js"></script>
+    <%@ include file="/common/include-jquery.jsp"%>
     <%@ include file="/common/include-ztree.jsp" %>
 
 	<SCRIPT type="text/javascript">

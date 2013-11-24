@@ -5,93 +5,14 @@
 <%@ include file="/common/global.jsp"%>
 <title>资源列表</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <script src="${ctx }/js/grid.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
-</head>
-<script type="text/javascript">
-	function confirmCanDownloadUsersFn(fileId, canIds) {
-		$.ajax({
-			type : "POST",
-			url : ctx + "/person/upload!confirmCanDownloadUsers.action",
-			data : "id=" + fileId + "&canDownloadUserIds=" + canIds,
-			success : function(msg) {
-				parent.parent.$.modalDialog.handler.dialog('close');
-				parent.$.messager.alert('设置权限', '设置成功');
-			}
-		});
-	}
-	$(function() {
-		$(".setCanDownloadButton")
-				.click(
-						function() {
-							var fileId = $(this).attr("fileId");
-							parent.parent.$
-									.modalDialog({
-										title : "设置可下载人员",
-										width : 300,
-										height : 500,
-										href : $(this).attr("actionUrl"),
-										buttons : [
-												{
-													text : '全体人员',
-													handler : function() {
-														confirmCanDownloadUsersFn(
-																fileId, 0);
-													}
-												},
-												{
-													text : '确定',
-													iconCls : 'icon-save',
-													handler : function() {
-														var ids = parent.parent.$.modalDialog.handler
-																.find('#ids')
-																.val();
-														console.info(ids + "\t"
-																+ fileId);
-														confirmCanDownloadUsersFn(
-																fileId, ids);
-													}
-												} ]
-									});
-						})
-		$("#uploadFileButton")
-				.click(
-						function() {
 
-							parent.parent.$
-									.modalDialog({
-										title : "上传资源",
-										width : 340,
-										height : 140,
-										href : ctx
-												+ "/person/upload!toUpload.action?fileTree.id="
-												+ $("#fileTreeId").val(),
-										buttons : [
-												{
-													text : '上传',
-													iconCls : 'icon-save',
-													handler : function() {
-														parent.parent.$.modalDialog.openner_queryForm = $("#queryForm");
-														var f = parent.parent.$.modalDialog.handler
-																.find('#uploadShareFileForm');
-														f.submit();
-													}
-												},
-												{
-													text : '取消',
-													iconCls : 'icon-cancel',
-													handler : function() {
-														parent.parent.$.modalDialog.handler
-																.dialog('close');
-													}
-												} ]
-									});
-						})
-	})
-</script>
+<script type="text/javascript" src="${ctx }/js/shareFile-list.js"></script>
+</head>
+
 <body>
 	<div class="panel panel-info">
 		<div class="panel-heading">

@@ -4,7 +4,7 @@
 
 	<groupId>com.lxs.oa</groupId>
 	<artifactId>oa-parent</artifactId>
-	<version>1.0.8-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>oa-parent</name>
 
@@ -30,10 +30,6 @@
 	</scm>
 
 	<repositories>
-		<repository>
-			<id>kafeitu</id>
-			<url>http://server.kafeitu.me:8081/nexus/content/repositories/releases</url>
-		</repository>
 		<repository>
 			<id>activiti</id>
 			<url>https://maven.alfresco.com/nexus/content/groups/public</url>

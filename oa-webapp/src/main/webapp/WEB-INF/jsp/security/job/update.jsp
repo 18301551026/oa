@@ -5,8 +5,7 @@
 <%@ include file="/common/global.jsp"%>
 <title>修改职位</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <script type="text/javascript" src="${ctx }/js/edit.js"></script>
 <%@ include file="/common/include-bootstap.jsp"%>
 <%@ include file="/common/include-jquery-validation.jsp"%>
