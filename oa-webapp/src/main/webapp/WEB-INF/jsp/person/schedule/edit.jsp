@@ -62,36 +62,7 @@ textarea.form-control-mini {
 	cursor: not-allowed;
 }
 </style>
-	<script type="text/javascript">
-		$(function() {
-			$("#editForm")
-					.form(
-							{
-								url : ctx
-										+ '/person/schedule!updateSchedule.action',
-								onSubmit : function() {
-									if ($("#editForm").form("validate")) {
-										return true;
-									} else {
-										return false;
-									}
-								},
-								success : function(r) {
-									if (!r) {
-										return;
-									}
-									$.messager.show({
-										msg : '修改成功',
-										title : '提示'
-									});
-									var fullCalendar = parent.$.modalDialog.fullCalendar;
-									fullCalendar.fullCalendar("refetchEvents");
-									parent.$.modalDialog.handler
-											.dialog('close');
-								}
-							});
-		})
-	</script>
+	<script type="text/javascript" src="${ctx }/js/schedule-edit.js"></script>
 	<div align="center"
 		style="position: relative; font-size: 12px; padding-top: 10px; background-color: #F5F8FA; height: 96%; width: 100%;">
 		<form action="" method="post" id="editForm">
