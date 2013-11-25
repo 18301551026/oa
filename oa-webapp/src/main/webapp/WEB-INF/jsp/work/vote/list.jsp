@@ -5,8 +5,7 @@
 <%@ include file="/common/global.jsp"%>
 <title>投票选项</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-bootstap.jsp"%>
 <script src="${ctx }/js/grid.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
@@ -16,7 +15,7 @@
 		<div class="panel-heading">
 			<div class="btn-group btn-group-sm">
 				<button id="addButton"
-					actionUrl="${ctx }/person/voteSubject!toAdd.action" class="btn btn-info">
+					actionUrl="${ctx }/work/voteSubject!toAdd.action" class="btn btn-info">
 					<span class="glyphicon glyphicon-plus"></span> 新建
 				</button>
 				<button id="deleteButton" class="btn btn-info">
@@ -34,7 +33,7 @@
 		</div>
 		<div class="panel-body hide" id="queryPanel">
 			<form role="form" id="queryForm" class="form-horizontal"
-				action="${ctx}/person/voteSubject!findPage.action" method="post">
+				action="${ctx}/work/voteSubject!findPage.action" method="post">
 				<table class="formTable">
 					<Tr>
 						<Td class="control-label"><label for="title">标题：</label></Td>

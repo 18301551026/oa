@@ -1,4 +1,4 @@
-package com.lxs.oa.person.domain;
+package com.lxs.oa.work.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;

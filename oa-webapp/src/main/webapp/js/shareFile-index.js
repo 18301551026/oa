@@ -112,6 +112,12 @@ function deleteShareNodeFn() {
 									msg : '删除成功',
 									title : '提示'
 								});
+								var oldId=document.getElementById('shareFileListIframe').contentWindow.document.getElementById("fileTreeId").value;
+								if(parseInt(oldId)==parseInt(node.id)){//让右面列表中的分类Id为空（上传时重新选择）
+									document.getElementById('shareFileListIframe').contentWindow.document.getElementById("fileTreeId").value="";
+								}else{
+									alert("失败");
+								}
 							}
 						}
 					});

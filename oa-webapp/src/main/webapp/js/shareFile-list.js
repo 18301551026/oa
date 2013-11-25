@@ -45,6 +45,16 @@ $(function() {
 	$("#uploadFileButton")
 			.click(
 					function() {
+						var shareMainTree = parent.$("#shareMainTree");
+						if (!shareMainTree.html()) {
+							parent.parent.$.messager.confirm("提示",
+									"还没有根文件夹，是否现在创建根文件夹?", function(r) {
+										if (r) {
+											addRootNode();
+										}
+									});
+							return;
+						}
 						if (!$("#fileTreeId").val()) {
 							parent.parent.$.messager.alert('警告', '请选择资料分类');
 							return;
@@ -79,3 +89,26 @@ $(function() {
 								});
 					})
 })
+function addRootNode() {
+	parent.parent.$.modalDialog({
+		title : "添加根节点",
+		width : 340,
+		height : 140,
+		href : ctx + "/person/shareFileTree!toAdd.action",
+		buttons : [ {
+			text : '添加',
+			iconCls : 'icon-save',
+			handler : function() {
+				parent.parent.$.modalDialog.openner_shareFileTree = parent.$("#shareMainTree");
+				var f = parent.parent.$.modalDialog.handler.find('#shareAddNodeForm');
+				f.submit();
+			}
+		}, {
+			text : '取消',
+			iconCls : 'icon-cancel',
+			handler : function() {
+				parent.parent.$.modalDialog.handler.dialog('close');
+			}
+		} ]
+	});
+}

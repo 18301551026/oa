@@ -5,8 +5,7 @@
 <%@ include file="/common/global.jsp"%>
 <title>我的日程</title>
 <%@ include file="/common/meta.jsp"%>
-<script type="text/javascript"
-	src="${ctx}/js/jquery-${jqueryVersion}.min.js"></script>
+<%@ include file="/common/include-jquery.jsp"%>
 <%@include file="/common/include-jquery-easyui.jsp"%>	
 <%@include file="/common/include-fullcalendar.jsp"%>
 </head>

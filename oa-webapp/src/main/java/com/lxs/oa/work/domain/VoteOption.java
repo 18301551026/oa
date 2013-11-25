@@ -1,4 +1,4 @@
-package com.lxs.oa.person.domain;
+package com.lxs.oa.work.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -56,7 +56,7 @@ public class VoteOption implements Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "option_subject_", joinColumns = { @JoinColumn(name = "option_id_") }, inverseJoinColumns = { @JoinColumn(name = "subject_id_") })
+	@JoinTable(name = "option_user_", joinColumns = { @JoinColumn(name = "option_id_") }, inverseJoinColumns = { @JoinColumn(name = "user_id_") })
 	public Set<User> getUses() {
 		return uses;
 	}

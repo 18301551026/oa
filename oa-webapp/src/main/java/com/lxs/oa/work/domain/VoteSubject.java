@@ -1,4 +1,4 @@
-package com.lxs.oa.person.domain;
+package com.lxs.oa.work.domain;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -76,7 +76,7 @@ public class VoteSubject implements Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "subject_user_", joinColumns = { @JoinColumn(name = "subject_id_") }, inverseJoinColumns = { @JoinColumn(name = "user_id_") })
+	@JoinTable(name = "vote_subject_user_", joinColumns = { @JoinColumn(name = "subject_id_") }, inverseJoinColumns = { @JoinColumn(name = "user_id_") })
 	public Set<User> getUsers() {
 		return users;
 	}

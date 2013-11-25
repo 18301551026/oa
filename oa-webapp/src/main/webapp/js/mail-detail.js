@@ -4,6 +4,6 @@ $(function() {
 					function() {
 						var temp = $(this)
 								.before(
-										'<s:file name="attach" cssClass="pull-left"></s:file><input class="btn btn-info btn-xs pull-left deleteAttach" value="删除" type="button" />');
+										'<input type="file" class="pull-left" name="attach" /><input class="btn btn-info btn-xs pull-left deleteAttach" value="删除" type="button" />');
 					})
 })

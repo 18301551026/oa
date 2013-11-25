@@ -67,7 +67,9 @@ public class ShareFileTreeAction extends BaseAction<ShareFileTree> {
 	}
 
 	public void addNode() {
-		model.setParent(baseService.get(ShareFileTree.class, pid));
+		if (null!=pid) {
+			model.setParent(baseService.get(ShareFileTree.class, pid));
+		}
 		baseService.add(model);
 		
 		SimplePropertyPreFilter filter = new SimplePropertyPreFilter(ShareFileTree.class);

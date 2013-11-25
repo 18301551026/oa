@@ -38,7 +38,7 @@ import com.opensymphony.xwork2.ActionContext;
 				@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
 				@Result(name = "toSelectCanDownloadUsers", location = "/WEB-INF/jsp/message/shareFile/selectCanDownloadUsers.jsp"),
 				@Result(name = "toUpload", location = "/WEB-INF/jsp/message/shareFile/upload.jsp"),
-				@Result(name = "listAction", location = "/person/shareFile!findPage.action?fileTree.id=${fileTree.id}&status=${@com.lxs.oa.message.common.FileStatusEnum@upload.value}", type = "redirect"),
+				@Result(name = "listAction", location = "/person/upload!findPage.action?fileTree.id=${fileTree.id}&status=${@com.lxs.oa.message.common.FileStatusEnum@upload.value}", type = "redirect"),
 				@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") }),
 		@Action(className = "shareFileAction", value = "download", results = {
 				@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),

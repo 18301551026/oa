@@ -103,20 +103,7 @@ public class MailAction extends BaseAction<Mail> {
 				.forClass(Dept.class));
 		ActionContext.getContext().put("depts", depts);
 
-		// if (null != model && model.getId() != null) {
-		// DetachedCriteria detachedCriteria = DetachedCriteria
-		// .forClass(Mail_user_.class);
-		// detachedCriteria.createAlias("mail", "m");
-		// detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
-		// List<Mail_user_> list = baseService.find(detachedCriteria);
-		// ActionContext.getContext().put("selectedMailUsers", list);
-		// receiveUserIds = "";
-		// for (Mail_user_ mail_user_ : list) {
-		// receiveUserIds += mail_user_.getUser().getId() + ",";
-		// }
-		// receiveUserIds = receiveUserIds.substring(0,
-		// receiveUserIds.length() - 1);
-		// }
+		
 		return "toSelectReceiveUsers";
 	}
 

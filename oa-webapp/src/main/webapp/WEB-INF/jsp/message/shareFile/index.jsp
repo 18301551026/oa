@@ -36,7 +36,7 @@
 		<ul id="shareMainTree" data-options="fit:true,border:false"></ul>
 	</div>
 	<div data-options="region:'center'">
-		<iframe
+		<iframe 
 			<s:if test="@com.lxs.oa.message.common.FileStatusEnum@upload.value==status">
 				src="${ctx }/person/upload!findPage.action?status=${status }"   
 			</s:if>
