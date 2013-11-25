@@ -5,7 +5,7 @@ function confirmCanDownloadUsersFn(fileId, canIds) {
 		data : "id=" + fileId + "&canDownloadUserIds=" + canIds,
 		success : function(msg) {
 			parent.parent.$.modalDialog.handler.dialog('close');
-			parent.$.messager.alert('设置权限', '设置成功');
+			parent.parent.$.messager.alert('设置权限', '设置成功');
 		}
 	});
 }
@@ -45,7 +45,10 @@ $(function() {
 	$("#uploadFileButton")
 			.click(
 					function() {
-
+						if (!$("#fileTreeId").val()) {
+							parent.parent.$.messager.alert('警告', '请选择资料分类');
+							return;
+						}
 						parent.parent.$
 								.modalDialog({
 									title : "上传资源",

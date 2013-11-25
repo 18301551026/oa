@@ -68,9 +68,8 @@
 						<td>${title }</td>
 						<td>${receiveUsersName }</td>
 						<td>${createDate }</td>
-						<Td><a
-							href="${ctx}/person/receiveBox!toShowDetail.action?id=${id}">查看详情</a>
-						</Td>
+						<Td><a href="${ctx}/person/receiveBox!toShowDetail.action?id=${id}&tempStatus=1">查看详情
+						</a></Td>
 					</tr>
 				</s:iterator>
 			</tbody>

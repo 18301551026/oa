@@ -1,7 +1,9 @@
 package com.lxs.oa.message.action;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,6 +25,7 @@ import com.lxs.core.action.BaseAction;
 import com.lxs.core.common.SystemConstant;
 import com.lxs.oa.message.common.FileStatusEnum;
 import com.lxs.oa.message.domain.ShareFile;
+import com.lxs.oa.person.domain.Attachment;
 import com.lxs.security.domain.Dept;
 import com.lxs.security.domain.User;
 import com.opensymphony.xwork2.ActionContext;
@@ -35,10 +38,14 @@ import com.opensymphony.xwork2.ActionContext;
 				@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
 				@Result(name = "toSelectCanDownloadUsers", location = "/WEB-INF/jsp/message/shareFile/selectCanDownloadUsers.jsp"),
 				@Result(name = "toUpload", location = "/WEB-INF/jsp/message/shareFile/upload.jsp"),
-				@Result(name = "listAction", location = "/person/shareFile!findPage.action?fileTree.id=${fileTree.id}", type = "redirect"),
+				@Result(name = "listAction", location = "/person/shareFile!findPage.action?fileTree.id=${fileTree.id}&status=${@com.lxs.oa.message.common.FileStatusEnum@upload.value}", type = "redirect"),
 				@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") }),
 		@Action(className = "shareFileAction", value = "download", results = {
 				@Result(name = "toIndex", location = "/WEB-INF/jsp/message/shareFile/index.jsp"),
+				@Result(name = "download", type = "stream", params = {
+//						"contentType", "application/octet-stream;charset=ISO8859-1",
+						"inputName", "file", "contentDisposition",
+						"attachment;filename=\"${fileName}\"" }),
 				@Result(name = "list", location = "/WEB-INF/jsp/message/shareFile/list.jsp") }) })
 public class ShareFileAction extends BaseAction<ShareFile> {
 	private File fileContent;
@@ -86,6 +93,20 @@ public class ShareFileAction extends BaseAction<ShareFile> {
 		model.setSize(formetFileSize(fileContent.length()));
 		baseService.add(model);
 		getOut().print("成功");
+	}
+
+	public InputStream getFile() throws Exception {
+		InputStream in = null;
+		ShareFile f = baseService.get(ShareFile.class, model.getId());
+		f.setFileName(new String(f.getFileName().getBytes("UTF-8"),
+				"ISO8859-1"));
+		ActionContext.getContext().getValueStack().push(f);
+		in = new ByteArrayInputStream(f.getContent());
+		return in;
+	}
+
+	public String download() {
+		return "download";
 	}
 
 	public String formetFileSize(long fileS) {// 转换文件大小

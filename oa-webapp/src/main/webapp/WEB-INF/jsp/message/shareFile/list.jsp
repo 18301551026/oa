@@ -88,7 +88,7 @@
 								<a href="javascript:void(0)"
 									actionUrl="${ctx}/person/upload!toSelectCanDownloadUsers.action?id=${id}"
 									class="setCanDownloadButton" fileId=${id }>设置权限</a>&nbsp;
-						</c:if> <a href="">下载</td>
+						</c:if> <a href="${ctx }/person/download!download.action?id=${id}">下载</td>
 					</tr>
 				</s:iterator>
 			</tbody>
