@@ -17,7 +17,7 @@ import com.lxs.security.domain.User;
 
 @Entity
 @Table(name = "mail_user_")
-public class Mail_user_ implements Serializable {
+public class MailUser implements Serializable {
 	private Long id;
 	private Mail mail;
 	private User user;

@@ -10,9 +10,11 @@
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 <%@ include file="/common/include-ztree.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/menu-order.js"></script>
+
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/menu-order.js"></script>
+
 	<ul id="menuUpdateTree" class="ztree"></ul>
 	<!-- <a id="cancelMenuOrder" href="javascript:void(0)" style="float: right;"
 		class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">取消</a>

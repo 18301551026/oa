@@ -9,10 +9,11 @@
 <%@ include file="/common/include-ztree.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/index.js">/script>
 </head>
 
 <body class="easyui-layout">
+	<script type="text/javascript" src="${ctx }/js/index.js"></script>
+
 	<div data-options="region:'north',split:true" style="height:70px;">
 		<div class="panel-header panel-title"
 			data-option="border:false,fit:true" style="height:63px;border: 0px;padding: 0px;">

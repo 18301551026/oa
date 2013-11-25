@@ -8,9 +8,10 @@
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 <title>修改节点</title>
 
-<script type="text/javascript" src="${ctx }/js/menu-update.js"></script>
+
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/menu-update.js"></script>
 
 	<form id="updateMenuForm" action="" method="post" style="margin: 10px;">
 		<s:hidden name="id"></s:hidden>

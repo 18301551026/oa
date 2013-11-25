@@ -8,9 +8,11 @@
 <%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/menu.js"></script>
+
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/menu.js"></script>
+
 	<table id="treeGrid" class="easyui-treegrid">
 	</table>
 	<div id="treeGridToolBar">

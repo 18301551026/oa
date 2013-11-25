@@ -8,9 +8,10 @@
 <%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/shareFile-addNode.js"></script>
+
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/shareFile-addNode.js"></script>
 
 	<form id="shareAddNodeForm" action="" method="post">
 		<table align="center" style="margin-top: 4px;">

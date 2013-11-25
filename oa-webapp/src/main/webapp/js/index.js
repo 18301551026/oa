@@ -8,7 +8,7 @@ var setting = {
 	}
 };
 $(function() {
-	$.post('${ctx}/security/menu!findMenuByUser.action', function(data) {
+	$.post(ctx + '/security/menu!findMenuByUser.action', function(data) {
 		var nodes = eval(data);
 		$.fn.zTree.init($("#treeMenu"), setting, nodes);
 	});

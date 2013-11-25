@@ -13,9 +13,10 @@
 <script src="${ctx }/js/grid.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/role-list.js"></script>
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/role-list.js"></script>
+
 	<div class="panel panel-info">
 		<div class="panel-heading">
 			<div class="btn-group btn-group-sm">

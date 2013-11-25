@@ -29,7 +29,7 @@ public class Mail implements Serializable {
 	private String receiveUsersName;
 	private String createDate;
 	private Integer status;// 状态 0：草稿箱中，1：已发送
-	private Set<Mail_user_> mailUsers = new HashSet<Mail_user_>();// 收件和收件的中间表
+	private Set<MailUser> mailUsers = new HashSet<MailUser>();// 收件和收件的中间表
 	private Set<Attachment> attachments = new HashSet<Attachment>();// 附件
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mail")
@@ -109,11 +109,11 @@ public class Mail implements Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "mail")
-	public Set<Mail_user_> getMailUsers() {
+	public Set<MailUser> getMailUsers() {
 		return mailUsers;
 	}
 
-	public void setMailUsers(Set<Mail_user_> mailUsers) {
+	public void setMailUsers(Set<MailUser> mailUsers) {
 		this.mailUsers = mailUsers;
 	}
 

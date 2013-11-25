@@ -8,9 +8,10 @@
 <%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/shareFile-selectCanDownloadUsers.js"></script>
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/shareFile-selectCanDownloadUsers.js"></script>
+
 	<form action="" method="post" id="setCanDownloadUsersForm">
 		<s:hidden id="ids" name="canDownloadUserIds"></s:hidden>
 		<s:hidden name="canDownloadUsersName" id="receiveUsersName"></s:hidden>

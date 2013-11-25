@@ -8,10 +8,11 @@
 <%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/mail-selectReceiveUsers.js"></script>
+
 </head>
 <body>
-	
+	<script type="text/javascript" src="${ctx }/js/mail-selectReceiveUsers.js"></script>
+		
 	<div class="easyui-layout" data-options="fit:true,border:false">
 		<s:hidden id="ids" name="receiveUserIds"></s:hidden>
 		<s:hidden name="receiveUsersName" id="receiveUsersName"></s:hidden>

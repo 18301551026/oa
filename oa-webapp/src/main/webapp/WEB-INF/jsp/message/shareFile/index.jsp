@@ -8,8 +8,6 @@
 <%@ include file="/common/include-jquery.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/shareFile-index.js"></script>
-
 <style type="text/css">
 .layout-panel-west .panel-header {
 	border-top: 0px;
@@ -31,6 +29,8 @@
 </div>
 
 <body class="easyui-layout" data-options="border:false">
+	<script type="text/javascript" src="${ctx }/js/shareFile-index.js"></script>
+
 	<div data-options="region:'west',title:'资料分类',split:true"
 		style="width: 120px;">
 		<ul id="shareMainTree" data-options="fit:true,border:false"></ul>

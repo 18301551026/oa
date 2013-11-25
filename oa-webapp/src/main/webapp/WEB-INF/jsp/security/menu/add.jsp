@@ -9,9 +9,11 @@
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
 
-<script type="text/javascript" src="${ctx }/js/menu-add.js"></script>
+
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/menu-add.js"></script>
+	
 	<form id="addMenuForm" method="post" style="margin: 10px;" role="form">
 		<s:hidden name="pid" value="%{id}"></s:hidden>
 		<label>名称：</label><input name="name" type="text"

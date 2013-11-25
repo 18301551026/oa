@@ -24,7 +24,7 @@ import com.lxs.core.common.SystemConstant;
 import com.lxs.oa.person.common.MailStatusEnum;
 import com.lxs.oa.person.domain.Attachment;
 import com.lxs.oa.person.domain.Mail;
-import com.lxs.oa.person.domain.Mail_user_;
+import com.lxs.oa.person.domain.MailUser;
 import com.lxs.security.domain.Dept;
 import com.lxs.security.domain.User;
 import com.opensymphony.xwork2.ActionContext;
@@ -134,12 +134,12 @@ public class MailAction extends BaseAction<Mail> {
 	@Override
 	public String toUpdate() throws Exception {
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(Mail_user_.class);
+				.forClass(MailUser.class);
 		detachedCriteria.createAlias("mail", "m");
 		detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
-		List<Mail_user_> list = baseService.find(detachedCriteria);
+		List<MailUser> list = baseService.find(detachedCriteria);
 		receiveUserIds = "";
-		for (Mail_user_ mail_user_ : list) {
+		for (MailUser mail_user_ : list) {
 			receiveUserIds += mail_user_.getUser().getId() + ",";
 		}
 		receiveUserIds = receiveUserIds.substring(0,
@@ -161,11 +161,11 @@ public class MailAction extends BaseAction<Mail> {
 		baseService.update(temp);
 		// 删除原来的收件人
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(Mail_user_.class);
+				.forClass(MailUser.class);
 		detachedCriteria.createAlias("mail", "m");
 		detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
-		List<Mail_user_> oldMus = baseService.find(detachedCriteria);
-		for (Mail_user_ mail_user_ : oldMus) {
+		List<MailUser> oldMus = baseService.find(detachedCriteria);
+		for (MailUser mail_user_ : oldMus) {
 			baseService.delete(mail_user_);
 		}
 
@@ -250,7 +250,7 @@ public class MailAction extends BaseAction<Mail> {
 			}
 		}
 		for (User user : executeUsers) {
-			Mail_user_ mu = new Mail_user_();
+			MailUser mu = new MailUser();
 			mu.setMail(m);
 			mu.setStatus(MailStatusEnum.noRead.getValue());
 			mu.setUser(user);
@@ -280,7 +280,7 @@ public class MailAction extends BaseAction<Mail> {
 
 	public int findNotDeleteCount(Long id) {
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(Mail_user_.class);
+				.forClass(MailUser.class);
 		detachedCriteria.createAlias("mail", "m");
 		detachedCriteria.add(Restrictions.eq("m.id", id));
 		return baseService.find(detachedCriteria).size();
@@ -300,11 +300,11 @@ public class MailAction extends BaseAction<Mail> {
 		if (model.getStatus() == MailStatusEnum.draftBox.getValue()) {// 还没发送存在草稿箱中
 			for (int i = 0; i < ids.length; i++) {
 				DetachedCriteria detachedCriteria = DetachedCriteria
-						.forClass(Mail_user_.class);
+						.forClass(MailUser.class);
 				detachedCriteria.createAlias("mail", "m");
 				detachedCriteria.add(Restrictions.eq("m.id", ids[i]));
-				List<Mail_user_> list = baseService.find(detachedCriteria);
-				for (Mail_user_ mail_user_ : list) {
+				List<MailUser> list = baseService.find(detachedCriteria);
+				for (MailUser mail_user_ : list) {
 					baseService.delete(mail_user_);
 				}
 				baseService.delete(baseService.get(Mail.class, ids[i]));
@@ -326,15 +326,15 @@ public class MailAction extends BaseAction<Mail> {
 				} else if (model.getStatus() == MailStatusEnum.receiveBox
 						.getValue()) {// 收件人删除邮件
 					DetachedCriteria detachedCriteria = DetachedCriteria
-							.forClass(Mail_user_.class);
+							.forClass(MailUser.class);
 					detachedCriteria.createAlias("mail", "m");
 					detachedCriteria.add(Restrictions.eq("m.id", ids[i]));
 					detachedCriteria.createAlias("user", "u");
 					detachedCriteria.add(Restrictions.eq("u.id",
 							currentUser.getId()));
-					List<Mail_user_> list = baseService.find(detachedCriteria);
+					List<MailUser> list = baseService.find(detachedCriteria);
 					if (null != list && list.size() != 0) {
-						Mail_user_ mu = list.get(0);
+						MailUser mu = list.get(0);
 						baseService.delete(mu);
 					}
 					if (count == 1) {// 如果余下一个没有标记为删除时删除此邮件
@@ -373,11 +373,11 @@ public class MailAction extends BaseAction<Mail> {
 		baseService.update(temp);
 		// 删除原来的收件人
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(Mail_user_.class);
+				.forClass(MailUser.class);
 		detachedCriteria.createAlias("mail", "m");
 		detachedCriteria.add(Restrictions.eq("m.id", model.getId()));
-		List<Mail_user_> oldMus = baseService.find(detachedCriteria);
-		for (Mail_user_ mail_user_ : oldMus) {
+		List<MailUser> oldMus = baseService.find(detachedCriteria);
+		for (MailUser mail_user_ : oldMus) {
 			baseService.delete(mail_user_);
 		}
 
@@ -389,10 +389,10 @@ public class MailAction extends BaseAction<Mail> {
 
 	public String toShowDetail() {
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(Mail_user_.class);
-		List<Mail_user_> list = baseService.find(detachedCriteria);
+				.forClass(MailUser.class);
+		List<MailUser> list = baseService.find(detachedCriteria);
 		if (null != list && list.size() != 0) {
-			Mail_user_ mu = list.get(0);
+			MailUser mu = list.get(0);
 			mu.setStatus(MailStatusEnum.readed.getValue());
 			baseService.update(mu);
 		}

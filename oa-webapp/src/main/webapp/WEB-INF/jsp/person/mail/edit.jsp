@@ -12,11 +12,13 @@
 <script type="text/javascript" src="${ctx }/js/edit2Editor.js"></script>
 <%@ include file="/common/include-styles.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/mail-edit.js"></script>
+
 </head>
 
 
 <body class="editBody">
+	<script type="text/javascript" src="${ctx }/js/mail-edit.js"></script>
+
 	<button class="btn btn-info btn-sm pull-left" id="backButton">
 		<span class="glyphicon glyphicon-backward"></span> 返回列表
 	</button>

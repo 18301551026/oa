@@ -9,9 +9,11 @@
 <%@ include file="/common/include-ztree.jsp"%>
 <%@ include file="/common/include-jquery-easyui.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/role-assignMenu.js"></script>
+
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/role-assignMenu.js"></script>
+
 	<form id="assignMenuForm" method="post" action="">
 		<s:hidden name="roleId" id="roleId" value="%{id}"></s:hidden>
 		<ul id="assignMenuTree" class="ztree"></ul>

@@ -9,9 +9,10 @@
 <%@include file="/common/include-jquery-easyui.jsp"%>
 <%@include file="/common/include-portal.jsp"%>
 
-<script type="text/javascript" src="${ctx }/js/portal.js"></script>
+
 </head>
 <body>
+	<script type="text/javascript" src="${ctx }/js/portal.js"></script>	
 
 	<div id="portalLayout">
 		<div data-options="region:'center',border:false">

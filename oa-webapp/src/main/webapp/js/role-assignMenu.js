@@ -6,7 +6,7 @@ var assignMenuTreeSetting = {
 $(function() {
 	// 初始化菜单
 	$.post(ctx + '/security/menu!findCheckedMenuByRole.action', {
-		roleId : "${id}"
+		roleId : $("#roleId").val()
 	}, function(data) {
 		var assignMenuTreeNodes = eval(data);
 		/* $.fn.assignMenuTree.destroy(); */
