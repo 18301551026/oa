@@ -458,7 +458,7 @@
       <null/>
       <value>2</value>
       <null/>
-      <null/>
+      <value>/oa/person/vote!findPage.action</value>
       <value>25</value>
     </row>
   </table>

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.lxs.security.domain.User;
 
@@ -66,7 +70,7 @@ public class VoteSubject implements Serializable {
 		this.owner = owner;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "subject",cascade=CascadeType.REMOVE)
 	public Set<VoteOption> getOptions() {
 		return options;
 	}
@@ -104,7 +108,7 @@ public class VoteSubject implements Serializable {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-
+	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date_")
 	public Date getStartDate() {
 		return startDate;
@@ -114,6 +118,7 @@ public class VoteSubject implements Serializable {
 		this.startDate = startDate;
 	}
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date_")
 	public Date getEndDate() {
 		return endDate;
@@ -146,5 +151,15 @@ public class VoteSubject implements Serializable {
 
 	public void setAnonymous(boolean anonymous) {
 		this.anonymous = anonymous;
+	}
+	
+	private Integer hadUserVoteNum;
+	@Transient
+	public Integer getHadUserVoteNum() {
+		return hadUserVoteNum;
+	}
+
+	public void setHadUserVoteNum(Integer hadUserVoteNum) {
+		this.hadUserVoteNum = hadUserVoteNum;
 	}
 }

@@ -1,5 +1,8 @@
 package fastjson;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -16,7 +19,7 @@ public class MaterializedInterfaceTest {
 		void setName(String value);
 	}
 
-	@Test
+	
 	public void test_parse() throws Exception {
 		String text = "{\"id\":123, \"name\":\"chris\"}";
 		Bean bean = JSON.parseObject(text, Bean.class);
@@ -26,5 +29,12 @@ public class MaterializedInterfaceTest {
 		Assert.assertEquals("chris", bean.getName());
 		bean.setId(234);
 		Assert.assertEquals(234, bean.getId());
+	}
+	@Test
+	public void test1(){
+		Map<String, Object> map=new HashMap<String, Object>();
+		map.put("success", true);
+		Object json=JSON.toJSON(map);
+		System.out.println(json);
 	}
 }

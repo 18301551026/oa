@@ -1,12 +1,15 @@
 var editor2;
 $(function() {
-	var editor1 = KindEditor.create(
-			'textarea[name="content"],textarea[name="desc"],textarea[name="reason"]', {
-				uploadJson : ctx + '/kindeditor/upload_json.jsp',
-				fileManagerJson : ctx + '/kindeditor/file_manager_json.jsp',
-				width : '100%',
-				allowFileManager : true
-			});
+	var editor1 = KindEditor
+			.create(
+					'textarea[name="content"],textarea[name="desc"],textarea[name="reason"]',
+					{
+						uploadJson : ctx + '/kindeditor/upload_json.jsp',
+						fileManagerJson : ctx
+								+ '/kindeditor/file_manager_json.jsp',
+						width : '100%',
+						allowFileManager : true
+					});
 	editor2 = KindEditor.create('textarea[name="comment"]', {
 		resizeType : 1,
 		allowPreviewEmoticons : false,
@@ -77,15 +80,30 @@ $(function() {
 		$("#editForm").submit();
 	});
 
-	
 	$(".deleteAttach").live("click", function() {
 		var pre = $(this).prev();
 		pre.remove();
 		$(this).remove();
 	})
 	$(".deleteOption").live("click", function() {
+		var url = $(this).attr("deleteAction");
+		var id = $(this).attr("deleteId");
+		if (url) {
+			$.ajax({
+				type : "POST",
+				url : url,
+				data : "optionId=" + id,
+				success : function(msg) {
+
+				}
+			});
+		}
 		var pre = $(this).prev();
 		pre.remove();
+		var after=$(this).next().next(":input[value='修改']");
+		if(after){
+			$(after[0]).remove();
+		}
 		$(this).remove();
 	})
 	jQuery("#editForm").validationEngine();

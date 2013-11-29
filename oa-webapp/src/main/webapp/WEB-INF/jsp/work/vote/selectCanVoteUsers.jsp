@@ -12,8 +12,8 @@
 <body>
 	<script type="text/javascript" src="${ctx }/js/vote-selectCanVoteUsers.js"></script>
 	<div class="easyui-layout" data-options="fit:true,border:false">
-		<s:hidden id="ids" name="receiveUserIds"></s:hidden>
-		<s:hidden name="receiveUsersName" id="receiveUsersName"></s:hidden>
+		<s:hidden id="ids" name="receiveUserIds"  value="%{canVoteIds}"></s:hidden>
+		<s:hidden name="receiveUsersName" id="receiveUsersName" value="%{canVoteUsersName}"></s:hidden>
 		<div data-options="region:'west'" class="easyui-accordion"
 			style="width: 150px;" data-options="border:false">
 			<div title="所有人员列表" style="border: none;">
@@ -21,7 +21,7 @@
 					style="width: 144px;"></input> <select multiple="multiple"
 					class="selectUser" id="allUsers"
 					style="width: 144px; height: 90%; border: none;">
-					<c:forEach items="${users }" var="u">
+					<c:forEach items="${allUsers }" var="u">
 						<option value="${u.id }">${u.realName }</option>
 					</c:forEach>
 				</select>
@@ -49,9 +49,9 @@
 		<div data-options="region:'center'">
 			<select multiple="multiple" id="selectedUsers"
 				style="width: 132px; height: 97%; border: none;">
-				<c:if test="${null!=selectedMailUsers }">
-					<c:forEach items="${selectedMailUsers }" var="u">
-						<option value="${u.user.id }">${u.user.realName }</option>
+				<c:if test="${null!=hadUsers }">
+					<c:forEach items="${hadUsers }" var="u">
+						<option value="${u.id }">${u.realName }</option>
 					</c:forEach>
 				</c:if>
 			</select>

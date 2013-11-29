@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.lxs.security.domain.User;
 
@@ -23,7 +24,9 @@ public class VoteOption implements Serializable {
 	private Long id;
 	private VoteSubject subject;
 	private String optionName;
-	private Set<User> uses = new HashSet<User>();
+	private Set<User> users = new HashSet<User>();
+	// 所获票数
+	private Integer nums;
 
 	@Id
 	@GeneratedValue
@@ -57,11 +60,29 @@ public class VoteOption implements Serializable {
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "option_user_", joinColumns = { @JoinColumn(name = "option_id_") }, inverseJoinColumns = { @JoinColumn(name = "user_id_") })
-	public Set<User> getUses() {
-		return uses;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUses(Set<User> uses) {
-		this.uses = uses;
+	public void setUsers(Set<User> users) {
+		this.users = users;
+	}
+	
+	private Integer percent;
+	@Transient
+	public Integer getPercent() {
+		return percent;
+	}
+
+	public void setPercent(Integer percent) {
+		this.percent = percent;
+	}
+	@Column(name="nums_")
+	public Integer getNums() {
+		return nums;
+	}
+
+	public void setNums(Integer nums) {
+		this.nums = nums;
 	}
 }

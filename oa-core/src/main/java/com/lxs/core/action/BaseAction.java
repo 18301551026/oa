@@ -135,13 +135,16 @@ public abstract class BaseAction<T> extends PageAction implements ModelDriven<T>
 	public void afterSave(T model){
 		
 	}
-	
+	public void beforeDelete(T model){
+		
+	}
 	/**
 	 * 删除
 	 */
 	public String delete() {
 		for (Long id : ids) {
 			T entity = baseService.get(modelClass, id);
+			beforeDelete(entity);
 			baseService.delete(entity);
 		}
 		return LIST_ACTION; 
