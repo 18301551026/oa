@@ -26,10 +26,10 @@ $(function() {
 		} ]
 	}, {
 		id : 'p2',
-		title : '短消息',
+		title : '邮件',
 		height : 200,
 		collapsible : true,
-		content : '这是短消息',
+		href : ctx + "/person/receiveBox!getTopNoReadMail.action",
 		tools : [ {
 			iconCls : 'icon-reload',
 			handler : function() {
@@ -62,10 +62,10 @@ $(function() {
 		} ]
 	}, {
 		id : 'p5',
-		title : '日程安排',
+		title : '今日日程',
 		height : 200,
 		collapsible : true,
-		content : '这是日程安排',
+		href : ctx + '/person/schedule!getTodayTop5Schedule.action',
 		tools : [ {
 			iconCls : 'icon-reload',
 			handler : function() {
@@ -105,7 +105,7 @@ $(function() {
 });
 
 function getPanelOptions(id) {
-	for ( var i = 0; i < panels.length; i++) {
+	for (var i = 0; i < panels.length; i++) {
 		if (panels[i].id == id) {
 			return panels[i];
 		}
@@ -114,10 +114,10 @@ function getPanelOptions(id) {
 }
 function getPortalState() {
 	var aa = [];
-	for ( var columnIndex = 0; columnIndex < 2; columnIndex++) {
+	for (var columnIndex = 0; columnIndex < 2; columnIndex++) {
 		var cc = [];
 		var panels = portal.portal('getPanels', columnIndex);
-		for ( var i = 0; i < panels.length; i++) {
+		for (var i = 0; i < panels.length; i++) {
 			cc.push(panels[i].attr('id'));
 		}
 		aa.push(cc.join(','));
@@ -126,9 +126,9 @@ function getPortalState() {
 }
 function addPortalPanels(portalState) {
 	var columns = portalState.split(':');
-	for ( var columnIndex = 0; columnIndex < columns.length; columnIndex++) {
+	for (var columnIndex = 0; columnIndex < columns.length; columnIndex++) {
 		var cc = columns[columnIndex].split(',');
-		for ( var j = 0; j < cc.length; j++) {
+		for (var j = 0; j < cc.length; j++) {
 			var options = getPanelOptions(cc[j]);
 			if (options) {
 				var p = $('<div/>').attr('id', options.id).appendTo('body');
@@ -140,4 +140,47 @@ function addPortalPanels(portalState) {
 			}
 		}
 	}
+}
+function messageClick(event) {
+	event.preventDefault()
+	var url = event.target.href;
+	parent.$.modalDialog({
+		title : "阅读短消息",
+		width : 400,
+		height : 450,
+		href : url,
+		buttons : [
+				{
+					text : '快速回复',
+					iconCls : 'icon-add',
+					handler : function() {
+						var f = parent.$.modalDialog.handler
+								.find('#deskToMessageForm');
+						f.submit();
+					}
+				}, {
+					text : '确定',
+					iconCls : 'icon-cancel',
+					handler : function() {
+						parent.$.modalDialog.handler.dialog('close');
+					}
+				} ]
+	});
+}
+function scheduleClick(event) {
+	event.preventDefault()
+	var url = event.target.href;
+	parent.$.modalDialog({
+		title : "查看日程",
+		width : 400,
+		height : 350,
+		href : url,
+		buttons : [ {
+			text : '确定',
+			iconCls : 'icon-cancel',
+			handler : function() {
+				parent.$.modalDialog.handler.dialog('close');
+			}
+		} ]
+	});
 }

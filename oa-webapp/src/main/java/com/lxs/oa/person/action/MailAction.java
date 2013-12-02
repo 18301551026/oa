@@ -2,7 +2,6 @@ package com.lxs.oa.person.action;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -10,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Actions;
 import org.apache.struts2.convention.annotation.Namespace;
@@ -44,7 +42,9 @@ import com.opensymphony.xwork2.ActionContext;
 				@Result(name = "toSelectReceiveUsers", location = "/WEB-INF/jsp/person/mail/selectReceiveUsers.jsp") }),
 		@Action(className = "mailAction", value = "receiveBox", results = {
 				@Result(name = "list", location = "/WEB-INF/jsp/person/mail/receiveBox.jsp"),
+				@Result(name = "toProtalMail", location = "/WEB-INF/jsp/protal/mail.jsp"),
 				@Result(name = "turnToOther", location = "/WEB-INF/jsp/person/mail/add.jsp"),
+				@Result(name = "toShowProtalMail", location = "/WEB-INF/jsp/protal/readMail.jsp"),
 				@Result(name = "download", type = "stream", params = {
 						"inputName", "file", "contentDisposition",
 						"attachment;filename=\"${attName}\"" }),
@@ -61,6 +61,7 @@ public class MailAction extends BaseAction<Mail> {
 	private File attach[];
 	private String attachFileName[];
 	private Long attId;
+	private Long mailId;
 	private Long tempStatus;
 
 	@Override
@@ -95,6 +96,42 @@ public class MailAction extends BaseAction<Mail> {
 		}
 	}
 
+	public void protalReplyMail() {
+		model.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm")
+				.format(new Date()));
+		User u = (User) ActionContext.getContext().getSession()
+				.get(SystemConstant.CURRENT_USER);
+		model.setSendUser(u);
+		model.setSendUserName(u.getRealName());
+		model.setStatus(MailStatusEnum.sendBox.getValue());
+		baseService.save(model);
+
+		MailUser mu = new MailUser();
+		mu.setMail(model);
+		mu.setStatus(MailStatusEnum.noRead.getValue());
+		Mail tempM = baseService.get(Mail.class, mailId);
+		mu.setUser(tempM.getSendUser());
+		baseService.save(mu);
+		getOut().print("成功");
+	}
+
+	public String getTopNoReadMail() {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Mail.class);
+		User u = (User) ActionContext.getContext().getSession()
+				.get(SystemConstant.CURRENT_USER);
+		detachedCriteria.createAlias("mailUsers", "ms");
+		detachedCriteria.add(Restrictions.eq("ms.user.id", u.getId()));// 收件人是当前用户
+		detachedCriteria.add(Restrictions.eq("status",
+				MailStatusEnum.sendBox.getValue()));// 已发送
+		detachedCriteria.add(Restrictions.eq("ms.status",
+				MailStatusEnum.noRead.getValue()));// 未读
+		List<Mail> mails = (List<Mail>) (baseService.find(detachedCriteria, 0,
+				5).getResult());
+		ActionContext.getContext().put("mails", mails);
+		return "toProtalMail";
+	}
+
 	public String toSelectReceiveUsers() {
 		List<User> users = baseService.find(DetachedCriteria
 				.forClass(User.class));
@@ -103,8 +140,28 @@ public class MailAction extends BaseAction<Mail> {
 				.forClass(Dept.class));
 		ActionContext.getContext().put("depts", depts);
 
-		
 		return "toSelectReceiveUsers";
+	}
+
+	public String toShowProtalMail() {
+		Mail m = baseService.get(Mail.class, model.getId());
+		ActionContext.getContext().getValueStack().push(m);
+
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(MailUser.class);
+		User u = (User) ActionContext.getContext().getSession()
+				.get(SystemConstant.CURRENT_USER);
+		detachedCriteria.createAlias("mail", "m");
+		detachedCriteria.add(Restrictions.eq("m.id", m.getId()));
+		detachedCriteria.createAlias("user", "u");
+		detachedCriteria.add(Restrictions.eq("u.id", u.getId()));
+		List<MailUser> mus = baseService.find(detachedCriteria);
+		if (null != mus && mus.size() != 0) {//修改状态为已读
+			MailUser mu = mus.get(0);
+			mu.setStatus(MailStatusEnum.readed.getValue());
+			baseService.save(mu);
+		}
+		return "toShowProtalMail";
 	}
 
 	public InputStream getFile() throws Exception {
@@ -457,6 +514,14 @@ public class MailAction extends BaseAction<Mail> {
 
 	public void setTempStatus(Long tempStatus) {
 		this.tempStatus = tempStatus;
+	}
+
+	public Long getMailId() {
+		return mailId;
+	}
+
+	public void setMailId(Long mailId) {
+		this.mailId = mailId;
 	}
 
 }
