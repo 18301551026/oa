@@ -461,6 +461,26 @@
       <value>/oa/person/vote!findPage.action</value>
       <value>25</value>
     </row>
+    <row>
+      <value>48</value>
+      <null/>
+      <value>论坛管理</value>
+      <null/>
+      <value>3</value>
+      <null/>
+      <value>/oa/work/module!findPage.action</value>
+      <value>1</value>
+    </row>
+    <row>
+      <value>49</value>
+      <null/>
+      <value>论坛</value>
+      <null/>
+      <value>5</value>
+      <null/>
+      <value>/oa/person/module!findPage.action</value>
+      <value>25</value>
+    </row>
   </table>
   <table name="user_">
     <column>id_</column>
@@ -1207,6 +1227,26 @@
     <row>
       <value>3</value>
       <value>47</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>48</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>48</value>
+    </row>
+    <row>
+      <value>1</value>
+      <value>49</value>
+    </row>
+    <row>
+      <value>2</value>
+      <value>49</value>
+    </row>
+    <row>
+      <value>3</value>
+      <value>49</value>
     </row>
   </table>
   <table name="ROLE_USER_">
