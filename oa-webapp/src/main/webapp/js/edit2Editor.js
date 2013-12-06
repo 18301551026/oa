@@ -1,6 +1,7 @@
 var editor2;
+var editor1 ;
 $(function() {
-	var editor1 = KindEditor
+	editor1= KindEditor
 			.create(
 					'textarea[name="content"],textarea[name="desc"],textarea[name="reason"]',
 					{
